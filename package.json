@@ -1,0 +1,38 @@
+{
+  "name": "shraavani-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "^15.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "typescript": "^5",
+    "tailwindcss": "^3.4.0",
+    "postcss": "^8",
+    "autoprefixer": "^10",
+    "framer-motion": "^11.0.0",
+    "gsap": "^3.12.0",
+    "@react-three/fiber": "^8.0.0",
+    "@react-three/drei": "^9.0.0",
+    "three": "^0.160.0",
+    "@types/three": "^0.160.0",
+    "clsx": "^2.0.0",
+    "tailwind-merge": "^2.0.0",
+    "next-mdx-remote": "^4.4.1",
+    "gray-matter": "^4.0.3",
+    "lucide-react": "^0.400.0",
+    "@radix-ui/react-dialog": "^1.0.0",
+    "@radix-ui/react-tooltip": "^1.0.0",
+    "class-variance-authority": "^0.7.0",
+    "cmdk": "^1.0.0"
+  }
+}
