@@ -3,24 +3,9 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Github, Star, ExternalLink } from "lucide-react";
 
-function seededRand(seed: number) {
-  const x = Math.sin(seed + 1) * 10000;
-  return x - Math.floor(x);
-}
-
-const WEEKS = 26;
-const DAYS = 7;
-
-function getLevel(seed: number): number {
-  const v = seededRand(seed);
-  if (v > 0.93) return 4;
-  if (v > 0.83) return 3;
-  if (v > 0.68) return 2;
-  if (v > 0.50) return 1;
-  return 0;
-}
-
-const COLORS = ["#E9D5FF", "#C4B5FD", "#A78BFA", "#7C3AED", "#5B21B6"];
+function seededRand(s: number) { const x = Math.sin(s + 1) * 10000; return x - Math.floor(x); }
+function getLevel(s: number) { const v = seededRand(s); return v > 0.93 ? 4 : v > 0.83 ? 3 : v > 0.68 ? 2 : v > 0.50 ? 1 : 0; }
+const CORAL = ["#1E1E21", "rgba(255,114,98,0.2)", "rgba(255,114,98,0.4)", "rgba(255,114,98,0.65)", "#FF7262"];
 
 const repos = [
   { name: "DataStructureBooks", desc: "DSA resource — community favourite", stars: 17, lang: "Markdown" },
@@ -31,87 +16,76 @@ const repos = [
   { name: "sakura-lanterns", desc: "Digital sky lantern web app", stars: 0, lang: "CSS" },
 ];
 
-const stats = [
-  { label: "Public repos", value: "26" },
-  { label: "Top repo stars", value: "17 ⭐" },
-  { label: "Languages", value: "Python · TS" },
-  { label: "Active since", value: "2022" },
-];
-
 export default function GitHubSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, amount: 0.1 });
-
   return (
-    <section className="section" id="github" ref={ref}>
+    <section className="section" id="github" ref={ref} style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
       <div className="container">
-        <motion.p initial={{ opacity: 0, y: 12 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5 }} className="label" style={{ marginBottom: 12 }}>GitHub</motion.p>
-        <motion.div initial={{ opacity: 0, y: 12 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.1 }}
-          style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 12, marginBottom: 40 }}
-        >
-          <h2 style={{ fontSize: "clamp(24px,3.5vw,40px)", fontWeight: 800, letterSpacing: "-0.02em", color: "#111110" }}>Building in public.</h2>
-          <a href="https://github.com/ShraavaniTople" target="_blank" rel="noopener noreferrer"
-            style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 13, fontWeight: 600, color: "#7C3AED", textDecoration: "none" }}>
+        <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", flexWrap: "wrap", gap: 16, marginBottom: 40 }}>
+          <div>
+            <motion.p initial={{ opacity: 0, y: 12 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5 }} className="label" style={{ marginBottom: 12 }}>GitHub</motion.p>
+            <motion.h2 initial={{ opacity: 0, y: 12 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.1 }}
+              style={{ fontSize: "clamp(24px,3.5vw,42px)", fontWeight: 800, letterSpacing: "-0.025em", color: "#F0EEE9" }}>
+              Building in public.
+            </motion.h2>
+          </div>
+          <motion.a initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ duration: 0.5, delay: 0.2 }}
+            href="https://github.com/ShraavaniTople" target="_blank" rel="noopener noreferrer"
+            style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 13, fontWeight: 600, color: "#FF7262", textDecoration: "none" }}>
             <Github size={15} /> github.com/ShraavaniTople <ExternalLink size={12} />
-          </a>
-        </motion.div>
+          </motion.a>
+        </div>
 
         {/* Heatmap */}
         <motion.div initial={{ opacity: 0, y: 12 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.2 }}
-          className="card" style={{ padding: 24, marginBottom: 24 }}>
-          <p style={{ fontSize: 12, fontWeight: 600, color: "#9CA3AF", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 14 }}>Contribution Activity</p>
+          className="card" style={{ padding: 24, marginBottom: 20 }}>
+          <p className="label" style={{ marginBottom: 14 }}>Contribution Activity</p>
           <div style={{ overflowX: "auto" }}>
             <div style={{ display: "flex", gap: 3, minWidth: "fit-content" }}>
-              {Array.from({ length: WEEKS }).map((_, w) => (
+              {Array.from({ length: 26 }).map((_, w) => (
                 <div key={w} style={{ display: "flex", flexDirection: "column", gap: 3 }}>
-                  {Array.from({ length: DAYS }).map((_, d) => {
-                    const level = getLevel(w * DAYS + d + 42);
-                    return <div key={d} style={{ width: 10, height: 10, borderRadius: 2, background: level === 0 ? "#F3F4F6" : COLORS[level - 1] }} />;
-                  })}
+                  {Array.from({ length: 7 }).map((_, d) => (
+                    <div key={d} style={{ width: 10, height: 10, borderRadius: 2, background: CORAL[getLevel(w * 7 + d + 42)] }} />
+                  ))}
                 </div>
               ))}
             </div>
           </div>
         </motion.div>
 
-        {/* Stats row */}
-        <motion.div initial={{ opacity: 0, y: 12 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.25 }}
-          style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 12, marginBottom: 32 }} className="stats-grid"
-        >
-          {stats.map(s => (
-            <div key={s.label} className="card" style={{ padding: "16px 20px", textAlign: "center" }}>
-              <p style={{ fontSize: 18, fontWeight: 700, color: "#111110" }}>{s.value}</p>
-              <p style={{ fontSize: 11, color: "#9CA3AF", marginTop: 2 }}>{s.label}</p>
-            </div>
+        {/* Stats */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 12, marginBottom: 24 }} className="gh-stats-grid">
+          {([["26", "Public repos"], ["17 ⭐", "Top stars"], ["Python · TS", "Languages"], ["2022", "Active since"]] as [string, string][]).map(([v, l]) => (
+            <motion.div key={l} initial={{ opacity: 0, y: 12 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.3 }}
+              className="card" style={{ padding: "16px 20px", textAlign: "center" }}>
+              <p style={{ fontSize: 17, fontWeight: 700, color: "#F0EEE9" }}>{v}</p>
+              <p style={{ fontSize: 11, color: "#4A4947", marginTop: 3 }}>{l}</p>
+            </motion.div>
           ))}
-        </motion.div>
+        </div>
 
         {/* Repos */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 12 }} className="repos-grid">
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 12 }} className="gh-repos-grid">
           {repos.map((r, i) => (
             <motion.a key={r.name}
               href={`https://github.com/ShraavaniTople/${r.name}`}
               target="_blank" rel="noopener noreferrer"
-              initial={{ opacity: 0, y: 12 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.45, delay: 0.35 + i * 0.07 }}
-              className="card" style={{ padding: 18, textDecoration: "none", display: "block" }}
-            >
+              initial={{ opacity: 0, y: 12 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.45, delay: 0.4 + i * 0.07 }}
+              className="card" style={{ padding: 18, textDecoration: "none", display: "block" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 6 }}>
-                <span style={{ fontSize: 13, fontWeight: 700, color: "#7C3AED" }}>{r.name}</span>
-                {r.stars > 0 && <span style={{ display: "flex", alignItems: "center", gap: 3, fontSize: 11, color: "#9CA3AF" }}><Star size={11} />{r.stars}</span>}
+                <span style={{ fontSize: 12, fontWeight: 700, color: "#FF7262", wordBreak: "break-word", flex: 1, marginRight: 8 }}>{r.name}</span>
+                {r.stars > 0 && <span style={{ display: "flex", alignItems: "center", gap: 3, fontSize: 11, color: "#4A4947", flexShrink: 0 }}><Star size={10} />{r.stars}</span>}
               </div>
-              <p style={{ fontSize: 12, color: "#6B7280", lineHeight: 1.5, marginBottom: 8 }}>{r.desc}</p>
-              <span style={{ fontSize: 11, color: "#9CA3AF" }}>{r.lang}</span>
+              <p style={{ fontSize: 12, color: "#8A8784", lineHeight: 1.5, marginBottom: 8 }}>{r.desc}</p>
+              <span style={{ fontSize: 11, color: "#4A4947" }}>{r.lang}</span>
             </motion.a>
           ))}
         </div>
       </div>
       <style>{`
-        @media(max-width:640px){
-          .stats-grid { grid-template-columns: repeat(2,1fr) !important; }
-          .repos-grid { grid-template-columns: 1fr !important; }
-        }
+        @media(max-width:640px){ .gh-stats-grid{grid-template-columns:repeat(2,1fr)!important;} .gh-repos-grid{grid-template-columns:1fr!important;} }
       `}</style>
     </section>
   );
