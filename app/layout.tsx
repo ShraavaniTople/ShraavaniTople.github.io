@@ -1,66 +1,54 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
+import CustomCursor from "@/components/effects/CustomCursor";
+import CommandPalette from "@/components/effects/CommandPalette";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-});
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
-  title: "Shraavani Tople — Robotics Engineer & AI Builder",
+  title: "Shraavani Tople — Engineer, Builder, Community Operator",
   description:
-    "Engineering systems, communities, and intelligent experiences. Robotics, AI, community builder from India. GRASP-X, ROS2, Google WTM Ambassador.",
+    "Robotics engineer, AI builder, and community architect working at the intersection of systems, intelligence, and human ecosystems.",
   keywords: [
     "Shraavani Tople",
-    "Robotics Engineer",
-    "AI Builder",
+    "robotics",
     "ROS2",
-    "PyTorch",
-    "PPO",
-    "Google WTM",
-    "ETHMumbai",
-    "GRASP-X",
-    "Machine Learning",
+    "AI",
+    "machine learning",
+    "community",
+    "engineer",
   ],
-  authors: [{ name: "Shraavani Tople", url: "https://shraavanitople.com" }],
-  creator: "Shraavani Tople",
   openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://shraavanitople.com",
-    title: "Shraavani Tople — Robotics Engineer & AI Builder",
-    description:
-      "Engineering systems, communities, and intelligent experiences.",
+    title: "Shraavani Tople",
+    description: "Robotics engineer, AI builder, community operator.",
+    url: "https://shraavanitople.github.io",
     siteName: "Shraavani Tople",
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Shraavani Tople — Robotics Engineer & AI Builder",
-    description: "Engineering systems, communities, and intelligent experiences.",
-    creator: "@shraavanitople",
-  },
-  robots: {
-    index: true,
-    follow: true,
+    title: "Shraavani Tople",
+    description: "Robotics engineer, AI builder, community operator.",
+    creator: "@shraavani___",
   },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en" className="dark scroll-smooth">
-      <head>
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <meta name="theme-color" content="#000000" />
-      </head>
-      <body className={`${inter.variable} font-sans antialiased bg-black text-white`}>
-        {children}
+    <html lang="en" className={inter.variable}>
+      <body>
+        <CustomCursor />
+        <CommandPalette />
+        <Navbar />
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );

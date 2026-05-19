@@ -1,168 +1,136 @@
 "use client";
-
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { fadeUpVariants, staggerContainerVariants } from "@/lib/utils";
-import { TIMELINE_EVENTS } from "@/lib/constants";
 
-const YEAR_COLORS: Record<string, string> = {
-  "2022": "#52525b",
-  "2023": "#f59e0b",
-  "2024": "#6366f1",
-  "2025": "#00ff88",
-  "2026": "#06b6d4",
-};
+const ease = [0.16, 1, 0.3, 1] as const;
+
+const EVENTS = [
+  { year: "2022", title: "First GitHub commit", desc: "Started engineering journey", tags: [] },
+  { year: "2023", title: "StrikeBot", desc: "Built vision-guided marble robot — first robotics project", tags: ["OpenCV", "RPi"] },
+  { year: "2024", title: "Research sprint", desc: "IPMV/YOLO, MedSegTumor, Hand Gesture Recognition", tags: ["Python", "Deep Learning"] },
+  { year: "2024", title: "Community", desc: "Google Women Techmakers Ambassador", tags: ["Google WTM"] },
+  { year: "2024", title: "17 stars", desc: "DataStructureBooks becomes a community resource", tags: ["Open Source"] },
+  { year: "2025", title: "InferenceCache", desc: "Tamper-proof AI inference proxy with Merkle trees", tags: ["FastAPI", "Merkle"] },
+  { year: "2025", title: "ETHMumbai", desc: "Co-organized Ethereum hackathon", tags: ["Ethereum", "Web3"] },
+  { year: "2025", title: "Hack The League", desc: "Ran developer hackathon from scratch", tags: ["Event"] },
+  { year: "2025", title: "Speaker", desc: "Snapchat Creator Tech Event", tags: ["Creator"] },
+  { year: "2025", title: "GRASP-X", desc: "Deep RL robotic pick-and-place, 80%+ success rate", tags: ["PyTorch", "PPO"] },
+  { year: "2026", title: "Origin Navigation", desc: "ROS2 autonomous trajectory framework, 91.9% accuracy", tags: ["ROS2", "C++"] },
+  { year: "2026", title: "GPF Website", desc: "The Great Product Festival 2026 — Women in Product India", tags: ["React"] },
+];
 
 export default function Timeline() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, amount: 0.1 });
 
   return (
-    <section id="timeline" className="section-padding relative overflow-hidden">
-      {/* BG gradient */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at 20% 50%, rgba(0,255,136,0.02) 0%, transparent 50%)",
-        }}
-      />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" ref={ref}>
+    <section id="timeline" className="section px-6 lg:px-10" ref={ref}>
+      <div className="max-w-6xl mx-auto">
         {/* Header */}
         <motion.div
-          variants={staggerContainerVariants}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          className="mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease }}
+          className="mb-12"
         >
-          <motion.p
-            variants={fadeUpVariants}
-            className="text-xs font-mono tracking-widest text-[#06b6d4] uppercase mb-4"
+          <p className="label mb-3">JOURNEY</p>
+          <h2
+            className="text-3xl sm:text-4xl font-bold tracking-tight"
+            style={{ color: "#F4F4F5" }}
           >
-            ◆ Journey
-          </motion.p>
-          <motion.h2
-            variants={fadeUpVariants}
-            className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tighter leading-tight text-white max-w-3xl"
-          >
-            Every milestone, a{" "}
-            <span
-              style={{
-                WebkitTextStroke: "1px rgba(255,255,255,0.4)",
-                color: "transparent",
-              }}
-            >
-              new world unlocked.
-            </span>
-          </motion.h2>
+            Every year, a new chapter.
+          </h2>
         </motion.div>
 
         {/* Timeline */}
         <div className="relative">
-          {/* Center line */}
+          {/* Center line (desktop) */}
           <motion.div
-            className="hidden md:block absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px"
+            className="hidden md:block absolute left-1/2 -translate-x-1/2 top-0 w-px"
             style={{
-              background:
-                "linear-gradient(to bottom, transparent, rgba(255,255,255,0.08) 10%, rgba(255,255,255,0.08) 90%, transparent)",
+              background: "linear-gradient(to bottom, rgba(129,140,248,0.3), rgba(129,140,248,0.05))",
+              height: inView ? "100%" : "0%",
+              transition: "height 1.5s ease 0.2s",
             }}
-            initial={{ scaleY: 0, originY: 0 }}
-            animate={inView ? { scaleY: 1 } : {}}
-            transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+          />
+          {/* Left line (mobile) */}
+          <div
+            className="md:hidden absolute left-4 top-0 w-px"
+            style={{
+              background: "rgba(129,140,248,0.2)",
+              height: "100%",
+            }}
           />
 
-          <div className="space-y-8">
-            {TIMELINE_EVENTS.map((event, i) => {
+          <div className="space-y-6">
+            {EVENTS.map((event, i) => {
               const isLeft = i % 2 === 0;
-              const color = YEAR_COLORS[event.year] || "#a1a1aa";
 
               return (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, x: isLeft ? -40 : 40 }}
+                  initial={{ opacity: 0, x: isLeft ? -24 : 24 }}
                   animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{
-                    duration: 0.7,
-                    delay: 0.2 + i * 0.08,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
-                  className={`relative flex items-start gap-4 md:gap-0 ${
-                    isLeft ? "md:flex-row" : "md:flex-row-reverse"
-                  }`}
+                  transition={{ duration: 0.6, delay: 0.15 + i * 0.07, ease }}
+                  className={`relative flex gap-4 md:gap-0 ${isLeft ? "md:flex-row" : "md:flex-row-reverse"}`}
                 >
-                  {/* Content card */}
+                  {/* Content */}
                   <div
-                    className={`flex-1 ${
-                      isLeft ? "md:pr-12 md:text-right" : "md:pl-12 md:text-left"
-                    }`}
+                    className={`flex-1 pl-10 md:pl-0 ${isLeft ? "md:pr-10 md:text-right" : "md:pl-10"}`}
                   >
                     <div
-                      className={`inline-block p-4 sm:p-5 rounded-xl transition-all ${
-                        isLeft ? "" : ""
-                      }`}
+                      className="inline-block p-4 rounded-xl transition-all duration-200"
                       style={{
-                        background: `${color}08`,
-                        border: `1px solid ${color}20`,
+                        background: "#0F0F14",
+                        border: "1px solid rgba(255,255,255,0.06)",
                       }}
                     >
-                      <div
-                        className="text-xs font-mono font-bold tracking-widest mb-1 uppercase"
-                        style={{ color }}
+                      <span
+                        className="text-2xl font-black font-mono leading-none"
+                        style={{ color: "rgba(129,140,248,0.3)" }}
                       >
                         {event.year}
-                      </div>
-                      <h3 className="font-bold text-white mb-2 leading-tight">
+                      </span>
+                      <h3 className="text-sm font-semibold mt-1 mb-1" style={{ color: "#F4F4F5" }}>
                         {event.title}
                       </h3>
-                      <p className="text-sm text-[#a1a1aa] leading-relaxed mb-3">
-                        {event.description}
+                      <p className="text-xs leading-relaxed mb-2" style={{ color: "#71717A" }}>
+                        {event.desc}
                       </p>
-                      <div
-                        className={`flex flex-wrap gap-1.5 ${
-                          isLeft ? "md:justify-end" : ""
-                        }`}
-                      >
-                        {event.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="text-[10px] font-mono px-2 py-0.5 rounded"
-                            style={{
-                              background: `${color}12`,
-                              color,
-                              border: `1px solid ${color}20`,
-                            }}
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
+                      {event.tags.length > 0 && (
+                        <div className={`flex flex-wrap gap-1 ${isLeft ? "md:justify-end" : ""}`}>
+                          {event.tags.map((tag) => (
+                            <span
+                              key={tag}
+                              className="px-1.5 py-0.5 rounded text-[10px] font-mono"
+                              style={{ color: "#818CF8", border: "1px solid rgba(129,140,248,0.2)" }}
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </div>
 
-                  {/* Center dot */}
-                  <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 top-5 w-4 h-4 items-center justify-center">
+                  {/* Center dot (desktop) */}
+                  <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 top-4 items-center justify-center z-10">
                     <div
-                      className="w-3 h-3 rounded-full border-2"
+                      className="w-2.5 h-2.5 rounded-full"
                       style={{
-                        background: "#000",
-                        borderColor: color,
-                        boxShadow: `0 0 8px ${color}60`,
+                        background: "#818CF8",
+                        boxShadow: "0 0 6px rgba(129,140,248,0.5)",
                       }}
                     />
                   </div>
 
                   {/* Mobile dot */}
                   <div
-                    className="md:hidden w-3 h-3 rounded-full border-2 mt-5 shrink-0"
-                    style={{
-                      background: "#000",
-                      borderColor: color,
-                      boxShadow: `0 0 8px ${color}60`,
-                    }}
+                    className="md:hidden absolute left-3 top-4 w-2.5 h-2.5 rounded-full"
+                    style={{ background: "#818CF8", boxShadow: "0 0 6px rgba(129,140,248,0.4)" }}
                   />
 
-                  {/* Empty space for alternating */}
+                  {/* Spacer */}
                   <div className="hidden md:block flex-1" />
                 </motion.div>
               );

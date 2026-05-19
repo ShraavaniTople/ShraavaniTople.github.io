@@ -1,185 +1,65 @@
 "use client";
-
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
-type CursorState = "default" | "hover" | "image" | "text" | "link";
-
 export default function CustomCursor() {
-  const cursorX = useMotionValue(-100);
-  const cursorY = useMotionValue(-100);
-  const [cursorState, setCursorState] = useState<CursorState>("default");
-  const [isVisible, setIsVisible] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
+  const [visible, setVisible] = useState(false);
 
-  // Spring physics for the ring
-  const springConfig = { damping: 25, stiffness: 300, mass: 0.5 };
-  const ringX = useSpring(cursorX, springConfig);
-  const ringY = useSpring(cursorY, springConfig);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springConfig = { stiffness: 150, damping: 20, mass: 0.5 };
+  const ringX = useSpring(mouseX, springConfig);
+  const ringY = useSpring(mouseY, springConfig);
 
   useEffect(() => {
-    // Hide on touch devices
+    if (typeof window === "undefined") return;
     if (window.matchMedia("(pointer: coarse)").matches) return;
 
-    const moveCursor = (e: MouseEvent) => {
-      cursorX.set(e.clientX);
-      cursorY.set(e.clientY);
-      if (!isVisible) setIsVisible(true);
+    const move = (e: MouseEvent) => {
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+      if (!visible) setVisible(true);
     };
 
-    const handleMouseEnter = () => setIsVisible(true);
-    const handleMouseLeave = () => setIsVisible(false);
-
-    const handleElementHover = (e: MouseEvent) => {
-      const target = e.target as Element;
-
-      if (
-        target.tagName === "A" ||
-        target.tagName === "BUTTON" ||
-        target.closest("a") ||
-        target.closest("button") ||
-        target.getAttribute("role") === "button"
-      ) {
-        setCursorState("hover");
-      } else if (
-        target.tagName === "IMG" ||
-        target.closest("[data-cursor='image']")
-      ) {
-        setCursorState("image");
-      } else if (
-        target.tagName === "P" ||
-        target.tagName === "H1" ||
-        target.tagName === "H2" ||
-        target.tagName === "H3" ||
-        target.tagName === "H4" ||
-        target.tagName === "SPAN" ||
-        target.tagName === "LI" ||
-        (target as HTMLElement).style?.cursor === "text"
-      ) {
-        setCursorState("text");
-      } else {
-        setCursorState("default");
-      }
+    const over = (e: MouseEvent) => {
+      const el = e.target as HTMLElement;
+      if (el.closest("a, button, [data-cursor-hover]")) setIsHovering(true);
     };
+    const out = () => setIsHovering(false);
 
-    window.addEventListener("mousemove", moveCursor);
-    window.addEventListener("mousemove", handleElementHover);
-    document.documentElement.addEventListener("mouseenter", handleMouseEnter);
-    document.documentElement.addEventListener("mouseleave", handleMouseLeave);
-
+    window.addEventListener("mousemove", move);
+    document.addEventListener("mouseover", over);
+    document.addEventListener("mouseout", out);
     return () => {
-      window.removeEventListener("mousemove", moveCursor);
-      window.removeEventListener("mousemove", handleElementHover);
-      document.documentElement.removeEventListener("mouseenter", handleMouseEnter);
-      document.documentElement.removeEventListener("mouseleave", handleMouseLeave);
+      window.removeEventListener("mousemove", move);
+      document.removeEventListener("mouseover", over);
+      document.removeEventListener("mouseout", out);
     };
-  }, [cursorX, cursorY, isVisible]);
+  }, [mouseX, mouseY, visible]);
 
-  const getDotSize = () => {
-    switch (cursorState) {
-      case "hover": return 6;
-      case "image": return 4;
-      case "text": return 2;
-      default: return 6;
-    }
-  };
-
-  const getRingSize = () => {
-    switch (cursorState) {
-      case "hover": return 48;
-      case "image": return 56;
-      case "text": return 32;
-      default: return 32;
-    }
-  };
-
-  const getRingBorder = () => {
-    switch (cursorState) {
-      case "hover": return "2px solid #00ff88";
-      case "image": return "1px solid rgba(255,255,255,0.5)";
-      case "text": return "1px solid rgba(255,255,255,0.3)";
-      default: return "1px solid rgba(255,255,255,0.5)";
-    }
-  };
-
-  const getRingBackground = () => {
-    switch (cursorState) {
-      case "hover": return "rgba(0,255,136,0.1)";
-      default: return "transparent";
-    }
-  };
-
-  const dotSize = getDotSize();
-  const ringSize = getRingSize();
+  if (!visible) return null;
 
   return (
     <>
       {/* Dot */}
       <motion.div
-        className="fixed pointer-events-none z-[99999] rounded-full"
-        style={{
-          x: cursorX,
-          y: cursorY,
-          width: dotSize,
-          height: dotSize,
-          translateX: "-50%",
-          translateY: "-50%",
-          backgroundColor: cursorState === "hover" ? "#00ff88" : "#ffffff",
-          boxShadow: cursorState === "hover" ? "0 0 8px rgba(0,255,136,0.8)" : "none",
-        }}
-        animate={{
-          opacity: isVisible ? 1 : 0,
-          scale: cursorState === "hover" ? 1.5 : 1,
-        }}
-        transition={{ duration: 0.15 }}
+        style={{ x: mouseX, y: mouseY, translateX: "-50%", translateY: "-50%" }}
+        className="fixed top-0 left-0 w-1.5 h-1.5 rounded-full bg-white z-[9999] pointer-events-none"
       />
-
       {/* Ring */}
       <motion.div
-        className="fixed pointer-events-none z-[99998] rounded-full flex items-center justify-center"
-        style={{
-          x: ringX,
-          y: ringY,
-          width: ringSize,
-          height: ringSize,
-          translateX: "-50%",
-          translateY: "-50%",
-          border: getRingBorder(),
-          background: getRingBackground(),
-        }}
+        style={{ x: ringX, y: ringY, translateX: "-50%", translateY: "-50%" }}
         animate={{
-          opacity: isVisible ? 1 : 0,
+          width: isHovering ? 48 : 36,
+          height: isHovering ? 48 : 36,
+          backgroundColor: isHovering ? "rgba(129,140,248,0.15)" : "transparent",
+          borderColor: isHovering ? "rgba(129,140,248,0.7)" : "rgba(255,255,255,0.3)",
         }}
-        transition={{
-          width: { duration: 0.3, ease: [0.16, 1, 0.3, 1] },
-          height: { duration: 0.3, ease: [0.16, 1, 0.3, 1] },
-          opacity: { duration: 0.15 },
-        }}
-      >
-        {cursorState === "hover" && (
-          <motion.span
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.5 }}
-            className="text-[#00ff88] text-[8px] font-mono font-bold tracking-widest uppercase"
-          >
-            CLICK
-          </motion.span>
-        )}
-        {cursorState === "image" && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="relative w-full h-full"
-          >
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-[1px] h-full bg-white/50" />
-            </div>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="h-[1px] w-full bg-white/50" />
-            </div>
-          </motion.div>
-        )}
-      </motion.div>
+        transition={{ duration: 0.2 }}
+        className="fixed top-0 left-0 rounded-full border z-[9998] pointer-events-none"
+      />
     </>
   );
 }

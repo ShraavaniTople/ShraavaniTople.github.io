@@ -20,12 +20,12 @@ export default function BlogPage() {
         <div className="max-w-4xl mx-auto">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs font-mono text-[#52525b] hover:text-[#00ff88] transition-colors mb-8 group"
+            className="inline-flex items-center gap-2 text-xs font-mono text-[#71717A] hover:text-[#818CF8] transition-colors mb-8 group"
           >
             <ArrowLeft className="w-3 h-3 group-hover:-translate-x-1 transition-transform" />
             Back to portfolio
           </Link>
-          <p className="text-xs font-mono tracking-widest text-[#00ff88] uppercase mb-4">
+          <p className="text-xs font-mono tracking-widest text-[#818CF8] uppercase mb-4">
             ◆ Blog
           </p>
           <h1 className="text-5xl sm:text-6xl font-black tracking-tighter text-white mb-4">
@@ -67,7 +67,7 @@ export default function BlogPage() {
                       </span>
                       <span>{formatDate(post.date)}</span>
                     </div>
-                    <h2 className="font-bold text-white group-hover:text-[#00ff88] transition-colors text-lg mb-2">
+                    <h2 className="font-bold text-white group-hover:text-[#818CF8] transition-colors text-lg mb-2">
                       {post.title}
                     </h2>
                     <p className="text-sm text-[#a1a1aa] leading-relaxed line-clamp-2">
@@ -85,7 +85,7 @@ export default function BlogPage() {
                       ))}
                     </div>
                   </div>
-                  <ArrowRight className="w-5 h-5 text-[#52525b] group-hover:text-[#00ff88] group-hover:translate-x-1 transition-all shrink-0" />
+                  <ArrowRight className="w-5 h-5 text-[#71717A] group-hover:text-[#818CF8] group-hover:translate-x-1 transition-all shrink-0" />
                 </div>
               </div>
             </Link>

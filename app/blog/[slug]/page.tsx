@@ -301,7 +301,7 @@ export default async function BlogPostPage({ params }: Props) {
           <blockquote
             key={i}
             className="pl-4 py-1 text-[#a1a1aa] italic my-4"
-            style={{ borderLeft: "2px solid #00ff88" }}
+            style={{ borderLeft: "2px solid #818CF8" }}
           >
             {line.replace("> ", "")}
           </blockquote>
@@ -347,7 +347,7 @@ export default async function BlogPostPage({ params }: Props) {
         <div className="max-w-3xl mx-auto">
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 text-xs font-mono text-[#52525b] hover:text-[#00ff88] transition-colors mb-8 group"
+            className="inline-flex items-center gap-2 text-xs font-mono text-[#52525b] hover:text-[#818CF8] transition-colors mb-8 group"
           >
             <ArrowLeft className="w-3 h-3 group-hover:-translate-x-1 transition-transform" />
             All posts
@@ -397,14 +397,14 @@ export default async function BlogPostPage({ params }: Props) {
         <div className="flex items-center justify-between">
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 text-sm font-mono text-[#52525b] hover:text-[#00ff88] transition-colors group"
+            className="inline-flex items-center gap-2 text-sm font-mono text-[#52525b] hover:text-[#818CF8] transition-colors group"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
             All posts
           </Link>
           <Link
             href="/"
-            className="text-sm font-mono text-[#52525b] hover:text-[#00ff88] transition-colors"
+            className="text-sm font-mono text-[#52525b] hover:text-[#818CF8] transition-colors"
           >
             ← Back to portfolio
           </Link>
