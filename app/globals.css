@@ -2,74 +2,58 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Geist+Mono:wght@300..700&display=swap');
+
 :root {
-  --bg: #08080C;
-  --surface: #0F0F14;
-  --border: rgba(255,255,255,0.06);
-  --text-1: #F4F4F5;
-  --text-2: #71717A;
-  --text-3: #3F3F46;
-  --accent: #818CF8;
-  --accent-glow: rgba(129,140,248,0.12);
-  --radius: 12px;
+  --bg: #0A0A0A;
+  --surface: #141414;
+  --surface-2: #1C1C1C;
+  --border: rgba(255,255,255,0.08);
+  --text-1: #FAFAF9;
+  --text-2: #A1A1AA;
+  --text-3: #52525B;
+  --accent: #C084FC;
+  --accent-2: #F0ABFC;
+  --accent-bg: rgba(192,132,252,0.08);
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html {
-  scroll-behavior: smooth;
-  -webkit-font-smoothing: antialiased;
-}
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 
 body {
   background: var(--bg);
   color: var(--text-1);
   font-family: 'Inter', system-ui, sans-serif;
   overflow-x: hidden;
+  line-height: 1.6;
 }
 
-/* Custom scrollbar */
+::selection { background: rgba(192,132,252,0.2); color: #fff; }
+
 ::-webkit-scrollbar { width: 3px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--text-3); border-radius: 2px; }
+::-webkit-scrollbar-thumb { background: var(--text-3); border-radius: 99px; }
 
-/* Selection */
-::selection { background: rgba(129,140,248,0.25); color: #fff; }
+.mono { font-family: 'Geist Mono', monospace; }
 
-/* Focus */
-:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+.section-pad { padding: 96px 0; }
+@media(max-width:768px) { .section-pad { padding: 64px 0; } }
 
-/* Section spacing */
-.section { padding: 120px 0; }
-@media (max-width: 768px) { .section { padding: 80px 0; } }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+@media(max-width:768px) { .container { padding: 0 16px; } }
 
-/* Label style */
-.label {
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 99px;
+  border: 1px solid var(--border);
   font-size: 11px;
   font-family: 'Geist Mono', monospace;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
   color: var(--text-2);
-}
-
-/* Gradient text */
-.text-gradient {
-  background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Card base */
-.card {
   background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+  white-space: nowrap;
 }
 
-/* Horizontal divider */
-.divider {
-  height: 1px;
-  background: var(--border);
-  width: 100%;
-}
+.divider { height: 1px; background: var(--border); }

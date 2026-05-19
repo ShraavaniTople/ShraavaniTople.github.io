@@ -1,186 +1,187 @@
 "use client";
-import { useRef, useState } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import { Github, ExternalLink } from "lucide-react";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
 const PROJECTS = [
   {
     num: "01",
-    name: "GRASP-X",
-    desc: "Deep RL pick-and-place for KUKA IIWA7 arm. 80%+ success rate with zero-shot generalization to unseen object positions.",
-    metric: "80%+ success · zero-shot generalization",
-    tags: ["PyTorch", "PPO", "PyBullet", "RL"],
-    href: "https://github.com/ShraavaniTople",
+    name: "StrikeBot",
+    desc: "Hybrid hardware-software autonomous marble-playing robot integrating computer vision, robotics, and embedded programming on Raspberry Pi.",
+    metric: "92% localization accuracy at 15 FPS · 76% hit rate in 50 matches",
+    tags: ["Python", "C++", "OpenCV", "Raspberry Pi"],
+    github: "https://github.com/ShraavaniTople/StrikeBot-Autonomous-Marble-Playing-Robot",
+    live: null,
   },
   {
     num: "02",
-    name: "Origin Navigation",
-    desc: "ROS2 trajectory tracking with cubic spline interpolation and pure pursuit controller. 91.9% position accuracy across 38 test cases.",
-    metric: "91.9% accuracy · 38 tests passed",
-    tags: ["ROS2", "C++", "Gazebo", "TurtleBot3"],
-    href: "https://github.com/ShraavaniTople",
+    name: "GRASP-X",
+    desc: "Deep RL pick-and-place for KUKA IIWA7 arm using PPO. End-to-end visual RL on 84×84 RGB frames across 2M training steps.",
+    metric: "80%+ training success · 60%+ zero-shot generalization",
+    tags: ["PyTorch", "PPO", "PyBullet", "Python"],
+    github: "https://github.com/ShraavaniTople/grasp-x",
+    live: null,
   },
   {
     num: "03",
-    name: "StrikeBot",
-    desc: "Vision-guided marble robot on Raspberry Pi. Real-time OpenCV detection pipeline for object tracking and targeting.",
-    metric: "Real-time detection · RPi deployment",
-    tags: ["OpenCV", "RPi", "Python", "CV"],
-    href: "https://github.com/ShraavaniTople",
+    name: "Origin Navigation",
+    desc: "Autonomous trajectory tracking framework with cubic spline + pure pursuit controller for TurtleBot3 in ROS2/Gazebo.",
+    metric: "91.9% tracking accuracy · 38 automated tests",
+    tags: ["ROS2", "C++", "Gazebo", "TurtleBot3"],
+    github: null,
+    live: null,
   },
   {
     num: "04",
     name: "InferenceCache",
-    desc: "Tamper-proof AI inference proxy with Merkle audit log and Ed25519 signatures for verifiable AI output integrity.",
-    metric: "Ed25519 verified · Merkle audit trail",
-    tags: ["FastAPI", "Merkle", "Python", "Crypto"],
-    href: "https://github.com/ShraavaniTople",
+    desc: "Secure AI inference proxy with SHA-256 caching and Merkle tree verification. Tamper-proof, auditable AI output history.",
+    metric: "Merkle-verified · lightweight real-time log UI",
+    tags: ["Python", "FastAPI", "Cryptography"],
+    github: "https://github.com/ShraavaniTople/inferencecache",
+    live: null,
   },
   {
     num: "05",
     name: "PublicAI Pulse",
-    desc: "Browser simulator exploring how AI governance policies affect public services. Interactive policy scenario explorer.",
-    metric: "Live demo available",
-    tags: ["JavaScript", "AI Policy", "Simulation"],
-    href: "https://github.com/ShraavaniTople",
+    desc: "Browser-based simulator exploring how AI governance policies affect public service outcomes through interactive scenarios.",
+    metric: "Live interactive demo",
+    tags: ["JavaScript", "HTML", "CSS"],
+    github: "https://github.com/ShraavaniTople/publicai-pulse",
+    live: "https://shraavanitople.github.io/publicai-pulse",
   },
   {
     num: "06",
+    name: "Sakura Lanterns",
+    desc: "Digital sky lantern web app with animated visuals, multiple themes, mobile-responsive design, and shareable links.",
+    metric: "Fast static hosting · mobile-first",
+    tags: ["React", "JavaScript", "Tailwind"],
+    github: "https://github.com/ShraavaniTople/sakura-lanterns",
+    live: null,
+  },
+  {
+    num: "07",
     name: "ResilienceOps",
-    desc: "Incident-to-impact orchestrator desktop app. Transforms incident reports into actionable impact summaries.",
-    metric: "Desktop app · Cross-platform",
-    tags: ["Electron", "React", "TypeScript"],
-    href: "https://github.com/ShraavaniTople",
+    desc: "Desktop app simulating incident orchestration with real-time execution tracking and cross-platform deployment.",
+    metric: "Cross-platform Electron app",
+    tags: ["Electron", "React", "Tailwind"],
+    github: "https://github.com/ShraavaniTople/resilienceops",
+    live: null,
   },
 ];
 
 export default function Projects() {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, amount: 0.1 });
-  const [expanded, setExpanded] = useState<string | null>(null);
+  const inView = useInView(ref, { once: true, amount: 0.08 });
 
   return (
-    <section id="projects" className="section px-6 lg:px-10" ref={ref}>
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+    <section id="projects" className="section-pad" ref={ref}>
+      <div className="container">
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease }}
-          className="mb-12"
+          className="text-xs font-mono tracking-widest uppercase mb-4"
+          style={{ color: "#A1A1AA" }}
         >
-          <p className="label mb-3">SELECTED WORK</p>
-          <h2
-            className="text-3xl sm:text-4xl font-bold tracking-tight"
-            style={{ color: "#F4F4F5" }}
-          >
-            Things I&apos;ve built.
-          </h2>
-        </motion.div>
+          PROJECTS
+        </motion.p>
 
-        {/* Project rows */}
-        <div>
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.08, ease }}
+          className="text-3xl sm:text-4xl font-bold tracking-tight mb-10"
+          style={{ color: "#FAFAF9" }}
+        >
+          Things I&apos;ve built.
+        </motion.h2>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {PROJECTS.map((p, i) => (
             <motion.div
               key={p.num}
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: i * 0.07, ease }}
+              transition={{ duration: 0.55, delay: i * 0.08, ease }}
+              className="relative p-5 rounded-xl flex flex-col transition-all duration-200"
+              style={{
+                background: "#141414",
+                border: "1px solid rgba(255,255,255,0.08)",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLDivElement).style.transform = "translateY(-4px)";
+                (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(192,132,252,0.3)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)";
+                (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(255,255,255,0.08)";
+              }}
             >
-              <button
-                className="w-full text-left group"
-                onClick={() => setExpanded(expanded === p.num ? null : p.num)}
+              {/* Number tag */}
+              <span
+                className="absolute top-4 right-4 text-[10px] font-mono"
+                style={{ color: "#52525B" }}
               >
-                <div
-                  className="flex flex-col sm:flex-row sm:items-center gap-3 py-5 transition-colors rounded-lg px-3 -mx-3"
-                  style={{
-                    background: expanded === p.num
-                      ? "rgba(129,140,248,0.04)"
-                      : "transparent",
-                  }}
-                  onMouseEnter={(e) => {
-                    if (expanded !== p.num)
-                      (e.currentTarget as HTMLDivElement).style.background =
-                        "rgba(129,140,248,0.02)";
-                  }}
-                  onMouseLeave={(e) => {
-                    if (expanded !== p.num)
-                      (e.currentTarget as HTMLDivElement).style.background = "transparent";
-                  }}
-                >
-                  {/* Number */}
-                  <span
-                    className="text-xs font-mono transition-all shrink-0"
-                    style={{ color: "#3F3F46", minWidth: "2.5rem" }}
-                  >
-                    {p.num}
-                  </span>
+                {p.num}
+              </span>
 
-                  {/* Name */}
-                  <span
-                    className="text-base font-semibold tracking-tight shrink-0 w-44"
-                    style={{ color: "#F4F4F5" }}
-                  >
-                    {p.name}
-                  </span>
+              {/* Name */}
+              <h3 className="text-base font-bold mb-2 pr-8" style={{ color: "#FAFAF9" }}>
+                {p.name}
+              </h3>
 
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-1.5 flex-1">
-                    {p.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-2 py-0.5 rounded text-[10px] font-mono"
-                        style={{
-                          color: "#71717A",
-                          border: "1px solid rgba(255,255,255,0.06)",
-                        }}
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
+              {/* Description */}
+              <p className="text-sm leading-relaxed mb-3 flex-1" style={{ color: "#A1A1AA" }}>
+                {p.desc}
+              </p>
 
-                  {/* Link */}
-                  <a
-                    href={p.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                    className="text-xs font-mono shrink-0 transition-colors"
-                    style={{ color: "#3F3F46" }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = "#818CF8")}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = "#3F3F46")}
-                  >
-                    → GitHub
-                  </a>
+              {/* Metric */}
+              <p className="text-xs font-mono mb-4" style={{ color: "#C084FC" }}>
+                {p.metric}
+              </p>
+
+              {/* Bottom row */}
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex flex-wrap gap-1.5">
+                  {p.tags.map((tag) => (
+                    <span key={tag} className="tag" style={{ fontSize: "10px" }}>
+                      {tag}
+                    </span>
+                  ))}
                 </div>
-              </button>
-
-              {/* Expanded */}
-              <AnimatePresence>
-                {expanded === p.num && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.35, ease }}
-                    className="overflow-hidden"
-                  >
-                    <div className="px-3 pb-4">
-                      <p className="text-sm leading-relaxed mb-2" style={{ color: "#71717A" }}>
-                        {p.desc}
-                      </p>
-                      <p className="text-xs font-mono" style={{ color: "#818CF8" }}>
-                        — {p.metric}
-                      </p>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-
-              {/* Divider */}
-              <div className="h-px" style={{ background: "rgba(255,255,255,0.06)" }} />
+                <div className="flex items-center gap-2 shrink-0">
+                  {p.github && (
+                    <a
+                      href={p.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="transition-colors"
+                      style={{ color: "#52525B" }}
+                      onMouseEnter={(e) => (e.currentTarget.style.color = "#C084FC")}
+                      onMouseLeave={(e) => (e.currentTarget.style.color = "#52525B")}
+                      aria-label={`${p.name} GitHub`}
+                    >
+                      <Github size={14} />
+                    </a>
+                  )}
+                  {p.live && (
+                    <a
+                      href={p.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="transition-colors"
+                      style={{ color: "#52525B" }}
+                      onMouseEnter={(e) => (e.currentTarget.style.color = "#C084FC")}
+                      onMouseLeave={(e) => (e.currentTarget.style.color = "#52525B")}
+                      aria-label={`${p.name} Live`}
+                    >
+                      <ExternalLink size={14} />
+                    </a>
+                  )}
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>

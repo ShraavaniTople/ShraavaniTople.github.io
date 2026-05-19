@@ -1,13 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { X, Menu } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 const NAV_LINKS = [
-  { label: "Work", id: "projects" },
-  { label: "Research", id: "research" },
+  { label: "Work", id: "experience" },
+  { label: "Projects", id: "projects" },
   { label: "Community", id: "community" },
-  { label: "Blog", id: "blog" },
+  { label: "Contact", id: "contact" },
 ];
 
 export default function Navbar() {
@@ -21,6 +20,11 @@ export default function Navbar() {
   }, []);
 
   const scrollTo = (id: string) => {
+    if (id === "contact") {
+      window.location.href = "mailto:shraavanitople@gmail.com";
+      setMobileOpen(false);
+      return;
+    }
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: "smooth" });
     setMobileOpen(false);
@@ -28,33 +32,23 @@ export default function Navbar() {
 
   return (
     <>
-      <motion.header
-        initial={{ y: -60, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-0 left-0 right-0 z-[100]"
+      <header
+        className="fixed top-0 left-0 right-0 z-[100] transition-all duration-300"
+        style={{
+          background: scrolled ? "rgba(10,10,10,0.85)" : "transparent",
+          backdropFilter: scrolled ? "blur(16px)" : "none",
+          WebkitBackdropFilter: scrolled ? "blur(16px)" : "none",
+          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.08)" : "1px solid transparent",
+        }}
       >
-        <div
-          className="flex items-center justify-between h-14 px-6 lg:px-10 transition-all duration-300"
-          style={{
-            background: scrolled ? "rgba(8,8,12,0.85)" : "transparent",
-            backdropFilter: scrolled ? "blur(12px)" : "none",
-            WebkitBackdropFilter: scrolled ? "blur(12px)" : "none",
-            borderBottom: scrolled ? "1px solid rgba(255,255,255,0.06)" : "1px solid transparent",
-          }}
-        >
+        <div className="flex items-center justify-between h-14 px-6 lg:px-10 max-w-[1200px] mx-auto">
           {/* Logo */}
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="flex items-center justify-center w-7 h-7 font-mono font-bold text-xs transition-all hover:opacity-80"
-            style={{
-              border: "1px solid #818CF8",
-              borderRadius: "4px",
-              color: "#818CF8",
-              background: "rgba(129,140,248,0.06)",
-            }}
+            className="text-sm font-semibold tracking-tight transition-opacity hover:opacity-80"
+            style={{ color: "#FAFAF9" }}
           >
-            ST
+            Shraavani.
           </button>
 
           {/* Desktop nav */}
@@ -63,97 +57,82 @@ export default function Navbar() {
               <button
                 key={link.id}
                 onClick={() => scrollTo(link.id)}
-                className="text-sm font-medium transition-colors"
-                style={{ color: "#71717A" }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#F4F4F5")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "#71717A")}
+                className="text-sm transition-colors"
+                style={{ color: "#A1A1AA" }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "#FAFAF9")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "#A1A1AA")}
               >
                 {link.label}
               </button>
             ))}
           </nav>
 
-          {/* Right */}
-          <div className="flex items-center gap-2">
-            {/* ⌘K pill */}
-            <button
-              onClick={() => window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", metaKey: true }))}
-              className="hidden sm:flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-mono transition-colors"
-              style={{
-                border: "1px solid rgba(255,255,255,0.08)",
-                color: "#71717A",
-                background: "rgba(255,255,255,0.03)",
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "#F4F4F5")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "#71717A")}
-            >
-              ⌘K
-            </button>
-
-            {/* Available indicator */}
+          {/* Right — open to work pill + mobile toggle */}
+          <div className="flex items-center gap-3">
             <div
-              className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-mono"
+              className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono"
               style={{
-                border: "1px solid rgba(255,255,255,0.08)",
-                color: "#71717A",
-                background: "rgba(255,255,255,0.03)",
+                border: "1px solid rgba(192,132,252,0.25)",
+                color: "#C084FC",
+                background: "rgba(192,132,252,0.08)",
               }}
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-green-400" />
-              Available
+              <span
+                className="w-1.5 h-1.5 rounded-full bg-[#C084FC]"
+                style={{
+                  animation: "pulse 2s cubic-bezier(0.4,0,0.6,1) infinite",
+                }}
+              />
+              Open to work
             </div>
-
-            {/* Mobile toggle */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="md:hidden p-1.5 rounded-lg transition-colors"
-              style={{ color: "#71717A" }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "#F4F4F5")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "#71717A")}
+              className="md:hidden p-1.5"
+              style={{ color: "#A1A1AA" }}
             >
-              {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {mobileOpen ? <X size={18} /> : <Menu size={18} />}
             </button>
           </div>
         </div>
-      </motion.header>
+      </header>
 
-      {/* Mobile overlay */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-[99] flex flex-col"
-            style={{ background: "rgba(8,8,12,0.97)", backdropFilter: "blur(20px)" }}
-          >
-            <div className="flex items-center justify-between h-14 px-6">
-              <span className="text-xs font-mono tracking-widest" style={{ color: "#71717A" }}>MENU</span>
-              <button onClick={() => setMobileOpen(false)} style={{ color: "#71717A" }}>
-                <X className="w-5 h-5" />
+      {/* Mobile menu */}
+      {mobileOpen && (
+        <div
+          className="fixed inset-0 z-[99] flex flex-col"
+          style={{ background: "rgba(10,10,10,0.97)", backdropFilter: "blur(20px)" }}
+        >
+          <div className="flex items-center justify-between h-14 px-6">
+            <span className="text-xs font-mono tracking-widest" style={{ color: "#52525B" }}>
+              MENU
+            </span>
+            <button onClick={() => setMobileOpen(false)} style={{ color: "#A1A1AA" }}>
+              <X size={18} />
+            </button>
+          </div>
+          <nav className="flex flex-col items-center justify-center flex-1 gap-6">
+            {NAV_LINKS.map((link) => (
+              <button
+                key={link.id}
+                onClick={() => scrollTo(link.id)}
+                className="text-2xl font-bold tracking-tight transition-colors"
+                style={{ color: "#A1A1AA" }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "#FAFAF9")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "#A1A1AA")}
+              >
+                {link.label}
               </button>
-            </div>
-            <nav className="flex flex-col items-center justify-center flex-1 gap-4">
-              {NAV_LINKS.map((link, i) => (
-                <motion.button
-                  key={link.id}
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                  onClick={() => scrollTo(link.id)}
-                  className="text-3xl font-bold tracking-tight transition-colors"
-                  style={{ color: "#71717A" }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = "#F4F4F5")}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = "#71717A")}
-                >
-                  {link.label}
-                </motion.button>
-              ))}
-            </nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            ))}
+          </nav>
+        </div>
+      )}
+
+      <style>{`
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.4; }
+        }
+      `}</style>
     </>
   );
 }

@@ -1,23 +1,23 @@
 import Hero from "@/components/sections/Hero";
 import About from "@/components/sections/About";
+import Experience from "@/components/sections/Experience";
 import Projects from "@/components/sections/Projects";
-import Research from "@/components/sections/Research";
 import Community from "@/components/sections/Community";
-import Timeline from "@/components/sections/Timeline";
+import Instagram from "@/components/sections/Instagram";
+import Certifications from "@/components/sections/Certifications";
 import GitHubSection from "@/components/sections/GitHubSection";
-import Blog from "@/components/sections/Blog";
 
 export default function Home() {
   return (
     <>
       <Hero />
       <About />
+      <Experience />
       <Projects />
-      <Research />
       <Community />
-      <Timeline />
+      <Instagram />
+      <Certifications />
       <GitHubSection />
-      <Blog />
     </>
   );
 }

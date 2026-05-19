@@ -1,240 +1,212 @@
 "use client";
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { useRef, useEffect, useState } from "react";
-import { Github, Linkedin, ArrowDown } from "lucide-react";
-
-const ROLES = ["Robotics Engineer", "AI Builder", "Community Operator"];
-
-const STATS = [
-  { value: 26, label: "repos" },
-  { value: 8, label: "communities", suffix: "+" },
-  { value: 80, label: "RL success", suffix: "%+" },
-  { value: 38, label: "tests passed" },
-];
-
-function CountUp({ target, suffix = "" }: { target: number; suffix?: string }) {
-  const [count, setCount] = useState(0);
-  const ref = useRef<HTMLSpanElement>(null);
-  const started = useRef(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !started.current) {
-          started.current = true;
-          let start = 0;
-          const step = Math.ceil(target / 40);
-          const timer = setInterval(() => {
-            start = Math.min(start + step, target);
-            setCount(start);
-            if (start >= target) clearInterval(timer);
-          }, 30);
-        }
-      },
-      { threshold: 0.5 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [target]);
-
-  return (
-    <span ref={ref}>
-      {count}
-      {suffix}
-    </span>
-  );
-}
+import { Github, Linkedin, Twitter, Instagram, ArrowDown, Mail } from "lucide-react";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
-export default function Hero() {
-  const [roleIdx, setRoleIdx] = useState(0);
-  useEffect(() => {
-    const t = setInterval(() => setRoleIdx((i) => (i + 1) % ROLES.length), 3000);
-    return () => clearInterval(t);
-  }, []);
+const socials = [
+  { icon: Github, href: "https://github.com/ShraavaniTople", label: "GitHub" },
+  { icon: Linkedin, href: "https://www.linkedin.com/in/shraavani-tople/", label: "LinkedIn" },
+  { icon: Twitter, href: "https://twitter.com/shraavanitople", label: "Twitter" },
+  { icon: Instagram, href: "https://instagram.com/shraavani___", label: "Instagram" },
+  { icon: Mail, href: "mailto:shraavanitople@gmail.com", label: "Email" },
+];
 
+export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex flex-col justify-center overflow-hidden px-6 lg:px-10"
-      style={{ background: "#08080C" }}
+      className="relative min-h-screen flex items-center overflow-hidden"
+      style={{ background: "#0A0A0A", paddingTop: "80px" }}
     >
       {/* Subtle radial glow */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse 70% 50% at 30% 60%, rgba(129,140,248,0.05) 0%, transparent 70%)",
+            "radial-gradient(ellipse 60% 60% at 30% 50%, rgba(192,132,252,0.05) 0%, transparent 70%)",
         }}
       />
 
-      {/* Corner tags */}
-      <div className="absolute top-20 left-6 lg:left-10">
-        <span className="text-[10px] font-mono tracking-widest uppercase" style={{ color: "#3F3F46" }}>
-          PORTFOLIO 2026
-        </span>
-      </div>
-      <div className="absolute top-20 right-6 lg:right-10 hidden sm:block">
-        <span className="text-[11px] font-mono" style={{ color: "#818CF8" }}>
-          Available for opportunities →
-        </span>
-      </div>
-
-      {/* Main content */}
-      <div className="relative z-10 max-w-6xl mx-auto w-full grid lg:grid-cols-2 gap-16 items-center pt-20">
-        {/* Left block */}
-        <div>
-          {/* Name */}
-          <div className="overflow-hidden mb-0">
-            <motion.h1
-              initial={{ x: -40, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.1, ease }}
-              className="text-[clamp(56px,10vw,120px)] font-black leading-none tracking-tight"
-              style={{ color: "#F4F4F5" }}
-            >
-              SHRAAVANI
-            </motion.h1>
-          </div>
-          <div className="overflow-hidden mb-4">
-            <motion.h1
-              initial={{ x: 40, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.2, ease }}
-              className="text-[clamp(56px,10vw,120px)] font-black leading-none tracking-tight"
-              style={{ color: "#F4F4F5" }}
-            >
-              TOPLE.
-            </motion.h1>
-          </div>
-
-          {/* Rule */}
+      <div className="container relative z-10 w-full py-16">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* LEFT — Photo */}
           <motion.div
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 0.6, delay: 0.4, ease }}
-            className="h-px mb-6 origin-left"
-            style={{ width: 80, background: "#818CF8" }}
-          />
-
-          {/* Description */}
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.5, ease }}
-            className="text-lg leading-relaxed mb-6 max-w-md"
-            style={{ color: "#71717A" }}
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.1, ease }}
+            className="relative flex justify-center lg:justify-start order-2 lg:order-1"
           >
-            Engineering systems, communities, and intelligent experiences.
-          </motion.p>
-
-          {/* Role pills */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6, ease }}
-            className="flex flex-wrap gap-2 mb-8"
-          >
-            {ROLES.map((role) => (
-              <span
-                key={role}
-                className="px-3 py-1 rounded-full text-xs font-mono transition-all duration-300"
-                style={{
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  color: role === ROLES[roleIdx] ? "#818CF8" : "#71717A",
-                  background: role === ROLES[roleIdx] ? "rgba(129,140,248,0.08)" : "transparent",
-                }}
-              >
-                {role}
-              </span>
-            ))}
-          </motion.div>
-
-          {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8, ease }}
-            className="flex flex-wrap items-center gap-3"
-          >
-            <button
-              onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium transition-all hover:opacity-90"
-              style={{ background: "#818CF8", color: "#fff" }}
-            >
-              View Work <ArrowDown className="w-3.5 h-3.5" />
-            </button>
-            <a
-              href="https://github.com/ShraavaniTople"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium transition-all hover:bg-white/[0.04]"
-              style={{ border: "1px solid rgba(255,255,255,0.08)", color: "#71717A" }}
-            >
-              <Github className="w-3.5 h-3.5" /> GitHub ↗
-            </a>
-            <a
-              href="https://linkedin.com/in/shraavani-tople"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium transition-all hover:bg-white/[0.04]"
-              style={{ border: "1px solid rgba(255,255,255,0.08)", color: "#71717A" }}
-            >
-              <Linkedin className="w-3.5 h-3.5" /> LinkedIn ↗
-            </a>
-          </motion.div>
-        </div>
-
-        {/* Right — stats grid */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.7, ease }}
-          className="grid grid-cols-2 gap-4"
-        >
-          {STATS.map((stat) => (
+            {/* Blob behind photo */}
             <div
-              key={stat.label}
-              className="p-6 rounded-xl"
+              className="absolute w-72 h-72 rounded-full pointer-events-none"
               style={{
-                background: "#0F0F14",
-                border: "1px solid rgba(255,255,255,0.06)",
+                background: "rgba(192,132,252,0.1)",
+                filter: "blur(60px)",
+                top: "10%",
+                left: "5%",
+              }}
+            />
+            <div
+              className="relative rounded-2xl overflow-hidden"
+              style={{
+                width: "clamp(260px, 40vw, 420px)",
+                height: "clamp(320px, 50vw, 520px)",
+                border: "1px solid rgba(255,255,255,0.1)",
+                boxShadow: "0 32px 80px rgba(192,132,252,0.12), 0 0 0 1px rgba(255,255,255,0.05)",
               }}
             >
-              <div
-                className="text-4xl font-black tracking-tight mb-1"
-                style={{ color: "#F4F4F5" }}
-              >
-                <CountUp target={stat.value} suffix={stat.suffix ?? ""} />
-              </div>
-              <div className="text-xs font-mono" style={{ color: "#71717A" }}>
-                {stat.label}
-              </div>
+              <Image
+                src="/shraavani.png"
+                alt="Shraavani Tople"
+                fill
+                unoptimized
+                className="object-cover object-top"
+                priority
+              />
             </div>
-          ))}
-        </motion.div>
+          </motion.div>
+
+          {/* RIGHT — Text */}
+          <div className="flex flex-col order-1 lg:order-2">
+            {/* Label */}
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3, ease }}
+              className="text-xs font-mono tracking-widest uppercase mb-5"
+              style={{ color: "#A1A1AA" }}
+            >
+              Frontend Engineer · Robotics Builder
+            </motion.p>
+
+            {/* H1 */}
+            <div className="overflow-hidden mb-1">
+              <motion.span
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.4, ease }}
+                className="block text-[clamp(48px,8vw,72px)] font-extrabold leading-none tracking-tight"
+                style={{ color: "#FAFAF9" }}
+              >
+                Shraavani
+              </motion.span>
+            </div>
+            <div className="overflow-hidden mb-5">
+              <motion.span
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.5, ease }}
+                className="block text-[clamp(48px,8vw,72px)] font-extrabold leading-none tracking-tight"
+                style={{ color: "#FAFAF9" }}
+              >
+                Tople.
+              </motion.span>
+            </div>
+
+            {/* Violet line */}
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 0.6, delay: 0.6, ease }}
+              className="origin-left mb-5"
+              style={{ width: 48, height: 3, background: "#C084FC", borderRadius: 99 }}
+            />
+
+            {/* Bio */}
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.7, ease }}
+              className="text-base leading-relaxed mb-5 max-w-md"
+              style={{ color: "#A1A1AA" }}
+            >
+              I build AI interfaces and robotic systems. Currently shipping frontend at Agora AI — previously trained robot arms with deep RL and organized India&apos;s largest Ethereum hackathon.
+            </motion.p>
+
+            {/* Status badge */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.8, ease }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 self-start"
+              style={{
+                border: "1px solid rgba(192,132,252,0.25)",
+                background: "rgba(192,132,252,0.06)",
+              }}
+            >
+              <span
+                className="w-2 h-2 rounded-full"
+                style={{
+                  background: "#C084FC",
+                  animation: "heroPulse 2s cubic-bezier(0.4,0,0.6,1) infinite",
+                }}
+              />
+              <span className="text-xs font-mono" style={{ color: "#C084FC" }}>
+                Currently at Agora AI — Frontend Engineer
+              </span>
+            </motion.div>
+
+            {/* Social links */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.9, ease }}
+              className="flex items-center gap-4 mb-7 flex-wrap"
+            >
+              {socials.map(({ icon: Icon, href, label }, i) => (
+                <motion.a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.9 + i * 0.07, ease }}
+                  className="flex items-center gap-1.5 text-xs transition-colors"
+                  style={{ color: "#52525B" }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = "#C084FC")}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = "#52525B")}
+                >
+                  <Icon size={14} />
+                  <span>{label}</span>
+                </motion.a>
+              ))}
+            </motion.div>
+
+            {/* CTAs */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 1.0, ease }}
+              className="flex items-center gap-3 flex-wrap"
+            >
+              <button
+                onClick={() => document.getElementById("experience")?.scrollIntoView({ behavior: "smooth" })}
+                className="flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium transition-opacity hover:opacity-85"
+                style={{ background: "#C084FC", color: "#0A0A0A" }}
+              >
+                View Work <ArrowDown size={14} />
+              </button>
+              <a
+                href="mailto:shraavanitople@gmail.com"
+                className="flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium transition-colors hover:bg-white/[0.04]"
+                style={{ border: "1px solid rgba(255,255,255,0.1)", color: "#A1A1AA" }}
+              >
+                Get in touch
+              </a>
+            </motion.div>
+          </div>
+        </div>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.4 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-      >
-        <motion.div
-          className="w-px rounded-full"
-          style={{ background: "#818CF8", height: 0 }}
-          animate={{ height: [0, 32, 0] }}
-          transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
-        />
-        <span className="text-[10px] font-mono tracking-widest uppercase" style={{ color: "#3F3F46" }}>
-          scroll
-        </span>
-      </motion.div>
+      <style>{`
+        @keyframes heroPulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.35; }
+        }
+      `}</style>
     </section>
   );
 }

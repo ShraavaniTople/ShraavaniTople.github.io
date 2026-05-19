@@ -8,27 +8,21 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        bg: {
-          base: "#08080C",
-          surface: "#0F0F14",
-        },
-        "text-1": "#F4F4F5",
-        "text-2": "#71717A",
-        "text-3": "#3F3F46",
+        bg: "#0A0A0A",
+        surface: "#141414",
+        "surface-2": "#1C1C1C",
+        "text-1": "#FAFAF9",
+        "text-2": "#A1A1AA",
+        "text-3": "#52525B",
         accent: {
-          DEFAULT: "#818CF8",
-          glow: "rgba(129,140,248,0.12)",
+          DEFAULT: "#C084FC",
+          "2": "#F0ABFC",
+          bg: "rgba(192,132,252,0.08)",
         },
-        border: "rgba(255,255,255,0.06)",
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
-        geist: ["Geist", "system-ui", "sans-serif"],
         mono: ["Geist Mono", "ui-monospace", "monospace"],
-        inter: ["Inter", "system-ui", "sans-serif"],
-      },
-      borderRadius: {
-        DEFAULT: "12px",
       },
     },
   },
