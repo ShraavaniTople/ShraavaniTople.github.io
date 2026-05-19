@@ -1,123 +1,73 @@
 "use client";
-import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Instagram as InstagramIcon } from "lucide-react";
+import { useRef } from "react";
+import { Instagram } from "lucide-react";
 
-const ease = [0.16, 1, 0.3, 1] as const;
-
-const TILES = [
-  { label: "Hackathon recap 🎯", gradient: "linear-gradient(135deg, rgba(139,92,246,0.3) 0%, rgba(88,28,135,0.5) 100%)" },
-  { label: "Robotics lab 🤖", gradient: "linear-gradient(135deg, rgba(236,72,153,0.2) 0%, rgba(139,92,246,0.4) 100%)" },
-  { label: "WTM Workshop 🌐", gradient: "linear-gradient(135deg, rgba(99,102,241,0.3) 0%, rgba(88,28,135,0.5) 100%)" },
-  { label: "ETHMumbai ⚡", gradient: "linear-gradient(135deg, rgba(217,70,239,0.2) 0%, rgba(109,40,217,0.4) 100%)" },
-  { label: "Tech event coverage 📸", gradient: "linear-gradient(135deg, rgba(167,139,250,0.2) 0%, rgba(49,46,129,0.5) 100%)" },
-  { label: "Community building 🏗️", gradient: "linear-gradient(135deg, rgba(139,92,246,0.3) 0%, rgba(131,24,67,0.4) 100%)" },
+const tiles = [
+  { label: "Hackathon recap 🎯", gradient: "linear-gradient(135deg,#a78bfa,#7c3aed)" },
+  { label: "Robotics lab 🤖", gradient: "linear-gradient(135deg,#6366f1,#4f46e5)" },
+  { label: "WTM Workshop 🌐", gradient: "linear-gradient(135deg,#ec4899,#a855f7)" },
+  { label: "ETHMumbai ⚡", gradient: "linear-gradient(135deg,#8b5cf6,#6d28d9)" },
+  { label: "Tech event 📸", gradient: "linear-gradient(135deg,#c084fc,#7c3aed)" },
+  { label: "Community 🏗️", gradient: "linear-gradient(135deg,#f0abfc,#a855f7)" },
 ];
 
-export default function Instagram() {
+export default function InstagramSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, amount: 0.1 });
 
   return (
-    <section id="instagram" className="section-pad" ref={ref}>
+    <section className="section section-alt" id="creator" ref={ref}>
       <div className="container">
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease }}
-          className="text-xs font-mono tracking-widest uppercase mb-4"
-          style={{ color: "#A1A1AA" }}
-        >
-          CREATOR
-        </motion.p>
-
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.08, ease }}
-          className="text-3xl sm:text-4xl font-bold tracking-tight mb-10"
-          style={{ color: "#FAFAF9" }}
-        >
-          On the internet.
-        </motion.h2>
-
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left — text block */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.16, ease }}
-          >
-            <p className="text-base leading-relaxed mb-8" style={{ color: "#A1A1AA" }}>
-              I document my journey in tech — events, hackathons, robotics labs, and the community I&apos;m building. Follow along.
-            </p>
-
-            <div
-              className="p-6 rounded-xl mb-6"
-              style={{ background: "#141414", border: "1px solid rgba(255,255,255,0.08)" }}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "center" }} className="insta-grid">
+          {/* Left */}
+          <div>
+            <motion.p initial={{ opacity: 0, y: 12 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5 }} className="label" style={{ marginBottom: 12 }}>Creator</motion.p>
+            <motion.h2 initial={{ opacity: 0, y: 12 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.1 }}
+              style={{ fontSize: "clamp(24px,3.5vw,40px)", fontWeight: 800, letterSpacing: "-0.02em", marginBottom: 16, color: "#111110" }}
+            >On the internet.</motion.h2>
+            <motion.p initial={{ opacity: 0, y: 12 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.2 }}
+              style={{ fontSize: 16, color: "#6B7280", lineHeight: 1.7, marginBottom: 28 }}>
+              I document my journey in tech — events, hackathons, robotics labs, and the communities I&apos;m building. Behind-the-scenes content from conferences, workshops, and everything in between.
+            </motion.p>
+            <motion.div initial={{ opacity: 0, y: 12 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.3 }}
+              style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 24, background: "white", border: "1px solid rgba(0,0,0,0.08)", borderRadius: 12, padding: "12px 16px", maxWidth: 260 }}
             >
-              <div className="flex items-center gap-3 mb-3">
-                <InstagramIcon size={20} style={{ color: "#C084FC" }} />
-                <span className="text-xl font-bold" style={{ color: "#FAFAF9" }}>
-                  @shraavani___
-                </span>
+              <Instagram size={20} color="#a855f7" />
+              <div>
+                <p style={{ fontSize: 13, fontWeight: 700, color: "#111110" }}>@shraavani___</p>
+                <p style={{ fontSize: 11, color: "#9CA3AF" }}>Instagram</p>
               </div>
-              <p className="text-sm mb-5" style={{ color: "#A1A1AA" }}>
-                Content around tech, robotics, hackathons &amp; community
-              </p>
-              <a
-                href="https://instagram.com/shraavani___"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium transition-opacity hover:opacity-85"
-                style={{ background: "#C084FC", color: "#0A0A0A" }}
-              >
-                <InstagramIcon size={14} />
-                Follow on Instagram
-              </a>
-            </div>
-          </motion.div>
+            </motion.div>
+            <motion.a initial={{ opacity: 0, y: 12 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.4 }}
+              href="https://instagram.com/shraavani___" target="_blank" rel="noopener noreferrer"
+              style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#7C3AED", color: "white", borderRadius: 10, padding: "11px 22px", fontSize: 14, fontWeight: 600, textDecoration: "none", transition: "background 0.15s" }}
+              onMouseEnter={e => (e.currentTarget.style.background = "#6D28D9")}
+              onMouseLeave={e => (e.currentTarget.style.background = "#7C3AED")}
+            >
+              <Instagram size={15} /> Follow on Instagram
+            </motion.a>
+          </div>
 
-          {/* Right — grid of tiles */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.24, ease }}
-            className="grid grid-cols-3 gap-2"
+          {/* Right: gradient tiles */}
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, delay: 0.3 }}
+            style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 8 }}
           >
-            {TILES.map((tile, i) => (
-              <motion.div
-                key={tile.label}
+            {tiles.map((tile, i) => (
+              <motion.div key={i}
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={inView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ duration: 0.4, delay: 0.3 + i * 0.07, ease }}
-                className="relative rounded-xl overflow-hidden cursor-pointer"
-                style={{
-                  aspectRatio: "1",
-                  background: tile.gradient,
-                  border: "1px solid rgba(255,255,255,0.06)",
-                  transition: "transform 0.2s ease",
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.transform = "scale(1.02)";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.transform = "scale(1)";
-                }}
+                transition={{ duration: 0.45, delay: 0.35 + i * 0.07 }}
+                style={{ aspectRatio: "1", borderRadius: 12, background: tile.gradient, display: "flex", alignItems: "flex-end", padding: 10, transition: "transform 0.2s", cursor: "default" }}
+                whileHover={{ scale: 1.04 }}
               >
-                <div
-                  className="absolute bottom-0 left-0 right-0 p-2"
-                  style={{ background: "linear-gradient(transparent, rgba(0,0,0,0.6))" }}
-                >
-                  <p className="text-[10px] leading-tight" style={{ color: "rgba(255,255,255,0.8)" }}>
-                    {tile.label}
-                  </p>
-                </div>
+                <span style={{ fontSize: 11, fontWeight: 600, color: "rgba(255,255,255,0.9)", lineHeight: 1.3 }}>{tile.label}</span>
               </motion.div>
             ))}
           </motion.div>
         </div>
       </div>
+      <style>{`@media(max-width:768px){ .insta-grid { grid-template-columns: 1fr !important; gap: 32px !important; } }`}</style>
     </section>
   );
 }

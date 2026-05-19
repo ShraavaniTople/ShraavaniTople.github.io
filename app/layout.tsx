@@ -4,20 +4,16 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
-  title: "Shraavani Tople — Frontend Engineer & Robotics Builder",
-  description: "Frontend Engineer at Agora AI. Robotics researcher, community builder, and creator from Mumbai.",
-  keywords: ["Shraavani Tople", "frontend engineer", "robotics", "AI", "community", "Mumbai"],
+  title: "Shraavani Tople — Frontend Engineer & Builder",
+  description: "Frontend Engineer at Agora AI. Robotics researcher, community builder, and creator based in Mumbai.",
   openGraph: {
     title: "Shraavani Tople",
-    description: "Frontend Engineer at Agora AI. Robotics researcher, community builder, and creator.",
+    description: "Frontend Engineer at Agora AI. Robotics researcher and community builder.",
     url: "https://shraavanitople.github.io",
-    siteName: "Shraavani Tople",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Shraavani Tople",
-    description: "Frontend Engineer at Agora AI. Robotics researcher, community builder.",
     creator: "@shraavani___",
   },
 };

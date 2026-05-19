@@ -1,136 +1,107 @@
 "use client";
-import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
-const NAV_LINKS = [
-  { label: "Work", id: "experience" },
-  { label: "Projects", id: "projects" },
-  { label: "Community", id: "community" },
-  { label: "Contact", id: "contact" },
+const links = [
+  { label: "Work", href: "#experience" },
+  { label: "Projects", href: "#projects" },
+  { label: "Community", href: "#community" },
+  { label: "Contact", href: "mailto:shraavanitople@gmail.com" },
 ];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const handler = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handler);
+    return () => window.removeEventListener("scroll", handler);
   }, []);
 
-  const scrollTo = (id: string) => {
-    if (id === "contact") {
-      window.location.href = "mailto:shraavanitople@gmail.com";
-      setMobileOpen(false);
-      return;
+  const scrollTo = (href: string) => {
+    setOpen(false);
+    if (href.startsWith("#")) {
+      document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+    } else {
+      window.location.href = href;
     }
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
-    setMobileOpen(false);
   };
 
   return (
     <>
       <header
-        className="fixed top-0 left-0 right-0 z-[100] transition-all duration-300"
         style={{
-          background: scrolled ? "rgba(10,10,10,0.85)" : "transparent",
-          backdropFilter: scrolled ? "blur(16px)" : "none",
-          WebkitBackdropFilter: scrolled ? "blur(16px)" : "none",
-          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.08)" : "1px solid transparent",
+          position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
+          transition: "all 0.3s",
+          background: scrolled ? "rgba(255,255,255,0.92)" : "transparent",
+          backdropFilter: scrolled ? "blur(12px)" : "none",
+          borderBottom: scrolled ? "1px solid rgba(0,0,0,0.06)" : "none",
         }}
       >
-        <div className="flex items-center justify-between h-14 px-6 lg:px-10 max-w-[1200px] mx-auto">
+        <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 64 }}>
           {/* Logo */}
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="text-sm font-semibold tracking-tight transition-opacity hover:opacity-80"
-            style={{ color: "#FAFAF9" }}
+            style={{ fontWeight: 700, fontSize: 18, color: "#111110", letterSpacing: "-0.02em", background: "none", border: "none", cursor: "pointer" }}
           >
-            Shraavani.
+            Shraavani<span style={{ color: "#7C3AED" }}>.</span>
           </button>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-6">
-            {NAV_LINKS.map((link) => (
-              <button
-                key={link.id}
-                onClick={() => scrollTo(link.id)}
-                className="text-sm transition-colors"
-                style={{ color: "#A1A1AA" }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#FAFAF9")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "#A1A1AA")}
-              >
-                {link.label}
-              </button>
+          <nav style={{ display: "flex", alignItems: "center", gap: 32 }} className="hidden-mobile">
+            {links.map(l => (
+              <button key={l.label} onClick={() => scrollTo(l.href)}
+                style={{ fontSize: 14, fontWeight: 500, color: "#6B7280", background: "none", border: "none", cursor: "pointer", transition: "color 0.15s" }}
+                onMouseEnter={e => (e.currentTarget.style.color = "#111110")}
+                onMouseLeave={e => (e.currentTarget.style.color = "#6B7280")}
+              >{l.label}</button>
             ))}
+            {/* Available badge */}
+            <span style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 12, fontWeight: 500, color: "#7C3AED", background: "#EDE9FE", padding: "4px 12px", borderRadius: 99 }}>
+              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#7C3AED", display: "inline-block", animation: "pulse 2s infinite" }} />
+              Open to work
+            </span>
           </nav>
 
-          {/* Right — open to work pill + mobile toggle */}
-          <div className="flex items-center gap-3">
-            <div
-              className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono"
-              style={{
-                border: "1px solid rgba(192,132,252,0.25)",
-                color: "#C084FC",
-                background: "rgba(192,132,252,0.08)",
-              }}
-            >
-              <span
-                className="w-1.5 h-1.5 rounded-full bg-[#C084FC]"
-                style={{
-                  animation: "pulse 2s cubic-bezier(0.4,0,0.6,1) infinite",
-                }}
-              />
-              Open to work
-            </div>
-            <button
-              onClick={() => setMobileOpen(!mobileOpen)}
-              className="md:hidden p-1.5"
-              style={{ color: "#A1A1AA" }}
-            >
-              {mobileOpen ? <X size={18} /> : <Menu size={18} />}
-            </button>
-          </div>
+          {/* Mobile hamburger */}
+          <button onClick={() => setOpen(o => !o)}
+            style={{ display: "none", background: "none", border: "none", cursor: "pointer", padding: 4 }}
+            className="show-mobile"
+            aria-label="menu"
+          >
+            <div style={{ width: 22, height: 2, background: "#111", marginBottom: 5, borderRadius: 2 }} />
+            <div style={{ width: 22, height: 2, background: "#111", marginBottom: 5, borderRadius: 2 }} />
+            <div style={{ width: 22, height: 2, background: "#111", borderRadius: 2 }} />
+          </button>
         </div>
       </header>
 
       {/* Mobile menu */}
-      {mobileOpen && (
-        <div
-          className="fixed inset-0 z-[99] flex flex-col"
-          style={{ background: "rgba(10,10,10,0.97)", backdropFilter: "blur(20px)" }}
-        >
-          <div className="flex items-center justify-between h-14 px-6">
-            <span className="text-xs font-mono tracking-widest" style={{ color: "#52525B" }}>
-              MENU
-            </span>
-            <button onClick={() => setMobileOpen(false)} style={{ color: "#A1A1AA" }}>
-              <X size={18} />
-            </button>
-          </div>
-          <nav className="flex flex-col items-center justify-center flex-1 gap-6">
-            {NAV_LINKS.map((link) => (
-              <button
-                key={link.id}
-                onClick={() => scrollTo(link.id)}
-                className="text-2xl font-bold tracking-tight transition-colors"
-                style={{ color: "#A1A1AA" }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#FAFAF9")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "#A1A1AA")}
-              >
-                {link.label}
-              </button>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            style={{ position: "fixed", top: 64, left: 0, right: 0, background: "white", borderBottom: "1px solid rgba(0,0,0,0.08)", zIndex: 99, padding: "24px" }}
+          >
+            {links.map(l => (
+              <button key={l.label} onClick={() => scrollTo(l.href)}
+                style={{ display: "block", width: "100%", textAlign: "left", padding: "12px 0", fontSize: 18, fontWeight: 600, color: "#111", background: "none", border: "none", cursor: "pointer", borderBottom: "1px solid rgba(0,0,0,0.05)" }}
+              >{l.label}</button>
             ))}
-          </nav>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <style>{`
+        @media(max-width:640px){
+          .hidden-mobile { display: none !important; }
+          .show-mobile { display: block !important; }
+        }
         @keyframes pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.4; }
+          0%,100%{ opacity:1; } 50%{ opacity:0.4; }
         }
       `}</style>
     </>

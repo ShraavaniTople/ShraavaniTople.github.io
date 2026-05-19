@@ -1,9 +1,13 @@
 "use client";
-import Image from "next/image";
 import { motion } from "framer-motion";
-import { Github, Linkedin, Twitter, Instagram, ArrowDown, Mail } from "lucide-react";
+import Image from "next/image";
+import { Github, Linkedin, Twitter, Instagram, Mail, ArrowDown } from "lucide-react";
 
-const ease = [0.16, 1, 0.3, 1] as const;
+const fade = (delay = 0) => ({
+  initial: { opacity: 0, y: 16 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.55, delay, ease: [0.16, 1, 0.3, 1] as const }
+});
 
 const socials = [
   { icon: Github, href: "https://github.com/ShraavaniTople", label: "GitHub" },
@@ -14,185 +18,122 @@ const socials = [
 ];
 
 export default function Hero() {
-  return (
-    <section
-      id="hero"
-      className="relative min-h-screen flex items-center overflow-hidden"
-      style={{ background: "#0A0A0A", paddingTop: "80px" }}
-    >
-      {/* Subtle radial glow */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse 60% 60% at 30% 50%, rgba(192,132,252,0.05) 0%, transparent 70%)",
-        }}
-      />
+  const scrollToWork = () => document.querySelector("#experience")?.scrollIntoView({ behavior: "smooth" });
 
-      <div className="container relative z-10 w-full py-16">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* LEFT — Photo */}
+  return (
+    <section style={{ background: "#F8F7F5", minHeight: "100vh", display: "flex", alignItems: "center", paddingTop: 80 }}>
+      <div className="container" style={{ width: "100%" }}>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap: 64,
+          alignItems: "center",
+        }}
+          className="hero-grid"
+        >
+          {/* LEFT: Photo */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -24 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.1, ease }}
-            className="relative flex justify-center lg:justify-start order-2 lg:order-1"
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            style={{ position: "relative" }}
           >
-            {/* Blob behind photo */}
-            <div
-              className="absolute w-72 h-72 rounded-full pointer-events-none"
-              style={{
-                background: "rgba(192,132,252,0.1)",
-                filter: "blur(60px)",
-                top: "10%",
-                left: "5%",
-              }}
-            />
-            <div
-              className="relative rounded-2xl overflow-hidden"
-              style={{
-                width: "clamp(260px, 40vw, 420px)",
-                height: "clamp(320px, 50vw, 520px)",
-                border: "1px solid rgba(255,255,255,0.1)",
-                boxShadow: "0 32px 80px rgba(192,132,252,0.12), 0 0 0 1px rgba(255,255,255,0.05)",
-              }}
-            >
+            {/* Purple blob behind photo */}
+            <div style={{
+              position: "absolute", top: "10%", left: "10%",
+              width: 280, height: 280, borderRadius: "50%",
+              background: "rgba(124,58,237,0.1)",
+              filter: "blur(60px)",
+              zIndex: 0
+            }} />
+            <div style={{ position: "relative", zIndex: 1 }}>
               <Image
                 src="/shraavani.png"
                 alt="Shraavani Tople"
-                fill
+                width={480}
+                height={580}
                 unoptimized
-                className="object-cover object-top"
-                priority
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  maxHeight: 560,
+                  objectFit: "cover",
+                  objectPosition: "top",
+                  borderRadius: 20,
+                  border: "1px solid rgba(0,0,0,0.08)",
+                  boxShadow: "0 20px 60px rgba(124,58,237,0.12), 0 4px 20px rgba(0,0,0,0.06)",
+                  display: "block",
+                }}
               />
             </div>
           </motion.div>
 
-          {/* RIGHT — Text */}
-          <div className="flex flex-col order-1 lg:order-2">
-            {/* Label */}
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3, ease }}
-              className="text-xs font-mono tracking-widest uppercase mb-5"
-              style={{ color: "#A1A1AA" }}
-            >
-              Frontend Engineer · Robotics Builder
+          {/* RIGHT: Text */}
+          <div>
+            <motion.p {...fade(0.2)} className="label" style={{ marginBottom: 16 }}>
+              Frontend Engineer · Robotics Builder · Community Leader
             </motion.p>
 
-            {/* H1 */}
-            <div className="overflow-hidden mb-1">
-              <motion.span
-                initial={{ opacity: 0, y: 20 }}
+            <div style={{ overflow: "hidden", marginBottom: 8 }}>
+              <motion.h1
+                initial={{ opacity: 0, y: 32 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.4, ease }}
-                className="block text-[clamp(48px,8vw,72px)] font-extrabold leading-none tracking-tight"
-                style={{ color: "#FAFAF9" }}
+                transition={{ duration: 0.65, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                style={{ fontSize: "clamp(48px,6vw,80px)", fontWeight: 800, lineHeight: 1.0, letterSpacing: "-0.03em", color: "#111110" }}
               >
-                Shraavani
-              </motion.span>
-            </div>
-            <div className="overflow-hidden mb-5">
-              <motion.span
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.5, ease }}
-                className="block text-[clamp(48px,8vw,72px)] font-extrabold leading-none tracking-tight"
-                style={{ color: "#FAFAF9" }}
-              >
-                Tople.
-              </motion.span>
+                Shraavani<br />
+                <span style={{ color: "#7C3AED" }}>Tople.</span>
+              </motion.h1>
             </div>
 
-            {/* Violet line */}
+            {/* Purple line */}
             <motion.div
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
-              transition={{ duration: 0.6, delay: 0.6, ease }}
-              className="origin-left mb-5"
-              style={{ width: 48, height: 3, background: "#C084FC", borderRadius: 99 }}
+              transition={{ duration: 0.5, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
+              style={{ height: 3, width: 56, background: "#7C3AED", borderRadius: 99, marginBottom: 24, transformOrigin: "left" }}
             />
 
-            {/* Bio */}
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.7, ease }}
-              className="text-base leading-relaxed mb-5 max-w-md"
-              style={{ color: "#A1A1AA" }}
-            >
-              I build AI interfaces and robotic systems. Currently shipping frontend at Agora AI — previously trained robot arms with deep RL and organized India&apos;s largest Ethereum hackathon.
+            <motion.p {...fade(0.6)} style={{ fontSize: 16, color: "#6B7280", lineHeight: 1.7, marginBottom: 28, maxWidth: 440 }}>
+              I build AI interfaces and robotic systems. Frontend Engineer at{" "}
+              <span style={{ color: "#111110", fontWeight: 600 }}>Agora AI</span>, robotics researcher, and community builder across India and beyond.
             </motion.p>
 
-            {/* Status badge */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.8, ease }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 self-start"
-              style={{
-                border: "1px solid rgba(192,132,252,0.25)",
-                background: "rgba(192,132,252,0.06)",
-              }}
-            >
-              <span
-                className="w-2 h-2 rounded-full"
-                style={{
-                  background: "#C084FC",
-                  animation: "heroPulse 2s cubic-bezier(0.4,0,0.6,1) infinite",
-                }}
-              />
-              <span className="text-xs font-mono" style={{ color: "#C084FC" }}>
-                Currently at Agora AI — Frontend Engineer
-              </span>
+            {/* Current role badge */}
+            <motion.div {...fade(0.7)} style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#EDE9FE", border: "1px solid #DDD6FE", borderRadius: 99, padding: "6px 14px", marginBottom: 32 }}>
+              <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#7C3AED", display: "inline-block", animation: "pulse 2s infinite" }} />
+              <span style={{ fontSize: 13, fontWeight: 500, color: "#5B21B6" }}>Frontend Engineer @ Agora AI</span>
             </motion.div>
 
             {/* Social links */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.9, ease }}
-              className="flex items-center gap-4 mb-7 flex-wrap"
-            >
-              {socials.map(({ icon: Icon, href, label }, i) => (
-                <motion.a
-                  key={label}
-                  href={href}
-                  target="_blank"
+            <motion.div {...fade(0.8)} style={{ display: "flex", gap: 16, marginBottom: 36, flexWrap: "wrap" }}>
+              {socials.map(({ icon: Icon, href, label }) => (
+                <a key={label} href={href} target={href.startsWith("mailto") ? undefined : "_blank"}
                   rel="noopener noreferrer"
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: 0.9 + i * 0.07, ease }}
-                  className="flex items-center gap-1.5 text-xs transition-colors"
-                  style={{ color: "#52525B" }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = "#C084FC")}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = "#52525B")}
+                  style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 13, fontWeight: 500, color: "#6B7280", textDecoration: "none", transition: "color 0.15s" }}
+                  onMouseEnter={e => (e.currentTarget.style.color = "#7C3AED")}
+                  onMouseLeave={e => (e.currentTarget.style.color = "#6B7280")}
                 >
-                  <Icon size={14} />
-                  <span>{label}</span>
-                </motion.a>
+                  <Icon size={15} />
+                  {label}
+                </a>
               ))}
             </motion.div>
 
             {/* CTAs */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 1.0, ease }}
-              className="flex items-center gap-3 flex-wrap"
-            >
+            <motion.div {...fade(0.9)} style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
               <button
-                onClick={() => document.getElementById("experience")?.scrollIntoView({ behavior: "smooth" })}
-                className="flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium transition-opacity hover:opacity-85"
-                style={{ background: "#C084FC", color: "#0A0A0A" }}
+                onClick={scrollToWork}
+                style={{ display: "flex", alignItems: "center", gap: 8, background: "#7C3AED", color: "white", border: "none", borderRadius: 10, padding: "12px 24px", fontSize: 14, fontWeight: 600, cursor: "pointer", transition: "background 0.15s" }}
+                onMouseEnter={e => (e.currentTarget.style.background = "#6D28D9")}
+                onMouseLeave={e => (e.currentTarget.style.background = "#7C3AED")}
               >
-                View Work <ArrowDown size={14} />
+                View Work <ArrowDown size={15} />
               </button>
-              <a
-                href="mailto:shraavanitople@gmail.com"
-                className="flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium transition-colors hover:bg-white/[0.04]"
-                style={{ border: "1px solid rgba(255,255,255,0.1)", color: "#A1A1AA" }}
+              <a href="mailto:shraavanitople@gmail.com"
+                style={{ display: "flex", alignItems: "center", gap: 8, background: "transparent", color: "#111110", border: "1px solid rgba(0,0,0,0.15)", borderRadius: 10, padding: "12px 24px", fontSize: 14, fontWeight: 600, cursor: "pointer", textDecoration: "none", transition: "border-color 0.15s" }}
+                onMouseEnter={e => (e.currentTarget.style.borderColor = "#7C3AED")}
+                onMouseLeave={e => (e.currentTarget.style.borderColor = "rgba(0,0,0,0.15)")}
               >
                 Get in touch
               </a>
@@ -202,9 +143,14 @@ export default function Hero() {
       </div>
 
       <style>{`
-        @keyframes heroPulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.35; }
+        @media(max-width:768px){
+          .hero-grid {
+            grid-template-columns: 1fr !important;
+            gap: 32px !important;
+          }
+        }
+        @keyframes pulse {
+          0%,100%{ opacity:1; } 50%{ opacity:0.5; }
         }
       `}</style>
     </section>

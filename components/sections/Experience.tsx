@@ -1,14 +1,13 @@
 "use client";
-import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
-const ease = [0.16, 1, 0.3, 1] as const;
-
-const EXPERIENCES = [
+const jobs = [
   {
-    monogram: "AA",
-    monogramColor: "#C084FC",
     company: "Agora AI",
+    initials: "AA",
+    color: "#7C3AED",
+    colorBg: "#EDE9FE",
     role: "Frontend Engineer",
     period: "Jul 2025 – Present",
     current: true,
@@ -17,12 +16,13 @@ const EXPERIENCES = [
       "Collaborated with AI researchers to develop real-time inference visualization tools",
       "Applied Agile practices to deliver features on schedule in a cross-functional team",
     ],
-    tags: ["React", "TypeScript", "Agile", "AI Dashboards"],
+    tags: ["React", "TypeScript", "AI Dashboards", "Agile"],
   },
   {
-    monogram: "CP",
-    monogramColor: "#F59E0B",
     company: "Colgate Palmolive",
+    initials: "CP",
+    color: "#D97706",
+    colorBg: "#FEF3C7",
     role: "Data & Content Intern",
     period: "Apr 2024 – Jun 2024",
     current: false,
@@ -40,108 +40,56 @@ export default function Experience() {
   const inView = useInView(ref, { once: true, amount: 0.1 });
 
   return (
-    <section id="experience" className="section-pad" ref={ref}>
+    <section className="section section-alt" id="experience" ref={ref}>
       <div className="container">
         <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease }}
-          className="text-xs font-mono tracking-widest uppercase mb-4"
-          style={{ color: "#A1A1AA" }}
-        >
-          WORK EXPERIENCE
-        </motion.p>
-
+          initial={{ opacity: 0, y: 12 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5 }} className="label" style={{ marginBottom: 12 }}
+        >Work Experience</motion.p>
         <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.08, ease }}
-          className="text-3xl sm:text-4xl font-bold tracking-tight mb-10"
-          style={{ color: "#FAFAF9" }}
-        >
-          Where I&apos;ve worked.
-        </motion.h2>
+          initial={{ opacity: 0, y: 12 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          style={{ fontSize: "clamp(24px,3.5vw,40px)", fontWeight: 800, letterSpacing: "-0.02em", marginBottom: 40, color: "#111110" }}
+        >Where I&apos;ve worked.</motion.h2>
 
-        <div className="space-y-5">
-          {EXPERIENCES.map((exp, i) => (
+        <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+          {jobs.map((job, i) => (
             <motion.div
-              key={exp.company}
+              key={job.company}
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.16 + i * 0.12, ease }}
-              className="p-6 rounded-xl transition-all duration-200"
-              style={{
-                background: "#141414",
-                border: "1px solid rgba(255,255,255,0.08)",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(192,132,252,0.3)";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(255,255,255,0.08)";
-              }}
+              transition={{ duration: 0.55, delay: 0.2 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="card"
+              style={{ padding: 28 }}
             >
-              <div className="flex flex-col sm:flex-row sm:items-start gap-4">
+              <div style={{ display: "flex", gap: 20, alignItems: "flex-start" }}>
                 {/* Monogram */}
-                <div
-                  className="w-10 h-10 rounded-lg flex items-center justify-center text-xs font-bold font-mono shrink-0"
-                  style={{
-                    background: `${exp.monogramColor}18`,
-                    border: `1px solid ${exp.monogramColor}30`,
-                    color: exp.monogramColor,
-                  }}
-                >
-                  {exp.monogram}
-                </div>
+                <div style={{
+                  width: 48, height: 48, borderRadius: 12, flexShrink: 0,
+                  background: job.colorBg, display: "flex", alignItems: "center", justifyContent: "center",
+                  fontSize: 14, fontWeight: 700, color: job.color
+                }}>{job.initials}</div>
 
-                <div className="flex-1">
-                  {/* Header row */}
-                  <div className="flex flex-wrap items-center gap-2 mb-1">
-                    <span className="text-base font-semibold" style={{ color: "#FAFAF9" }}>
-                      {exp.role}
-                    </span>
-                    <span className="text-sm" style={{ color: "#A1A1AA" }}>
-                      · {exp.company}
-                    </span>
-                    {exp.current && (
-                      <span
-                        className="flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-mono"
-                        style={{
-                          background: "rgba(74,222,128,0.1)",
-                          border: "1px solid rgba(74,222,128,0.2)",
-                          color: "#4ADE80",
-                        }}
-                      >
-                        <span className="w-1.5 h-1.5 rounded-full bg-green-400" />
-                        Current
-                      </span>
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap", marginBottom: 4 }}>
+                    <span style={{ fontSize: 17, fontWeight: 700, color: "#111110" }}>{job.role}</span>
+                    {job.current && (
+                      <span style={{ fontSize: 11, fontWeight: 600, background: "#DCFCE7", color: "#166534", borderRadius: 99, padding: "2px 10px" }}>Current</span>
                     )}
                   </div>
-                  <p className="text-xs font-mono mb-4" style={{ color: "#52525B" }}>
-                    {exp.period}
-                  </p>
-
-                  {/* Bullets */}
-                  <ul className="space-y-2 mb-5">
-                    {exp.bullets.map((b) => (
-                      <li
-                        key={b}
-                        className="flex items-start gap-2 text-sm leading-relaxed"
-                        style={{ color: "#A1A1AA" }}
-                      >
-                        <span className="mt-1.5 w-1 h-1 rounded-full shrink-0" style={{ background: "#C084FC" }} />
+                  <div style={{ fontSize: 14, color: "#6B7280", marginBottom: 16 }}>
+                    {job.company} · {job.period}
+                  </div>
+                  <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 6, marginBottom: 16 }}>
+                    {job.bullets.map((b, j) => (
+                      <li key={j} style={{ fontSize: 14, color: "#6B7280", paddingLeft: 16, position: "relative" }}>
+                        <span style={{ position: "absolute", left: 0, color: "#7C3AED" }}>→</span>
                         {b}
                       </li>
                     ))}
                   </ul>
-
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-2">
-                    {exp.tags.map((tag) => (
-                      <span key={tag} className="tag">
-                        {tag}
-                      </span>
-                    ))}
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                    {job.tags.map(t => <span key={t} className="tag">{t}</span>)}
                   </div>
                 </div>
               </div>

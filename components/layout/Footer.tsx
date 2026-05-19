@@ -11,31 +11,24 @@ const socials = [
 
 export default function Footer() {
   return (
-    <footer style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }} className="py-12 mt-16">
-      <div className="container text-center space-y-4">
-        <p className="text-xl font-semibold" style={{ color: "#FAFAF9" }}>
+    <footer style={{ borderTop: "1px solid rgba(0,0,0,0.08)", background: "#F8F7F5", padding: "48px 0" }}>
+      <div className="container" style={{ textAlign: "center" }}>
+        <p style={{ fontWeight: 700, fontSize: 20, marginBottom: 20, color: "#111110" }}>
           Shraavani Tople
         </p>
-        <div className="flex items-center justify-center gap-5">
+        <div style={{ display: "flex", justifyContent: "center", gap: 20, marginBottom: 20 }}>
           {socials.map(({ icon: Icon, href, label }) => (
-            <a
-              key={label}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="transition-colors"
-              style={{ color: "#52525B" }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "#C084FC")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "#52525B")}
-              aria-label={label}
+            <a key={label} href={href} target="_blank" rel="noopener noreferrer"
+               aria-label={label}
+               style={{ color: "#9CA3AF", transition: "color 0.15s" }}
+               onMouseEnter={e => (e.currentTarget.style.color = "#7C3AED")}
+               onMouseLeave={e => (e.currentTarget.style.color = "#9CA3AF")}
             >
               <Icon size={18} />
             </a>
           ))}
         </div>
-        <p className="text-xs mono" style={{ color: "#52525B" }}>
-          © 2026 · Built with Next.js · Deployed on GitHub Pages
-        </p>
+        <p style={{ fontSize: 12, color: "#9CA3AF" }}>© 2026 · Built with Next.js · Deployed on GitHub Pages</p>
       </div>
     </footer>
   );

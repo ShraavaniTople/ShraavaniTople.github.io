@@ -8,21 +8,18 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        bg: "#0A0A0A",
-        surface: "#141414",
-        "surface-2": "#1C1C1C",
-        "text-1": "#FAFAF9",
-        "text-2": "#A1A1AA",
-        "text-3": "#52525B",
-        accent: {
-          DEFAULT: "#C084FC",
-          "2": "#F0ABFC",
-          bg: "rgba(192,132,252,0.08)",
-        },
+        bg: "#FFFFFF",
+        "bg-soft": "#F8F7F5",
+        surface: "#F4F3F1",
+        accent: "#7C3AED",
+        "accent-light": "#EDE9FE",
+        "accent-mid": "#8B5CF6",
+        "text-1": "#111110",
+        "text-2": "#6B7280",
+        "text-3": "#9CA3AF",
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
-        mono: ["Geist Mono", "ui-monospace", "monospace"],
       },
     },
   },

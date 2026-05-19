@@ -1,81 +1,39 @@
 "use client";
-import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
-const ease = [0.16, 1, 0.3, 1] as const;
-
-const SKILLS = [
-  "Python", "C++", "React", "TypeScript", "ROS2",
-  "OpenCV", "PyTorch", "FastAPI", "Raspberry Pi",
-];
+const skills = ["Python", "C++", "React", "TypeScript", "ROS2", "OpenCV", "PyTorch", "FastAPI", "Raspberry Pi", "Git"];
 
 export default function About() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, amount: 0.15 });
+  const f = (delay = 0) => ({
+    variants: { hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0 } },
+    initial: "hidden",
+    animate: inView ? "visible" : "hidden",
+    transition: { duration: 0.55, delay, ease: [0.16, 1, 0.3, 1] as const },
+  });
 
   return (
-    <section id="about" className="section-pad" ref={ref}>
+    <section className="section" id="about" ref={ref}>
       <div className="container">
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease }}
-          className="text-xs font-mono tracking-widest uppercase mb-4"
-          style={{ color: "#A1A1AA" }}
-        >
-          ABOUT
-        </motion.p>
-
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.08, ease }}
-          className="text-3xl sm:text-4xl font-bold tracking-tight mb-8"
-          style={{ color: "#FAFAF9" }}
-        >
-          Engineer. Builder. Community person.
-        </motion.h2>
-
-        <div className="grid lg:grid-cols-2 gap-10 mb-10">
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.16, ease }}
-            className="text-base leading-relaxed"
-            style={{ color: "#A1A1AA" }}
-          >
-            I&apos;m a final-year Electronics &amp; Telecommunications grad from University of Mumbai, currently building AI-powered frontend at Agora AI. My work spans robotics, computer vision, and developer ecosystems.
+        <div style={{ maxWidth: 720 }}>
+          <motion.p {...f(0)} className="label" style={{ marginBottom: 12 }}>About</motion.p>
+          <motion.h2 {...f(0.1)} style={{ fontSize: "clamp(28px,4vw,44px)", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1.1, marginBottom: 24, color: "#111110" }}>
+            Engineer. Builder.<br />Community person.
+          </motion.h2>
+          <motion.p {...f(0.2)} style={{ fontSize: 16, color: "#6B7280", lineHeight: 1.8, marginBottom: 16 }}>
+            I&apos;m a B.E. Electronics & Telecommunications grad from University of Mumbai, currently building AI-powered frontend at Agora AI. My work spans robotics, computer vision, deep reinforcement learning, and developer ecosystems.
           </motion.p>
-
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.24, ease }}
-            className="text-base leading-relaxed"
-            style={{ color: "#A1A1AA" }}
-          >
-            I&apos;ve trained robotic arms to pick up objects with deep reinforcement learning, built tamper-proof AI proxies with cryptographic audit trails, organized India&apos;s largest Ethereum hackathon, and mentored hundreds of developers. I&apos;m always building something.
+          <motion.p {...f(0.3)} style={{ fontSize: 16, color: "#6B7280", lineHeight: 1.8, marginBottom: 32 }}>
+            I&apos;ve trained robotic arms to pick objects with deep RL, built tamper-proof AI proxies with cryptographic audit trails, organized India&apos;s largest Ethereum hackathon, spoken at the WTM Paris Summit, and mentored hundreds of developers. I&apos;m always building something new.
           </motion.p>
+          <motion.div {...f(0.4)} style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+            {skills.map(s => (
+              <span key={s} className="tag">{s}</span>
+            ))}
+          </motion.div>
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.32, ease }}
-          className="flex flex-wrap gap-2"
-        >
-          {SKILLS.map((skill, i) => (
-            <motion.span
-              key={skill}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={inView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.4, delay: 0.35 + i * 0.05, ease }}
-              className="tag"
-            >
-              {skill}
-            </motion.span>
-          ))}
-        </motion.div>
       </div>
     </section>
   );
