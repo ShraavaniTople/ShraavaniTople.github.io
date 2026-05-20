@@ -4,7 +4,7 @@ import { useRef } from "react";
 
 const jobs = [
   {
-    co: "Agora AI", role: "Frontend Engineer",
+    co: "Agora AI", role: "Software Developer",
     period: "Jul 2025 – Present", current: true,
     color: "#C9573A",
     bullets: [

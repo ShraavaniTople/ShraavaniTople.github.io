@@ -19,11 +19,11 @@ export default function About() {
         <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr", gap: 64, alignItems: "start" }} className="about-grid">
           <motion.div {...a(0)}>
             <p className="label" style={{ marginBottom: 12 }}>About</p>
-            <p style={{ fontSize: 13, color: "#A09C99", lineHeight: 1.7 }}>Electronics & Telecommunications · University of Mumbai · 2021–2025</p>
+            <p style={{ fontSize: 13, color: "#A09C99", lineHeight: 1.7 }}>Engineer · Builder · Community</p>
           </motion.div>
           <div>
             <motion.p {...a(0.1)} style={{ fontSize: 17, color: "#111111", lineHeight: 1.8, marginBottom: 16, fontWeight: 400 }}>
-              Electronics & Telecommunications grad from University of Mumbai, currently building AI-powered frontend at Agora AI. My work spans robotics, computer vision, deep reinforcement learning, and developer ecosystems.
+              Currently building AI-powered software at Agora AI. My work spans robotics, computer vision, deep reinforcement learning, and developer ecosystems.
             </motion.p>
             <motion.p {...a(0.2)} style={{ fontSize: 17, color: "#6B6663", lineHeight: 1.8, marginBottom: 32 }}>
               I&apos;ve trained robotic arms to pick objects with deep RL, built tamper-proof AI proxies with Merkle trees, organized India&apos;s largest Ethereum hackathon, and mentored hundreds of developers.

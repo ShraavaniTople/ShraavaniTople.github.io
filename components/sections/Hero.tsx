@@ -105,8 +105,8 @@ export default function Hero() {
               animation: "pulse-dot 2s infinite",
             }} />
             <div>
-              <p style={{ fontSize: 13, fontWeight: 600, color: "#111111" }}>Currently at Agora AI</p>
-              <p style={{ fontSize: 12, color: "#A09C99" }}>Building AI-powered interfaces</p>
+              <p style={{ fontSize: 13, fontWeight: 600, color: "#111111" }}>Software Developer at Agora AI</p>
+              <p style={{ fontSize: 12, color: "#A09C99" }}>Building AI-powered software</p>
             </div>
           </motion.div>
 

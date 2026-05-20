@@ -2,25 +2,13 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
-// 4 entries with real photos
+// 2 entries with real photos
 const photoRoles = [
   {
     photo: "/photos/shraavani-speaking.jpg",
     role: "Speaker",
     org: "Women in Tech Mumbai",
     desc: "Spoke on stage to a packed audience on topics around AI and community building.",
-  },
-  {
-    photo: "/photos/shraavani-paris.jpg",
-    role: "Speaker",
-    org: "WTM Paris Summit",
-    desc: "Delivered a session on AI prototyping at the Women Techmakers Paris Summit.",
-  },
-  {
-    photo: "/photos/shraavani-hotseat.jpg",
-    role: "Panelist",
-    org: "The Hot Seat AI",
-    desc: "Featured panelist at The Hot Seat AI — a tech and creator community event.",
   },
   {
     photo: "/photos/shraavani-workshop.jpg",
@@ -77,8 +65,8 @@ const roles = [
   {
     gradient: "linear-gradient(135deg,#1a0a10,#3d1a28)",
     role: "Speaker",
-    org: "Snapchat & WIP India",
-    desc: "Spoke at creator and product community events",
+    org: "Snapchat",
+    desc: "Speaker at Snapchat's creator-focused tech event",
   },
 ];
 
@@ -100,8 +88,8 @@ export default function Community() {
           From organizing India&apos;s largest Ethereum hackathon to mentoring hundreds of developers — community has always been central to my work.
         </motion.p>
 
-        {/* 4 PHOTO CARDS — 4-col grid */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 12, marginBottom: 12 }} className="photo-roles-grid">
+        {/* 2 PHOTO CARDS — 2-col grid */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 12, marginBottom: 12 }} className="photo-roles-grid">
           {photoRoles.map((item, i) => (
             <motion.div key={item.org}
               initial={{ opacity: 0, y: 18 }}
