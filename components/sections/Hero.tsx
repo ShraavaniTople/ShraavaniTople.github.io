@@ -23,114 +23,107 @@ export default function Hero() {
       minHeight:"100vh",
       display:"flex",
       alignItems:"center",
-      paddingTop:72,
-      paddingBottom:48,
+      paddingTop:80,
+      paddingBottom:64,
       position:"relative",
       overflow:"hidden",
     }}>
-      {/* Background glow blobs */}
-      <div style={{position:"absolute",top:"10%",right:"8%",width:600,height:600,borderRadius:"50%",background:"radial-gradient(circle,rgba(124,99,255,0.07) 0%,transparent 70%)",pointerEvents:"none"}}/>
-      <div style={{position:"absolute",bottom:"5%",left:"0%",width:400,height:400,borderRadius:"50%",background:"radial-gradient(circle,rgba(99,124,255,0.05) 0%,transparent 70%)",pointerEvents:"none"}}/>
+      {/* Background glow */}
+      <div style={{position:"absolute",top:"20%",left:"50%",transform:"translateX(-50%)",width:800,height:400,borderRadius:"50%",background:"radial-gradient(ellipse,rgba(124,99,255,0.06) 0%,transparent 65%)",pointerEvents:"none"}}/>
 
       <div className="container" style={{width:"100%",position:"relative",zIndex:1}}>
-        <div style={{display:"grid", gridTemplateColumns:"1fr 1fr", gap:72, alignItems:"center"}} className="hero-grid">
+        <div style={{maxWidth:680}}>
 
-          {/* LEFT */}
-          <div>
-            <div style={{overflow:"hidden", marginBottom:16}}>
-              <motion.h1
-                initial={{opacity:0, y:40}}
-                animate={{opacity:1, y:0}}
-                transition={{duration:0.7, delay:0.2, ease:[0.16,1,0.3,1]}}
+          {/* Small photo + name row */}
+          <motion.div {...f(0.1)} style={{display:"flex",alignItems:"center",gap:20,marginBottom:32}}>
+            {/* Small circular photo */}
+            <div style={{position:"relative",flexShrink:0}}>
+              <div style={{position:"absolute",inset:-2,borderRadius:"50%",background:"linear-gradient(135deg,#7C63FF,rgba(124,99,255,0.2))",zIndex:0}}/>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/shraavani.png"
+                alt="Shraavani Tople"
                 style={{
-                  fontSize:"clamp(52px,7.5vw,104px)",
-                  fontWeight:900,
-                  lineHeight:0.92,
-                  letterSpacing:"-0.04em",
-                  color:"#EDE8FF",
-                }}>
-                SHRAAVANI<br/>
-                <em style={{fontStyle:"italic", color:"#7C63FF"}}>TOPLE.</em>
-              </motion.h1>
+                  width:72,
+                  height:72,
+                  objectFit:"cover",
+                  objectPosition:"top center",
+                  borderRadius:"50%",
+                  display:"block",
+                  position:"relative",
+                  zIndex:1,
+                  border:"2px solid #07070F",
+                }}
+              />
             </div>
+            <div>
+              <p style={{fontSize:14,fontWeight:600,color:"#EDE8FF"}}>Shraavani Tople</p>
+              <p style={{fontSize:13,color:"#56526E"}}>Software Developer</p>
+            </div>
+          </motion.div>
 
-            {/* Accent rule */}
-            <motion.div
-              initial={{scaleX:0}} animate={{scaleX:1}}
-              transition={{duration:0.5, delay:0.45, ease:[0.16,1,0.3,1]}}
-              style={{height:2, width:44, background:"linear-gradient(90deg,#7C63FF,rgba(124,99,255,0))", borderRadius:99, marginBottom:24, transformOrigin:"left"}}
-            />
-
-            <motion.p {...f(0.55)} style={{fontSize:18,fontWeight:500,color:"#8B87A8",marginBottom:32,lineHeight:1.6}}>
-              Builder. Researcher. Community person.
-            </motion.p>
-
-            {/* Socials */}
-            <motion.div {...f(0.65)} style={{display:"flex", gap:20, marginBottom:36, flexWrap:"wrap"}}>
-              {socials.map(({icon:Icon, href, label}) => (
-                <a key={label} href={href}
-                  target={href.startsWith("mailto") ? undefined : "_blank"}
-                  rel="noopener noreferrer"
-                  style={{display:"flex",alignItems:"center",gap:5,fontSize:13,fontWeight:500,color:"#56526E",textDecoration:"none",transition:"color 0.15s"}}
-                  onMouseEnter={e=>(e.currentTarget.style.color="#7C63FF")}
-                  onMouseLeave={e=>(e.currentTarget.style.color="#56526E")}>
-                  <Icon size={14}/>{label}
-                </a>
-              ))}
-            </motion.div>
-
-            {/* CTAs */}
-            <motion.div {...f(0.75)} style={{display:"flex", gap:12, flexWrap:"wrap"}}>
-              <button
-                onClick={() => document.querySelector("#projects")?.scrollIntoView({behavior:"smooth"})}
-                style={{display:"flex",alignItems:"center",gap:8,background:"#7C63FF",color:"#fff",border:"none",borderRadius:12,padding:"13px 26px",fontSize:14,fontWeight:700,cursor:"pointer",transition:"opacity 0.15s,box-shadow 0.15s",boxShadow:"0 4px 20px rgba(124,99,255,0.3)"}}
-                onMouseEnter={e=>{e.currentTarget.style.opacity="0.88";e.currentTarget.style.boxShadow="0 8px 32px rgba(124,99,255,0.4)";}}
-                onMouseLeave={e=>{e.currentTarget.style.opacity="1";e.currentTarget.style.boxShadow="0 4px 20px rgba(124,99,255,0.3)";}}>
-                See my work <ArrowRight size={15}/>
-              </button>
-              <a href="mailto:shraavanitople@gmail.com"
-                style={{display:"flex",alignItems:"center",gap:8,background:"transparent",color:"#EDE8FF",border:"1px solid rgba(255,255,255,0.12)",borderRadius:12,padding:"13px 26px",fontSize:14,fontWeight:600,textDecoration:"none",transition:"border-color 0.15s,background 0.15s"}}
-                onMouseEnter={e=>{e.currentTarget.style.borderColor="rgba(124,99,255,0.5)";e.currentTarget.style.background="rgba(124,99,255,0.07)";}}
-                onMouseLeave={e=>{e.currentTarget.style.borderColor="rgba(255,255,255,0.12)";e.currentTarget.style.background="transparent";}}>
-                Say hello
-              </a>
-            </motion.div>
+          {/* Big name heading */}
+          <div style={{overflow:"hidden",marginBottom:20}}>
+            <motion.h1
+              initial={{opacity:0,y:50}}
+              animate={{opacity:1,y:0}}
+              transition={{duration:0.75,delay:0.2,ease:[0.16,1,0.3,1]}}
+              style={{
+                fontSize:"clamp(56px,9vw,120px)",
+                fontWeight:900,
+                lineHeight:0.88,
+                letterSpacing:"-0.05em",
+                color:"#EDE8FF",
+              }}>
+              Builder.<br/>
+              <em style={{fontStyle:"italic",color:"#7C63FF"}}>Researcher.</em><br/>
+              <span style={{color:"rgba(237,232,255,0.25)"}}>Community.</span>
+            </motion.h1>
           </div>
 
-          {/* RIGHT — Photo */}
           <motion.div
-            initial={{opacity:0, x:32}}
-            animate={{opacity:1, x:0}}
-            transition={{duration:0.8, delay:0.1, ease:[0.16,1,0.3,1]}}
-            style={{position:"relative"}}>
-            {/* Glow ring behind photo */}
-            <div style={{position:"absolute",inset:-2,borderRadius:28,background:"linear-gradient(135deg,rgba(124,99,255,0.4),rgba(99,124,255,0.1))",zIndex:0,filter:"blur(1px)"}}/>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/shraavani.png"
-              alt="Shraavani Tople"
-              style={{
-                width:"100%",
-                height:380,
-                objectFit:"cover",
-                objectPosition:"top center",
-                borderRadius:24,
-                display:"block",
-                position:"relative",
-                zIndex:1,
-              }}
-            />
+            initial={{scaleX:0}} animate={{scaleX:1}}
+            transition={{duration:0.5,delay:0.5,ease:[0.16,1,0.3,1]}}
+            style={{height:2,width:40,background:"linear-gradient(90deg,#7C63FF,transparent)",borderRadius:99,marginBottom:28,transformOrigin:"left"}}
+          />
+
+          <motion.p {...f(0.6)} style={{fontSize:17,color:"#8B87A8",marginBottom:36,lineHeight:1.7,maxWidth:500}}>
+            I build AI interfaces, train robots, and organize developer communities. Currently at Agora AI.
+          </motion.p>
+
+          {/* Socials */}
+          <motion.div {...f(0.7)} style={{display:"flex",gap:20,marginBottom:40,flexWrap:"wrap"}}>
+            {socials.map(({icon:Icon,href,label}) => (
+              <a key={label} href={href}
+                target={href.startsWith("mailto") ? undefined : "_blank"}
+                rel="noopener noreferrer"
+                style={{display:"flex",alignItems:"center",gap:5,fontSize:13,fontWeight:500,color:"#56526E",textDecoration:"none",transition:"color 0.15s"}}
+                onMouseEnter={e=>(e.currentTarget.style.color="#7C63FF")}
+                onMouseLeave={e=>(e.currentTarget.style.color="#56526E")}>
+                <Icon size={14}/>{label}
+              </a>
+            ))}
+          </motion.div>
+
+          {/* CTAs */}
+          <motion.div {...f(0.8)} style={{display:"flex",gap:12,flexWrap:"wrap"}}>
+            <button
+              onClick={() => document.querySelector("#projects")?.scrollIntoView({behavior:"smooth"})}
+              style={{display:"flex",alignItems:"center",gap:8,background:"#7C63FF",color:"#fff",border:"none",borderRadius:12,padding:"13px 26px",fontSize:14,fontWeight:700,cursor:"pointer",transition:"opacity 0.15s,box-shadow 0.15s",boxShadow:"0 4px 20px rgba(124,99,255,0.3)"}}
+              onMouseEnter={e=>{e.currentTarget.style.opacity="0.88";e.currentTarget.style.boxShadow="0 8px 32px rgba(124,99,255,0.45)";}}
+              onMouseLeave={e=>{e.currentTarget.style.opacity="1";e.currentTarget.style.boxShadow="0 4px 20px rgba(124,99,255,0.3)";}}>
+              See my work <ArrowRight size={15}/>
+            </button>
+            <a href="mailto:shraavanitople@gmail.com"
+              style={{display:"flex",alignItems:"center",gap:8,background:"transparent",color:"#EDE8FF",border:"1px solid rgba(255,255,255,0.1)",borderRadius:12,padding:"13px 26px",fontSize:14,fontWeight:600,textDecoration:"none",transition:"border-color 0.15s,background 0.15s"}}
+              onMouseEnter={e=>{e.currentTarget.style.borderColor="rgba(124,99,255,0.4)";e.currentTarget.style.background="rgba(124,99,255,0.06)";}}
+              onMouseLeave={e=>{e.currentTarget.style.borderColor="rgba(255,255,255,0.1)";e.currentTarget.style.background="transparent";}}>
+              Say hello
+            </a>
           </motion.div>
 
         </div>
       </div>
-      <style>{`
-        @media(max-width:768px){
-          .hero-grid{grid-template-columns:1fr!important;gap:32px!important;}
-          .hero-grid>div:last-child img{height:260px!important;}
-          .hero-grid>div:last-child{order:-1;}
-        }
-      `}</style>
     </section>
   );
 }
