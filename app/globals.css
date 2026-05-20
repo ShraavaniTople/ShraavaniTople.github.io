@@ -5,16 +5,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 :root {
-  --bg: #F7F4EE;
-  --bg-dark: #18181B;
-  --card: #FFFFFF;
-  --card-warm: #F0EBE1;
-  --border: rgba(0,0,0,0.07);
-  --text-1: #18181B;
-  --text-2: #78716C;
-  --text-3: #A8A29E;
-  --accent: #FF5C28;
-  --accent-bg: rgba(255,92,40,0.08);
+  --bg: #07070F;
+  --bg-2: #0C0C1A;
+  --card: #0F0F1E;
+  --card-2: #16162C;
+  --border: rgba(255,255,255,0.07);
+  --border-accent: rgba(124,99,255,0.28);
+  --text-1: #EDE8FF;
+  --text-2: #8B87A8;
+  --text-3: #56526E;
+  --accent: #7C63FF;
+  --accent-bg: rgba(124,99,255,0.1);
+  --accent-glow: rgba(124,99,255,0.15);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -26,7 +28,7 @@ body {
   overflow-x: hidden;
   line-height: 1.6;
 }
-::selection { background: rgba(255,92,40,0.15); color: #18181B; }
+::selection { background: rgba(124,99,255,0.25); color: #EDE8FF; }
 ::-webkit-scrollbar { width: 3px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--text-3); border-radius: 99px; }
@@ -53,7 +55,7 @@ body {
   border: 1px solid var(--border);
   font-size: 11px;
   font-weight: 500;
-  color: var(--text-2);
+  color: var(--text-3);
   background: var(--card);
 }
 
@@ -62,11 +64,12 @@ body {
   border: 1px solid var(--border);
   border-radius: 20px;
   overflow: hidden;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 .proj-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.09);
+  transform: translateY(-5px);
+  box-shadow: 0 16px 48px rgba(124,99,255,0.14);
+  border-color: rgba(124,99,255,0.3);
 }
 
 .work-card {
@@ -74,12 +77,12 @@ body {
   border: 1px solid var(--border);
   border-radius: 20px;
   padding: 28px 32px;
-  border-left: 3px solid var(--accent);
-  transition: box-shadow 0.2s;
+  border-left: 2px solid var(--accent);
+  transition: box-shadow 0.2s, border-color 0.2s;
 }
-.work-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
+.work-card:hover { box-shadow: 0 6px 28px rgba(124,99,255,0.1); }
 
 @keyframes pulse-dot {
   0%,100%{ opacity:1; transform:scale(1); }
-  50%{ opacity:0.4; transform:scale(0.85); }
+  50%{ opacity:0.5; transform:scale(0.8); }
 }

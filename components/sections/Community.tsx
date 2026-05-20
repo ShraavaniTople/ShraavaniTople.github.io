@@ -22,15 +22,15 @@ export default function Community() {
   const ref = useRef(null);
   const inView = useInView(ref, { once:true, amount:0.05 });
   return (
-    <section className="section" id="community" ref={ref} style={{borderTop:"1px solid rgba(0,0,0,0.06)"}}>
+    <section className="section" id="community" ref={ref} style={{borderTop:"1px solid rgba(255,255,255,0.05)"}}>
       <div className="container">
         <motion.p initial={{opacity:0,y:12}} animate={inView?{opacity:1,y:0}:{}} transition={{duration:0.5}} className="label" style={{marginBottom:12}}>Community</motion.p>
         <motion.h2 initial={{opacity:0,y:12}} animate={inView?{opacity:1,y:0}:{}} transition={{duration:0.5,delay:0.08}}
-          style={{fontSize:"clamp(28px,4vw,48px)",fontWeight:900,letterSpacing:"-0.03em",marginBottom:12,color:"#18181B"}}>
+          style={{fontSize:"clamp(28px,4vw,48px)",fontWeight:900,letterSpacing:"-0.03em",marginBottom:12,color:"#EDE8FF"}}>
           Beyond the work.
         </motion.h2>
         <motion.p initial={{opacity:0,y:12}} animate={inView?{opacity:1,y:0}:{}} transition={{duration:0.5,delay:0.14}}
-          style={{fontSize:16,color:"#78716C",marginBottom:52,maxWidth:500,lineHeight:1.75}}>
+          style={{fontSize:16,color:"#8B87A8",marginBottom:52,maxWidth:500,lineHeight:1.75}}>
           Hackathons organized, communities built, developers mentored — this is the other half of what I do.
         </motion.p>
 
@@ -41,15 +41,15 @@ export default function Community() {
               <motion.div key={item.event}
                 initial={{opacity:0,x:-20}} animate={inView?{opacity:1,x:0}:{}}
                 transition={{duration:0.6,delay:0.2+i*0.12,ease:[0.16,1,0.3,1]}}
-                style={{borderRadius:20,overflow:"hidden",border:"1px solid rgba(0,0,0,0.07)"}}>
+                style={{borderRadius:20,overflow:"hidden",border:"1px solid rgba(255,255,255,0.06)"}}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={item.photo} alt={item.event}
                   style={{width:"100%",height:240,objectFit:"cover",objectPosition:"top",display:"block",transition:"transform 0.4s ease"}}
                   className="comm-img"/>
-                <div style={{padding:"16px 20px",background:"#fff"}}>
-                  <p style={{fontSize:11,fontWeight:700,letterSpacing:"0.09em",textTransform:"uppercase",color:"#FF5C28",marginBottom:4}}>{item.role}</p>
-                  <p style={{fontSize:15,fontWeight:700,color:"#18181B",marginBottom:4}}>{item.event}</p>
-                  <p style={{fontSize:12,color:"#78716C"}}>{item.desc}</p>
+                <div style={{padding:"16px 20px",background:"#0F0F1E"}}>
+                  <p style={{fontSize:11,fontWeight:700,letterSpacing:"0.09em",textTransform:"uppercase",color:"#7C63FF",marginBottom:4}}>{item.role}</p>
+                  <p style={{fontSize:15,fontWeight:700,color:"#EDE8FF",marginBottom:4}}>{item.event}</p>
+                  <p style={{fontSize:12,color:"#56526E"}}>{item.desc}</p>
                 </div>
               </motion.div>
             ))}
@@ -61,11 +61,11 @@ export default function Community() {
               <motion.div key={r.role+r.org}
                 initial={{opacity:0,y:16}} animate={inView?{opacity:1,y:0}:{}}
                 transition={{duration:0.5,delay:0.25+i*0.07,ease:[0.16,1,0.3,1]}}
-                style={{background:"#fff",border:"1px solid rgba(0,0,0,0.07)",borderRadius:16,padding:"16px 18px",transition:"box-shadow 0.2s"}}
+                style={{background:"#0F0F1E",border:"1px solid rgba(255,255,255,0.06)",borderRadius:16,padding:"16px 18px",transition:"box-shadow 0.2s,border-color 0.2s"}}
                 className="role-card">
-                <p style={{fontSize:12,fontWeight:700,color:"#18181B",lineHeight:1.3,marginBottom:3}}>{r.role}</p>
-                <p style={{fontSize:11,color:"#FF5C28",fontWeight:600,marginBottom:6}}>{r.org}</p>
-                <p style={{fontSize:11,color:"#A8A29E",lineHeight:1.5}}>{r.desc}</p>
+                <p style={{fontSize:12,fontWeight:700,color:"#EDE8FF",lineHeight:1.3,marginBottom:3}}>{r.role}</p>
+                <p style={{fontSize:11,color:"#7C63FF",fontWeight:600,marginBottom:6}}>{r.org}</p>
+                <p style={{fontSize:11,color:"#56526E",lineHeight:1.5}}>{r.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -73,7 +73,7 @@ export default function Community() {
       </div>
       <style>{`
         .comm-img:hover{transform:scale(1.03);}
-        .role-card:hover{box-shadow:0 4px 16px rgba(0,0,0,0.08);}
+        .role-card:hover{box-shadow:0 4px 20px rgba(124,99,255,0.1);border-color:rgba(124,99,255,0.2)!important;}
         @media(max-width:768px){.comm-grid{grid-template-columns:1fr!important;}}
       `}</style>
     </section>
