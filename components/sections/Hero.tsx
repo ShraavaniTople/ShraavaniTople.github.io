@@ -111,7 +111,7 @@ export default function Hero() {
               alt="Shraavani Tople"
               style={{
                 width:"100%",
-                height:540,
+                height:380,
                 objectFit:"cover",
                 objectPosition:"top center",
                 borderRadius:24,
@@ -127,7 +127,7 @@ export default function Hero() {
       <style>{`
         @media(max-width:768px){
           .hero-grid{grid-template-columns:1fr!important;gap:32px!important;}
-          .hero-grid>div:last-child img{height:300px!important;}
+          .hero-grid>div:last-child img{height:260px!important;}
           .hero-grid>div:last-child{order:-1;}
         }
       `}</style>
