@@ -50,10 +50,6 @@ export default function Navbar() {
                 {l.label}
               </button>
             ))}
-            <span style={{fontSize:12,fontWeight:600,color:"#7C63FF",background:"rgba(124,99,255,0.1)",border:"1px solid rgba(124,99,255,0.22)",borderRadius:99,padding:"4px 12px",display:"flex",alignItems:"center",gap:6}}>
-              <span style={{width:6,height:6,borderRadius:"50%",background:"#7C63FF",display:"inline-block",animation:"pulse-dot 2s infinite"}}/>
-              Available
-            </span>
           </nav>
           <button onClick={() => setOpen(o=>!o)} className="nav-m" style={{background:"none",border:"none",cursor:"pointer",display:"none",color:"#EDE8FF"}}>
             {open ? <X size={20}/> : <Menu size={20}/>}

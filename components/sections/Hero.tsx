@@ -37,13 +37,6 @@ export default function Hero() {
 
           {/* LEFT */}
           <div>
-            <motion.div {...f(0.1)} style={{display:"inline-flex",alignItems:"center",gap:8,marginBottom:32,
-              background:"rgba(124,99,255,0.08)",border:"1px solid rgba(124,99,255,0.2)",
-              borderRadius:99,padding:"6px 14px"}}>
-              <span style={{width:6,height:6,borderRadius:"50%",background:"#7C63FF",display:"inline-block",animation:"pulse-dot 2s infinite"}}/>
-              <span style={{fontSize:12,fontWeight:600,color:"#7C63FF",letterSpacing:"0.02em"}}>Open to opportunities</span>
-            </motion.div>
-
             <div style={{overflow:"hidden", marginBottom:16}}>
               <motion.h1
                 initial={{opacity:0, y:40}}
