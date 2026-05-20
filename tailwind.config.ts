@@ -4,13 +4,12 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        bg: "#0C0C0E",
-        surface: "#151517",
-        "surface-2": "#1E1E21",
-        accent: "#FF7262",
-        "text-1": "#F0EEE9",
-        "text-2": "#8A8784",
-        "text-3": "#4A4947",
+        bg: "#F4F0EA",
+        card: "#FFFFFF",
+        accent: "#C9573A",
+        "text-1": "#111111",
+        "text-2": "#6B6663",
+        "text-3": "#A09C99",
       },
       fontFamily: { sans: ["Inter", "system-ui", "sans-serif"] },
     },

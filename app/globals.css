@@ -2,19 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 :root {
-  --bg: #0C0C0E;
-  --surface: #151517;
-  --surface-2: #1E1E21;
-  --border: rgba(255,255,255,0.07);
-  --text-1: #F0EEE9;
-  --text-2: #8A8784;
-  --text-3: #4A4947;
-  --accent: #FF7262;
-  --accent-bg: rgba(255,114,98,0.08);
-  --accent-mid: #FF8B7D;
+  --bg: #F4F0EA;
+  --card: #FFFFFF;
+  --card-dark: #111111;
+  --border: rgba(0,0,0,0.08);
+  --text-1: #111111;
+  --text-2: #6B6663;
+  --text-3: #A09C99;
+  --accent: #C9573A;
+  --accent-bg: #FBF0ED;
+  --accent-light: #F2D5CB;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -26,16 +26,16 @@ body {
   overflow-x: hidden;
   line-height: 1.6;
 }
-::selection { background: rgba(255,114,98,0.25); color: #fff; }
+::selection { background: #F2D5CB; color: #111; }
 ::-webkit-scrollbar { width: 3px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--text-3); border-radius: 99px; }
 
-.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+.container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
 @media(max-width:640px){ .container { padding: 0 16px; } }
 
-.section { padding: 100px 0; }
-@media(max-width:768px){ .section { padding: 64px 0; } }
+.section { padding: 80px 0; }
+@media(max-width:768px){ .section { padding: 56px 0; } }
 
 .label {
   font-size: 11px;
@@ -48,27 +48,47 @@ body {
 .chip {
   display: inline-flex;
   align-items: center;
-  padding: 4px 12px;
+  padding: 4px 11px;
   border-radius: 99px;
   border: 1px solid var(--border);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 500;
   color: var(--text-2);
-  background: var(--surface);
+  background: var(--bg);
 }
 
-.card {
-  background: var(--surface);
+/* Bento card base */
+.bento-card {
+  background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 16px;
-  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
-.card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(255,114,98,0.3);
-  box-shadow: 0 12px 40px rgba(255,114,98,0.08);
+.bento-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.09);
 }
 
-@keyframes blink {
-  0%,100%{ opacity:1; } 50%{ opacity:0.3; }
+/* Dark card variant */
+.bento-card-dark {
+  background: var(--card-dark);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  overflow: hidden;
+  color: white;
+}
+
+/* Accent card variant */
+.bento-card-accent {
+  background: var(--accent);
+  border-radius: 20px;
+  overflow: hidden;
+  color: white;
+}
+
+@keyframes pulse-dot {
+  0%,100%{ opacity:1; transform:scale(1); }
+  50%{ opacity:0.5; transform:scale(0.8); }
 }

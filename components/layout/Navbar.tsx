@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { X, Menu } from "lucide-react";
 
 const links = [
   { label: "Work", href: "#experience" },
@@ -14,105 +15,66 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handler);
-    return () => window.removeEventListener("scroll", handler);
+    const fn = () => setScrolled(window.scrollY > 24);
+    window.addEventListener("scroll", fn);
+    return () => window.removeEventListener("scroll", fn);
   }, []);
 
-  const scrollTo = (href: string) => {
+  const go = (href: string) => {
     setOpen(false);
     if (href.startsWith("#")) {
       document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
-    } else {
-      window.location.href = href;
-    }
+    } else window.location.href = href;
   };
 
   return (
     <>
-      <header
-        style={{
-          position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
-          transition: "all 0.3s",
-          background: scrolled ? "rgba(12,12,14,0.92)" : "transparent",
-          backdropFilter: scrolled ? "blur(16px)" : "none",
-          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.07)" : "none",
-        }}
-      >
-        <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 64 }}>
-          {/* Logo */}
-          <button
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            style={{ fontWeight: 700, fontSize: 17, color: "#F0EEE9", letterSpacing: "-0.02em", background: "none", border: "none", cursor: "pointer" }}
-          >
-            Shraavani<span style={{ color: "#FF7262" }}>.</span>
+      <header style={{
+        position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
+        background: scrolled ? "rgba(244,240,234,0.92)" : "transparent",
+        backdropFilter: scrolled ? "blur(16px)" : "none",
+        borderBottom: scrolled ? "1px solid rgba(0,0,0,0.07)" : "none",
+        transition: "all 0.3s",
+      }}>
+        <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 60 }}>
+          <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            style={{ fontWeight: 800, fontSize: 16, color: "#111111", background: "none", border: "none", cursor: "pointer", letterSpacing: "-0.02em" }}>
+            Shraavani<span style={{ color: "#C9573A" }}>.</span>
           </button>
 
-          {/* Desktop nav */}
-          <nav style={{ display: "flex", alignItems: "center", gap: 32 }} className="navbar-desktop">
+          {/* Desktop */}
+          <nav style={{ display: "flex", alignItems: "center", gap: 32 }} className="nav-desktop">
             {links.map(l => (
-              <button key={l.label} onClick={() => scrollTo(l.href)}
-                style={{ fontSize: 14, fontWeight: 500, color: "#8A8784", background: "none", border: "none", cursor: "pointer", transition: "color 0.15s" }}
-                onMouseEnter={e => (e.currentTarget.style.color = "#F0EEE9")}
-                onMouseLeave={e => (e.currentTarget.style.color = "#8A8784")}
+              <button key={l.label} onClick={() => go(l.href)}
+                style={{ fontSize: 13, fontWeight: 500, color: "#6B6663", background: "none", border: "none", cursor: "pointer", transition: "color 0.15s" }}
+                onMouseEnter={e => (e.currentTarget.style.color = "#111111")}
+                onMouseLeave={e => (e.currentTarget.style.color = "#6B6663")}
               >{l.label}</button>
             ))}
-            <span style={{
-              display: "flex", alignItems: "center", gap: 6,
-              fontSize: 12, fontWeight: 600,
-              color: "#FF7262",
-              background: "rgba(255,114,98,0.1)",
-              border: "1px solid rgba(255,114,98,0.2)",
-              padding: "4px 12px", borderRadius: 99
-            }}>
-              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#FF7262", display: "inline-block", animation: "navpulse 2s infinite" }} />
+            <span style={{ fontSize: 12, fontWeight: 600, color: "#C9573A", background: "#FBF0ED", border: "1px solid #F2D5CB", borderRadius: 99, padding: "4px 12px" }}>
               Open to work
             </span>
           </nav>
 
           {/* Mobile hamburger */}
           <button onClick={() => setOpen(o => !o)}
-            style={{ display: "none", background: "none", border: "none", cursor: "pointer", padding: 4, flexDirection: "column", gap: 5 }}
-            className="navbar-mobile-btn"
-            aria-label="menu"
-          >
-            <div style={{ width: 22, height: 2, background: "#F0EEE9", borderRadius: 2, transition: "transform 0.2s", transform: open ? "rotate(45deg) translate(5px,5px)" : "none" }} />
-            <div style={{ width: 22, height: 2, background: "#F0EEE9", borderRadius: 2, transition: "opacity 0.2s", opacity: open ? 0 : 1 }} />
-            <div style={{ width: 22, height: 2, background: "#F0EEE9", borderRadius: 2, transition: "transform 0.2s", transform: open ? "rotate(-45deg) translate(5px,-5px)" : "none" }} />
+            style={{ background: "none", border: "none", cursor: "pointer", display: "none" }}
+            className="nav-mobile-btn">
+            {open ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </header>
 
-      {/* Mobile full overlay */}
       <AnimatePresence>
         {open && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            style={{
-              position: "fixed", inset: 0, zIndex: 99,
-              background: "rgba(12,12,14,0.97)",
-              backdropFilter: "blur(20px)",
-              display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: 8,
-            }}
-          >
+          <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}
+            style={{ position: "fixed", top: 60, left: 0, right: 0, background: "#F4F0EA", borderBottom: "1px solid rgba(0,0,0,0.08)", zIndex: 99, padding: "16px 24px 24px" }}>
             {links.map((l, i) => (
-              <motion.button
-                key={l.label}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 8 }}
-                transition={{ duration: 0.3, delay: i * 0.06 }}
-                onClick={() => scrollTo(l.href)}
-                style={{
-                  fontSize: 32, fontWeight: 700, color: "#F0EEE9",
-                  background: "none", border: "none", cursor: "pointer",
-                  padding: "10px 24px", transition: "color 0.15s",
-                }}
-                onMouseEnter={e => (e.currentTarget.style.color = "#FF7262")}
-                onMouseLeave={e => (e.currentTarget.style.color = "#F0EEE9")}
+              <motion.button key={l.label} onClick={() => go(l.href)}
+                initial={{ opacity: 0, x: -12 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.05 }}
+                style={{ display: "block", width: "100%", textAlign: "left", padding: "14px 0", fontSize: 20, fontWeight: 700, color: "#111111", background: "none", border: "none", borderBottom: "1px solid rgba(0,0,0,0.06)", cursor: "pointer" }}
               >{l.label}</motion.button>
             ))}
           </motion.div>
@@ -120,13 +82,7 @@ export default function Navbar() {
       </AnimatePresence>
 
       <style>{`
-        @media(max-width:640px){
-          .navbar-desktop { display: none !important; }
-          .navbar-mobile-btn { display: flex !important; }
-        }
-        @keyframes navpulse {
-          0%,100%{ opacity:1; } 50%{ opacity:0.35; }
-        }
+        @media(max-width:640px){ .nav-desktop{display:none!important;} .nav-mobile-btn{display:block!important;} }
       `}</style>
     </>
   );
