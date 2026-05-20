@@ -29,10 +29,6 @@ export default function Hero() {
         >
           {/* LEFT: Text */}
           <div>
-            <motion.p {...fade(0.2)} className="label" style={{ marginBottom: 18 }}>
-              Frontend Engineer · Robotics · Community
-            </motion.p>
-
             <motion.h1
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
@@ -57,22 +53,6 @@ export default function Hero() {
               transition={{ duration: 0.5, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
               style={{ height: 3, width: 48, background: "#FF7262", borderRadius: 99, marginBottom: 28, transformOrigin: "left" }}
             />
-
-            <motion.p {...fade(0.65)} style={{ fontSize: 16, color: "#8A8784", lineHeight: 1.75, marginBottom: 28, maxWidth: 420 }}>
-              I build AI interfaces, train robotic arms, and organize developer communities. Currently at{" "}
-              <span style={{ color: "#F0EEE9", fontWeight: 600 }}>Agora AI</span>.
-            </motion.p>
-
-            {/* Status badge */}
-            <motion.div {...fade(0.75)} style={{
-              display: "inline-flex", alignItems: "center", gap: 8,
-              background: "rgba(255,114,98,0.1)",
-              border: "1px solid rgba(255,114,98,0.2)",
-              borderRadius: 99, padding: "5px 14px", marginBottom: 28
-            }}>
-              <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#FF7262", display: "inline-block", animation: "heropulse 2s infinite" }} />
-              <span style={{ fontSize: 13, fontWeight: 500, color: "#FF8B7D" }}>Frontend Engineer @ Agora AI</span>
-            </motion.div>
 
             {/* Social links */}
             <motion.div {...fade(0.85)} style={{ display: "flex", gap: 20, marginBottom: 32, flexWrap: "wrap" }}>
