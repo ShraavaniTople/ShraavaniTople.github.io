@@ -1,19 +1,19 @@
 import Hero from "@/components/sections/Hero";
-import About from "@/components/sections/About";
-import Experience from "@/components/sections/Experience";
 import Projects from "@/components/sections/Projects";
+import Experience from "@/components/sections/Experience";
 import Community from "@/components/sections/Community";
-import Certifications from "@/components/sections/Certifications";
+import AboutSection from "@/components/sections/AboutSection";
+import Connect from "@/components/sections/Connect";
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <About />
-      <Experience />
       <Projects />
+      <Experience />
       <Community />
-      <Certifications />
+      <AboutSection />
+      <Connect />
     </>
   );
 }
