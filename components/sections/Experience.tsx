@@ -47,7 +47,6 @@ export default function Experience() {
                 <div style={{flex:1}}>
                   <div style={{display:"flex",alignItems:"center",gap:10,flexWrap:"wrap",marginBottom:4}}>
                     <span style={{fontSize:16,fontWeight:700,color:"#EDE8FF"}}>{job.role}</span>
-                    {job.current && <span style={{fontSize:11,fontWeight:600,background:"rgba(124,99,255,0.12)",color:"#7C63FF",borderRadius:99,padding:"2px 9px",border:"1px solid rgba(124,99,255,0.2)"}}>Current</span>}
                   </div>
                   <p style={{fontSize:13,color:"#56526E",marginBottom:18}}>{job.co} · {job.period}</p>
                   <ul style={{listStyle:"none",display:"flex",flexDirection:"column",gap:8,marginBottom:18}}>

@@ -54,11 +54,8 @@ export default function Hero() {
               style={{height:2,width:36,background:"#7C63FF",borderRadius:99,marginBottom:20,transformOrigin:"left"}}
             />
 
-            <motion.p {...f(0.5)} style={{fontSize:16,color:"#8B87A8",marginBottom:12,lineHeight:1.75,maxWidth:460}}>
+            <motion.p {...f(0.5)} style={{fontSize:16,color:"#8B87A8",marginBottom:36,lineHeight:1.75,maxWidth:460}}>
               I build AI interfaces, train robots, and organize developer communities.
-            </motion.p>
-            <motion.p {...f(0.56)} style={{fontSize:16,color:"#56526E",marginBottom:36,lineHeight:1.75,maxWidth:460}}>
-              Currently at <span style={{color:"#8B87A8",fontWeight:500}}>Agora AI</span>. WTM Ambassador, ETHMumbai organizer, Google certifications in data and PM.
             </motion.p>
 
             <motion.div {...f(0.64)} style={{display:"flex",gap:18,marginBottom:40,flexWrap:"wrap"}}>
