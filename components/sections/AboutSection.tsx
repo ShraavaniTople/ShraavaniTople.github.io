@@ -1,7 +1,6 @@
 "use client";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { CheckCircle } from "lucide-react";
 
 const skills = ["Python","C++","React","TypeScript","ROS2","OpenCV","PyTorch","FastAPI","Raspberry Pi","Git"];
 const certs = [
@@ -41,24 +40,23 @@ export default function AboutSection() {
           </div>
 
           {/* Right — certs */}
-          <div style={{display:"flex",flexDirection:"column",gap:12}}>
+          <div style={{display:"flex",flexDirection:"column",gap:10}}>
             <motion.p {...a(0.1)} className="label" style={{marginBottom:8}}>Certifications</motion.p>
             {certs.map((c,i) => (
               <motion.div key={c.name}
-                initial={{opacity:0,y:16}} animate={inView?{opacity:1,y:0}:{}}
+                initial={{opacity:0,x:16}} animate={inView?{opacity:1,x:0}:{}}
                 transition={{duration:0.5,delay:0.18+i*0.1,ease:[0.16,1,0.3,1]}}
-                style={{background:"#0F0F1E",border:"1px solid rgba(255,255,255,0.06)",borderRadius:16,padding:"18px 20px",transition:"border-color 0.2s"}}
+                style={{
+                  background:"#0F0F1E",
+                  border:"1px solid rgba(255,255,255,0.06)",
+                  borderLeft:`3px solid ${c.color}`,
+                  borderRadius:12,
+                  padding:"14px 16px",
+                  transition:"background 0.2s",
+                }}
                 className="cert-card">
-                <div style={{display:"flex",alignItems:"flex-start",gap:14}}>
-                  <div style={{width:36,height:36,borderRadius:10,background:c.bg,display:"flex",alignItems:"center",justifyContent:"center",fontSize:12,fontWeight:800,color:c.color,flexShrink:0}}>{c.badge}</div>
-                  <div>
-                    <p style={{fontSize:13,fontWeight:700,color:"#EDE8FF",lineHeight:1.35,marginBottom:3}}>{c.name}</p>
-                    <p style={{fontSize:12,color:"#56526E",marginBottom:8}}>{c.issuer}</p>
-                    <div style={{display:"flex",alignItems:"center",gap:4,fontSize:11,color:"#22C55E",fontWeight:600}}>
-                      <CheckCircle size={12}/> Verified
-                    </div>
-                  </div>
-                </div>
+                <p style={{fontSize:13,fontWeight:700,color:"#EDE8FF",lineHeight:1.4,marginBottom:4}}>{c.name}</p>
+                <p style={{fontSize:11,fontWeight:600,color:c.color}}>{c.issuer}</p>
               </motion.div>
             ))}
           </div>
