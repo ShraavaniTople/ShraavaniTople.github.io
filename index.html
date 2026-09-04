@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shraavani Tople</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F1F3F0;
+    --panel:#FFFFFF;
+    --ink:#14202B;
+    --muted:#55677A;
+    --line:#D7DEE3;
+    --accent:#0E7C86;
+    --accent-ink:#083E42;
+    --warm:#F5EFE4;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--accent); color:#fff;}
+  .wrap{max-width:840px; margin:0 auto; padding:0 28px;}
+
+  header.top{border-bottom:1px solid var(--line); background:var(--panel);}
+  .topbar{display:flex; justify-content:flex-end; align-items:center; padding:18px 28px; max-width:840px; margin:0 auto;}
+  nav.links{display:flex; gap:22px; font-family:'IBM Plex Mono', monospace; font-size:13px;}
+  nav.links a{color:var(--ink); text-decoration:none; position:relative; padding-bottom:2px;}
+  nav.links a::after{
+    content:''; position:absolute; left:0; bottom:-1px; width:0; height:1px;
+    background:var(--accent); transition:width .25s ease;
+  }
+  nav.links a:hover::after{width:100%;}
+
+  .hero{padding:56px 0 36px;}
+  .hero .role{font-family:'IBM Plex Mono', monospace; color:var(--accent-ink); font-size:14px; margin:0 0 20px;}
+  .hero h1{font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:clamp(32px,5vw,46px); line-height:1.1; margin:0 0 16px; max-width:12ch;}
+  .hero p.lede{max-width:58ch; font-size:17px; color:var(--muted); margin:0 0 26px;}
+  .hero-actions{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{display:inline-flex; align-items:center; gap:6px; padding:11px 18px; font-family:'IBM Plex Mono', monospace; font-size:13px; border-radius:3px; text-decoration:none; border:1px solid var(--ink); transition:transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease;}
+  .btn.primary{background:var(--ink); color:var(--paper);}
+  .btn.primary:hover{background:var(--accent-ink); border-color:var(--accent-ink); transform:translateY(-2px); box-shadow:0 6px 14px rgba(8,62,66,0.25);}
+  .btn.ghost{background:transparent; color:var(--ink);}
+  .btn.ghost:hover{background:var(--ink); color:var(--paper); transform:translateY(-2px); box-shadow:0 6px 14px rgba(20,32,43,0.18);}
+
+  .diagram{margin-top:40px; border:1px solid var(--line); background:var(--panel); border-radius:4px; padding:18px 18px 12px; transition:border-color .3s ease, box-shadow .3s ease;}
+  .diagram:hover{border-color:var(--accent); box-shadow:0 10px 28px rgba(14,124,134,0.12);}
+  .diagram svg{width:100%; height:auto; display:block;}
+  .diagram .cap{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--muted); margin-top:10px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px;}
+  .spline-path{
+    stroke-dasharray:900;
+    stroke-dashoffset:900;
+    animation:drawpath 2.2s ease forwards .3s;
+  }
+  @keyframes drawpath{ to{stroke-dashoffset:0;} }
+
+  section{padding:42px 0; border-top:1px solid var(--line);}
+  .section-head{display:flex; align-items:baseline; gap:12px; margin-bottom:24px;}
+  .section-num{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--accent-ink);}
+  h2{font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:21px; margin:0;}
+
+  /* about section, deliberately set apart on a warm panel to signal "this is the personal part" */
+  .about{
+    background:var(--warm);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .about-inner{padding:44px 0;}
+  .about p{font-size:16px; max-width:64ch; margin:0 0 16px;}
+  .about p:last-child{margin-bottom:0;}
+  .about-tags{display:flex; gap:10px; flex-wrap:wrap; margin-top:20px;}
+  .about-tags span{
+    font-family:'IBM Plex Mono', monospace; font-size:12px;
+    border:1px solid var(--accent-ink); color:var(--accent-ink);
+    padding:5px 10px; border-radius:3px;
+  }
+
+  .project{padding:20px 16px 20px 18px; margin:0 -16px; border-bottom:1px solid var(--line); border-left:2px solid transparent; border-radius:4px; transition:border-left-color .25s ease, background .25s ease, transform .25s ease;}
+  .project:hover{border-left-color:var(--accent); background:var(--panel); transform:translateX(4px);}
+  .project:last-child{border-bottom:none;}
+  .project-head{display:flex; justify-content:space-between; align-items:baseline; gap:16px; flex-wrap:wrap; margin-bottom:8px;}
+  .project h3{font-family:'Space Grotesk', sans-serif; font-size:18px; margin:0; font-weight:600;}
+  .project .stack{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--muted);}
+  .project p{margin:0 0 10px;}
+  .project ul{margin:0 0 10px; padding-left:18px; color:var(--muted); font-size:15px;}
+  .project ul li{margin-bottom:4px;}
+  .project .links a{font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--accent-ink); text-decoration:none; border-bottom:1px solid var(--accent-ink); padding-bottom:1px; transition:opacity .2s ease;}
+  .project .links a:hover{opacity:.6;}
+  .metric-row{display:flex; gap:22px; flex-wrap:wrap; margin:10px 0 12px;}
+  .metric{transition:transform .2s ease;}
+  .metric:hover{transform:translateY(-2px);}
+  .metric .num{font-family:'IBM Plex Mono', monospace; font-size:19px; color:var(--accent-ink); font-weight:500;}
+  .metric .lbl{font-size:11px; color:var(--muted); display:block; font-family:'IBM Plex Mono', monospace;}
+
+  .xp{display:grid; grid-template-columns:150px 1fr; gap:6px 18px; margin-bottom:22px;}
+  .xp .when{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--muted); padding-top:3px;}
+  .xp h3{margin:0; font-family:'Space Grotesk', sans-serif; font-size:16px; font-weight:600;}
+  .xp .org{color:var(--muted); font-size:14px; margin-bottom:6px;}
+  .xp ul{margin:6px 0 0; padding-left:18px; font-size:15px;}
+  .xp ul li{margin-bottom:4px;}
+
+  .skill-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:22px;}
+  .skill-group{padding:14px; margin:-14px; border-radius:4px; transition:background .2s ease;}
+  .skill-group:hover{background:var(--panel);}
+  .skill-group h4{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--accent-ink); margin:0 0 8px; font-weight:400;}
+  .skill-group p{margin:0; color:var(--muted); font-size:14px;}
+
+  .lead-list{display:grid; grid-template-columns:1fr 1fr; gap:20px 28px;}
+  .lead-item{padding:12px; margin:-12px; border-radius:4px; transition:background .2s ease, transform .2s ease;}
+  .lead-item:hover{background:var(--panel); transform:translateY(-2px);}
+  .lead-item h4{font-family:'Space Grotesk', sans-serif; font-size:15px; margin:0 0 4px; font-weight:600;}
+  .lead-item p{margin:0; color:var(--muted); font-size:14px;}
+
+  .cert-list{font-size:15px; color:var(--muted); padding-left:0; list-style:none; margin:0;}
+  .cert-list li{padding:8px 0; border-bottom:1px solid var(--line);}
+  .cert-list li:last-child{border-bottom:none;}
+  .cert-list strong{color:var(--ink); font-weight:500;}
+
+  footer{border-top:1px solid var(--line); padding:34px 0 46px;}
+  .contact-grid{display:flex; gap:26px; flex-wrap:wrap; font-family:'IBM Plex Mono', monospace; font-size:14px;}
+  .contact-grid a{color:var(--accent-ink); text-decoration:none; position:relative;}
+  .contact-grid a::after{content:''; position:absolute; left:0; bottom:-2px; width:0; height:1px; background:var(--accent-ink); transition:width .25s ease;}
+  .contact-grid a:hover::after{width:100%;}
+
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.visible{opacity:1; transform:translateY(0);}
+
+  @media (max-width:600px){
+    .xp{grid-template-columns:1fr;}
+    .xp .when{padding-top:0;}
+    .lead-list{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="topbar">
+    <nav class="links">
+      <a href="#about">About</a>
+      <a href="#work">Work</a>
+      <a href="#experience">Experience</a>
+      <a href="#leadership">Leadership</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero" style="border-top:none;">
+    <h1>Shraavani Tople</h1>
+    <p class="lede">
+      I build and test navigation and perception systems for robots, from trajectory controllers
+      validated in simulation to embedded hardware validated on the bench. Applying for funded
+      doctoral research in robotics, control systems, computer vision, or embedded intelligence.
+    </p>
+    <div class="hero-actions">
+      <a class="btn primary" href="https://github.com/ShraavaniTople" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn ghost" href="mailto:shraavanitople@gmail.com">Email</a>
+      <a class="btn ghost" href="https://www.linkedin.com/in/shraavani-tople/" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+
+    <div class="diagram">
+      <svg viewBox="0 0 800 220" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="#D7DEE3" stroke-width="1">
+          <line x1="0" y1="20" x2="800" y2="20"/>
+          <line x1="0" y1="70" x2="800" y2="70"/>
+          <line x1="0" y1="120" x2="800" y2="120"/>
+          <line x1="0" y1="170" x2="800" y2="170"/>
+        </g>
+        <g fill="#8AA0AC">
+          <circle cx="40" cy="150" r="4"/>
+          <circle cx="180" cy="60" r="4"/>
+          <circle cx="360" cy="150" r="4"/>
+          <circle cx="540" cy="55" r="4"/>
+          <circle cx="720" cy="140" r="4"/>
+        </g>
+        <path d="M40,150 C110,150 130,60 180,60 C240,60 300,150 360,150 C430,150 480,55 540,55 C610,55 670,140 720,140"
+              class="spline-path" fill="none" stroke="#0E7C86" stroke-width="2.5"/>
+        <path d="M40,150 L180,60 L360,150 L540,55 L720,140"
+              fill="none" stroke="#B8C2CA" stroke-width="1.4" stroke-dasharray="4 5"/>
+        <circle cx="430" cy="98" r="5" fill="#14202B"/>
+        <line x1="360" y1="150" x2="430" y2="98" stroke="#14202B" stroke-width="1.2" stroke-dasharray="2 3"/>
+        <text x="440" y="95" font-family="IBM Plex Mono, monospace" font-size="11" fill="#14202B">lookahead point</text>
+        <text x="40" y="14" font-family="IBM Plex Mono, monospace" font-size="11" fill="#55677A">C2 continuous spline (solid) versus linear interpolation (dashed)</text>
+      </svg>
+      <div class="cap">
+        <span>ORIGIN NAVIGATION · ROS2 trajectory tracking</span>
+        <span>91.9% tracking accuracy · Gazebo / TurtleBot3</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="about reveal" id="about">
+    <div class="wrap about-inner">
+      <div class="section-head">
+        <span class="section-num">00</span>
+        <h2>About</h2>
+      </div>
+      <p>A black belt in martial arts shaped how I approach engineering: show up consistently, master the fundamentals before the shortcuts, and verify a result before trusting it. That discipline is why Origin Navigation shipped with a 38 case test suite before it shipped with a demo video.</p>
+      <p>A black belt in martial arts shaped how I approach engineering: show up consistently, master the fundamentals before the shortcuts, and verify a result before trusting it. That discipline is why Origin Navigation shipped with a 38 case test suite before it shipped with a demo video.</p>
+      <p>I like putting people in the same room around hard problems. I have organized and hosted technical conferences bringing student developers and industry engineers together, judged hackathon teams on the strength of their engineering rather than their polish, and stood in front of faculty at Atlas SkillTech University to teach a session on AI and design thinking, which felt strange the first time and genuinely fun by the end.</p>
+      <p>Off duty, I am somewhere between an engineer and a wanderer. I write technical articles on LinkedIn when a problem is worth explaining properly, and post travel and everyday life to 12.6K people on Instagram, with the occasional tech event sneaking in. I volunteer with a local tree plantation initiative and a doctors association, and I have learned that the best fix for a problem I have been stuck on for days is usually to go somewhere I have never been and think about something else for a while.</p>
+    </div>
+  </div>
+
+  <section id="work" class="reveal">
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <h2>Selected work</h2>
+    </div>
+
+    <div class="project">
+      <div class="project-head">
+        <h3>Origin Navigation</h3>
+        <span class="stack">ROS2 Humble, C++, Python, Pytest</span>
+      </div>
+      <p>An open source navigation framework for C2 continuous trajectory tracking, built to remove the velocity spikes that come from naive point to point interpolation.</p>
+      <div class="metric-row">
+        <div class="metric"><span class="num">91.9%</span><span class="lbl">GAZEBO TRACKING ACCURACY</span></div>
+        <div class="metric"><span class="num">38 / 38</span><span class="lbl">AUTOMATED TEST CASES PASSING</span></div>
+        <div class="metric"><span class="num">20 Hz</span><span class="lbl">CLOSED LOOP ODOMETRY</span></div>
+      </div>
+      <ul>
+        <li>Cubic spline interpolation enforcing second derivative continuity across waypoint segments</li>
+        <li>Pure Pursuit controller with curvature adaptive look ahead distance and trapezoidal velocity profiling</li>
+        <li>Full written preprint documenting the control law derivation and simulation results</li>
+      </ul>
+      <div class="links"><a href="https://github.com/ShraavaniTople" target="_blank" rel="noopener">View on GitHub</a></div>
+    </div>
+
+    <div class="project">
+      <div class="project-head">
+        <h3>StrikeBot</h3>
+        <span class="stack">Raspberry Pi, OpenCV, Python</span>
+      </div>
+      <p>An object detection enabled marble playing robot combining real time computer vision with mechanical actuation.</p>
+      <div class="metric-row">
+        <div class="metric"><span class="num">92%</span><span class="lbl">LOCALIZATION ACCURACY AT 15 FPS</span></div>
+        <div class="metric"><span class="num">76%</span><span class="lbl">HIT SUCCESS RATE, 50+ MATCHES</span></div>
+      </div>
+      <ul>
+        <li>Inverse kinematics driven striker arm, validated through FEA and 3D printed for testing</li>
+        <li>Formal engineering project report submitted as a Bachelor's major project</li>
+      </ul>
+    </div>
+
+    <div class="project">
+      <div class="project-head">
+        <h3>InferenceCache</h3>
+        <span class="stack">Python, FastAPI, Cryptography</span>
+      </div>
+      <p>A secure AI inference proxy using Merkle tree verification for tamper proof, auditable model outputs.</p>
+      <ul>
+        <li>SHA-256 caching and digital signature logging for an immutable audit trail</li>
+        <li>Lightweight interface for real time logs and exportable cryptographic proofs</li>
+      </ul>
+    </div>
+
+    <div class="project">
+      <div class="project-head">
+        <h3>Additional projects</h3>
+        <span class="stack">OpenCV, TensorFlow, JavaScript</span>
+      </div>
+      <ul>
+        <li>Indian Sign Language recognition. Real time gesture detection using OpenCV, TensorFlow, and MediaPipe</li>
+        <li>16 bit unsigned division. Non restoring algorithm with overflow and underflow handling</li>
+        <li>A public AI governance simulation and an AI output text comparison tool using TF-IDF and cosine similarity</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="experience" class="reveal">
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <h2>Experience and education</h2>
+    </div>
+
+    <div class="xp">
+      <div class="when">Jul 2025 to Mar 2026</div>
+      <div>
+        <h3>Software Engineer</h3>
+        <div class="org">Agora AI</div>
+        <ul>
+          <li>Built full stack features in React, TypeScript, and Node.js to visualize real time AI insights, and optimized RESTful APIs for high concurrency data flow between models and dashboards</li>
+          <li>Built backend services connecting AI model outputs to client applications, including structured and unstructured data pipelines and error handling for production inference workflows</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="xp">
+      <div class="when">2021 to 2025</div>
+      <div>
+        <h3>B.E., Electronics and Telecommunication Engineering</h3>
+        <div class="org">University of Mumbai, VESIT</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="reveal">
+    <div class="section-head">
+      <span class="section-num">03</span>
+      <h2>Skills and certifications</h2>
+    </div>
+    <div class="skill-grid" style="margin-bottom:26px;">
+      <div class="skill-group">
+        <h4>ROBOTICS AND CONTROL</h4>
+        <p>ROS2, Gazebo, trajectory planning, inverse kinematics, sensor integration</p>
+      </div>
+      <div class="skill-group">
+        <h4>COMPUTER VISION AND ML</h4>
+        <p>OpenCV, TensorFlow, Keras, CNNs, transfer learning</p>
+      </div>
+      <div class="skill-group">
+        <h4>EMBEDDED AND IOT</h4>
+        <p>Raspberry Pi, Arduino, FPGA, real time sensing, hardware software integration</p>
+      </div>
+      <div class="skill-group">
+        <h4>LANGUAGES AND TOOLS</h4>
+        <p>Python, C++, MATLAB, React, FastAPI, Pytest, Git</p>
+      </div>
+    </div>
+    <ul class="cert-list">
+      <li><strong>Google Project Management Professional Certificate</strong></li>
+      <li><strong>Google Advanced Data Analytics Professional Certificate</strong></li>
+    </ul>
+  </section>
+
+  <section id="leadership" class="reveal">
+    <div class="section-head">
+      <span class="section-num">04</span>
+      <h2>Leadership and community</h2>
+    </div>
+    <div class="lead-list">
+      <div class="lead-item">
+        <h4>AI and Design Thinking Trainer, Atlas SkillTech University</h4>
+        <p>Delivered faculty training sessions on applying AI and design thinking in the classroom.</p>
+      </div>
+      <div class="lead-item">
+        <h4>Digital presence</h4>
+        <p>Share travel and lifestyle content, plus occasional tech event coverage, to 12.6K followers on Instagram, and write technical articles on LinkedIn.</p>
+      </div>
+      <div class="lead-item">
+        <h4>Judge, ThinkAI Hackathon</h4>
+        <p>Assessed student projects and gave feedback to help teams refine their technical solutions and presentations.</p>
+      </div>
+      <div class="lead-item">
+        <h4>Google Women Techmakers Ambassador</h4>
+        <p>Led workshops, outreach, and advocacy encouraging more women into careers in technology.</p>
+      </div>
+      <div class="lead-item">
+        <h4>Organizer, ETHMumbai Hackathon</h4>
+        <p>Planned and coordinated a large scale developer event supporting innovation in the Web3 space.</p>
+      </div>
+      <div class="lead-item">
+        <h4>Organizer, Hack The League 3</h4>
+        <p>Managed logistics and student participation, improving developer experience and community engagement.</p>
+      </div>
+      <div class="lead-item">
+        <h4>Technical workshops and college sessions</h4>
+        <p>Delivered hands on sessions for students learning programming fundamentals and new technologies.</p>
+      </div>
+      <div class="lead-item">
+        <h4>Web3 Mumbai Lead, Zeeve</h4>
+        <p>Supported local developer communities learning blockchain concepts through meetups and discussions.</p>
+      </div>
+      <div class="lead-item">
+        <h4>Python Mentor, Symbiosis International University</h4>
+        <p>Helped students build coding skills and complete programming assignments.</p>
+      </div>
+      <div class="lead-item">
+        <h4>Salesforce Trailblazer Mentor</h4>
+        <p>Guided learners through Salesforce tools and career pathways in cloud technology.</p>
+      </div>
+      <div class="lead-item">
+        <h4>Google Developer Groups Volunteer</h4>
+        <p>Assisted event coordination and connected students to developer opportunities and resources.</p>
+      </div>
+      <div class="lead-item">
+        <h4>Speaker, Snapchat Creator Event</h4>
+        <p>Shared experience as a young creator building tech focused community content.</p>
+      </div>
+      <div class="lead-item">
+        <h4>Event coverage, DevFest and Mumbai Hacks</h4>
+        <p>Captured and shared highlights from technology events to grow student participation.</p>
+      </div>
+      <div class="lead-item">
+        <h4>Mentor, developer events and hackathons</h4>
+        <p>Helped teams approach projects strategically, from design through presentation.</p>
+      </div>
+      <div class="lead-item">
+        <h4>Brand collaboration, Colgate Visible White</h4>
+        <p>Represented the brand through a student engagement campaign.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact" class="reveal">
+    <div class="section-head">
+      <span class="section-num">05</span>
+      <h2>Contact</h2>
+    </div>
+    <div class="contact-grid">
+      <a href="mailto:shraavanitople@gmail.com">shraavanitople@gmail.com</a>
+      <a href="https://github.com/ShraavaniTople" target="_blank" rel="noopener">github.com/ShraavaniTople</a>
+      <a href="https://www.linkedin.com/in/shraavani-tople/" target="_blank" rel="noopener">linkedin.com/in/shraavani-tople</a>
+    </div>
+  </footer>
+
+</main>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
