@@ -9,14 +9,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#F1F3F0;
+    --paper:#F7F8F6;
     --panel:#FFFFFF;
     --ink:#14202B;
     --muted:#55677A;
-    --line:#D7DEE3;
+    --line:#E2E7EB;
     --accent:#0E7C86;
     --accent-ink:#083E42;
-    --warm:#F5EFE4;
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
@@ -30,10 +29,10 @@
     overflow-x:hidden;
   }
   ::selection{background:var(--accent); color:#fff;}
-  .wrap{max-width:840px; margin:0 auto; padding:0 28px;}
+  .wrap{max-width:980px; margin:0 auto; padding:0 48px;}
 
   header.top{border-bottom:1px solid var(--line); background:var(--panel);}
-  .topbar{display:flex; justify-content:flex-end; align-items:center; padding:18px 28px; max-width:840px; margin:0 auto;}
+  .topbar{display:flex; justify-content:flex-end; align-items:center; padding:20px 48px; max-width:980px; margin:0 auto;}
   nav.links{display:flex; gap:22px; font-family:'IBM Plex Mono', monospace; font-size:13px;}
   nav.links a{color:var(--ink); text-decoration:none; position:relative; padding-bottom:2px;}
   nav.links a::after{
@@ -42,7 +41,7 @@
   }
   nav.links a:hover::after{width:100%;}
 
-  .hero{padding:56px 0 36px;}
+  .hero{padding:72px 0 48px;}
   .hero .role{font-family:'IBM Plex Mono', monospace; color:var(--accent-ink); font-size:14px; margin:0 0 20px;}
   .hero h1{font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:clamp(32px,5vw,46px); line-height:1.1; margin:0 0 16px; max-width:12ch;}
   .hero p.lede{max-width:58ch; font-size:17px; color:var(--muted); margin:0 0 26px;}
@@ -64,19 +63,12 @@
   }
   @keyframes drawpath{ to{stroke-dashoffset:0;} }
 
-  section{padding:42px 0; border-top:1px solid var(--line);}
-  .section-head{display:flex; align-items:baseline; gap:12px; margin-bottom:24px;}
+  section{padding:56px 0; border-top:1px solid var(--line);}
+  .section-head{display:flex; align-items:baseline; gap:12px; margin-bottom:32px;}
   .section-num{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--accent-ink);}
-  h2{font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:21px; margin:0;}
+  h2{font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:22px; margin:0;}
 
-  /* about section, deliberately set apart on a warm panel to signal "this is the personal part" */
-  .about{
-    background:var(--warm);
-    border-top:1px solid var(--line);
-    border-bottom:1px solid var(--line);
-  }
-  .about-inner{padding:44px 0;}
-  .about p{font-size:16px; max-width:64ch; margin:0 0 16px;}
+  .about p{font-size:16px; max-width:68ch; margin:0 0 18px; line-height:1.75;}
   .about p:last-child{margin-bottom:0;}
   .about-tags{display:flex; gap:10px; flex-wrap:wrap; margin-top:20px;}
   .about-tags span{
@@ -85,48 +77,49 @@
     padding:5px 10px; border-radius:3px;
   }
 
-  .project{padding:20px 16px 20px 18px; margin:0 -16px; border-bottom:1px solid var(--line); border-left:2px solid transparent; border-radius:4px; transition:border-left-color .25s ease, background .25s ease, transform .25s ease;}
-  .project:hover{border-left-color:var(--accent); background:var(--panel); transform:translateX(4px);}
+  .project{padding:26px 20px 26px 22px; margin:0 -20px; border-bottom:1px solid var(--line); border-left:3px solid transparent; border-radius:6px; transition:border-left-color .25s ease, background .25s ease, transform .25s ease;}
+  .project:hover{border-left-color:var(--accent); background:var(--panel); transform:translateX(5px); box-shadow:0 4px 20px rgba(14,124,134,0.07);}
   .project:last-child{border-bottom:none;}
-  .project-head{display:flex; justify-content:space-between; align-items:baseline; gap:16px; flex-wrap:wrap; margin-bottom:8px;}
-  .project h3{font-family:'Space Grotesk', sans-serif; font-size:18px; margin:0; font-weight:600;}
+  .project-head{display:flex; justify-content:space-between; align-items:baseline; gap:16px; flex-wrap:wrap; margin-bottom:10px;}
+  .project h3{font-family:'Space Grotesk', sans-serif; font-size:19px; margin:0; font-weight:600;}
   .project .stack{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--muted);}
-  .project p{margin:0 0 10px;}
-  .project ul{margin:0 0 10px; padding-left:18px; color:var(--muted); font-size:15px;}
-  .project ul li{margin-bottom:4px;}
+  .project p{margin:0 0 12px; font-size:15px;}
+  .project ul{margin:0 0 12px; padding-left:20px; color:var(--muted); font-size:15px;}
+  .project ul li{margin-bottom:5px;}
   .project .links a{font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--accent-ink); text-decoration:none; border-bottom:1px solid var(--accent-ink); padding-bottom:1px; transition:opacity .2s ease;}
   .project .links a:hover{opacity:.6;}
-  .metric-row{display:flex; gap:22px; flex-wrap:wrap; margin:10px 0 12px;}
+  .metric-row{display:flex; gap:28px; flex-wrap:wrap; margin:14px 0 16px;}
   .metric{transition:transform .2s ease;}
   .metric:hover{transform:translateY(-2px);}
-  .metric .num{font-family:'IBM Plex Mono', monospace; font-size:19px; color:var(--accent-ink); font-weight:500;}
-  .metric .lbl{font-size:11px; color:var(--muted); display:block; font-family:'IBM Plex Mono', monospace;}
+  .metric .num{font-family:'IBM Plex Mono', monospace; font-size:20px; color:var(--accent-ink); font-weight:500;}
+  .metric .lbl{font-size:11px; color:var(--muted); display:block; font-family:'IBM Plex Mono', monospace; margin-top:2px;}
 
-  .xp{display:grid; grid-template-columns:150px 1fr; gap:6px 18px; margin-bottom:22px;}
-  .xp .when{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--muted); padding-top:3px;}
-  .xp h3{margin:0; font-family:'Space Grotesk', sans-serif; font-size:16px; font-weight:600;}
-  .xp .org{color:var(--muted); font-size:14px; margin-bottom:6px;}
-  .xp ul{margin:6px 0 0; padding-left:18px; font-size:15px;}
-  .xp ul li{margin-bottom:4px;}
+  .xp{display:grid; grid-template-columns:160px 1fr; gap:8px 24px; margin-bottom:32px; padding-bottom:32px; border-bottom:1px solid var(--line);}
+  .xp:last-of-type{border-bottom:none; margin-bottom:0; padding-bottom:0;}
+  .xp .when{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--muted); padding-top:4px;}
+  .xp h3{margin:0; font-family:'Space Grotesk', sans-serif; font-size:17px; font-weight:600;}
+  .xp .org{color:var(--accent-ink); font-size:14px; margin-bottom:8px; font-family:'IBM Plex Mono', monospace;}
+  .xp ul{margin:8px 0 0; padding-left:20px; font-size:15px;}
+  .xp ul li{margin-bottom:6px;}
 
-  .skill-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:22px;}
-  .skill-group{padding:14px; margin:-14px; border-radius:4px; transition:background .2s ease;}
-  .skill-group:hover{background:var(--panel);}
-  .skill-group h4{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--accent-ink); margin:0 0 8px; font-weight:400;}
-  .skill-group p{margin:0; color:var(--muted); font-size:14px;}
+  .skill-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:28px;}
+  .skill-group{padding:20px; background:var(--panel); border:1px solid var(--line); border-radius:8px; transition:border-color .2s ease, box-shadow .2s ease;}
+  .skill-group:hover{border-color:var(--accent); box-shadow:0 4px 16px rgba(14,124,134,0.08);}
+  .skill-group h4{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--accent-ink); margin:0 0 10px; font-weight:500; letter-spacing:.04em;}
+  .skill-group p{margin:0; color:var(--muted); font-size:14px; line-height:1.65;}
 
-  .lead-list{display:grid; grid-template-columns:1fr 1fr; gap:20px 28px;}
-  .lead-item{padding:12px; margin:-12px; border-radius:4px; transition:background .2s ease, transform .2s ease;}
-  .lead-item:hover{background:var(--panel); transform:translateY(-2px);}
-  .lead-item h4{font-family:'Space Grotesk', sans-serif; font-size:15px; margin:0 0 4px; font-weight:600;}
-  .lead-item p{margin:0; color:var(--muted); font-size:14px;}
+  .lead-list{display:grid; grid-template-columns:1fr 1fr; gap:24px 36px;}
+  .lead-item{padding:18px 20px; background:var(--panel); border:1px solid var(--line); border-radius:8px; transition:border-color .2s ease, transform .2s ease, box-shadow .2s ease;}
+  .lead-item:hover{border-color:var(--accent); transform:translateY(-3px); box-shadow:0 6px 20px rgba(14,124,134,0.08);}
+  .lead-item h4{font-family:'Space Grotesk', sans-serif; font-size:15px; margin:0 0 6px; font-weight:600;}
+  .lead-item p{margin:0; color:var(--muted); font-size:14px; line-height:1.6;}
 
   .cert-list{font-size:15px; color:var(--muted); padding-left:0; list-style:none; margin:0;}
   .cert-list li{padding:8px 0; border-bottom:1px solid var(--line);}
   .cert-list li:last-child{border-bottom:none;}
   .cert-list strong{color:var(--ink); font-weight:500;}
 
-  footer{border-top:1px solid var(--line); padding:34px 0 46px;}
+  footer{border-top:1px solid var(--line); padding:56px 0 64px;}
   .contact-grid{display:flex; gap:26px; flex-wrap:wrap; font-family:'IBM Plex Mono', monospace; font-size:14px;}
   .contact-grid a{color:var(--accent-ink); text-decoration:none; position:relative;}
   .contact-grid a::after{content:''; position:absolute; left:0; bottom:-2px; width:0; height:1px; background:var(--accent-ink); transition:width .25s ease;}
@@ -135,10 +128,14 @@
   .reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
   .reveal.visible{opacity:1; transform:translateY(0);}
 
-  @media (max-width:600px){
+  @media (max-width:700px){
+    .wrap{padding:0 24px;}
+    .topbar{padding:18px 24px;}
     .xp{grid-template-columns:1fr;}
     .xp .when{padding-top:0;}
     .lead-list{grid-template-columns:1fr;}
+    .skill-grid{grid-template-columns:1fr;}
+    .hero{padding:48px 0 36px;}
   }
 </style>
 </head>
@@ -202,17 +199,15 @@
     </div>
   </section>
 
-  <div class="about reveal" id="about">
-    <div class="wrap about-inner">
-      <div class="section-head">
-        <span class="section-num">00</span>
-        <h2>About</h2>
-      </div>
-      <p>A black belt in martial arts shaped how I approach engineering: show up consistently, master the fundamentals before the shortcuts, and verify a result before trusting it. That discipline is why Origin Navigation shipped with a 38 case test suite before it shipped with a demo video.</p>
-      <p>I like putting people in the same room around hard problems. I have organized and hosted technical conferences bringing student developers and industry engineers together, judged hackathon teams on the strength of their engineering rather than their polish, and stood in front of faculty at Atlas SkillTech University to teach a session on AI and design thinking, which felt strange the first time and genuinely fun by the end.</p>
-      <p>Off duty, I am somewhere between an engineer and a wanderer. I write technical articles on LinkedIn when a problem is worth explaining properly, and post travel and everyday life to 12.6K people on Instagram, with the occasional tech event sneaking in. I volunteer with a local tree plantation initiative and a doctors association, and I have learned that the best fix for a problem I have been stuck on for days is usually to go somewhere I have never been and think about something else for a while.</p>
+  <section id="about" class="about reveal">
+    <div class="section-head">
+      <span class="section-num">00</span>
+      <h2>About</h2>
     </div>
-  </div>
+    <p>A black belt in martial arts shaped how I approach engineering: show up consistently, master the fundamentals before the shortcuts, and verify a result before trusting it. That discipline is why Origin Navigation shipped with a 38 case test suite before it shipped with a demo video.</p>
+    <p>I like putting people in the same room around hard problems. I have organized and hosted technical conferences bringing student developers and industry engineers together, judged hackathon teams on the strength of their engineering rather than their polish, and stood in front of faculty at Atlas SkillTech University to teach a session on AI and design thinking, which felt strange the first time and genuinely fun by the end.</p>
+    <p>Off duty, I am somewhere between an engineer and a wanderer. I write technical articles on LinkedIn when a problem is worth explaining properly, and post travel and everyday life to 12.6K people on Instagram, with the occasional tech event sneaking in. I volunteer with a local tree plantation initiative and a doctors association, and I have learned that the best fix for a problem I have been stuck on for days is usually to go somewhere I have never been and think about something else for a while.</p>
+  </section>
 
   <section id="work" class="reveal">
     <div class="section-head">
