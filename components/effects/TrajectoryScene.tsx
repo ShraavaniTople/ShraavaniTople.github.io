@@ -6,7 +6,7 @@ import * as THREE from "three";
 
 const ACCENT = "#00D4AA";
 
-// Realistic Pure Pursuit path waypoints — resembles a robot navigation trajectory
+// Pure Pursuit path waypoints — no duplicate closing point (closed:true handles that)
 const RAW: [number, number, number][] = [
   [-3.2,  0.10,  0.5],
   [-2.9,  0.30,  1.9],
@@ -20,11 +20,9 @@ const RAW: [number, number, number][] = [
   [ 0.0, -0.25, -3.0],
   [-1.6, -0.35, -2.7],
   [-2.8, -0.10, -1.6],
-  [-3.2,  0.10,  0.5], // close loop
 ];
 
 function checkWebGL(): boolean {
-  if (typeof window === "undefined") return false;
   try {
     const c = document.createElement("canvas");
     return !!(window.WebGLRenderingContext && (c.getContext("webgl") || c.getContext("experimental-webgl")));
@@ -34,11 +32,11 @@ function checkWebGL(): boolean {
 }
 
 function Scene({ mobile }: { mobile: boolean }) {
-  const groupRef = useRef<THREE.Group>(null!);
-  const ringRef = useRef<THREE.Mesh>(null!);
+  const groupRef = useRef<THREE.Group>(null);
+  const ringRef = useRef<THREE.Mesh>(null);
   const tRef = useRef(0);
   const speed = mobile ? 0.045 : 0.065;
-  const tubeSeg = mobile ? 100 : 200;
+  const tubeSeg = mobile ? 80 : 180;
   const radSeg = mobile ? 5 : 7;
 
   const waypoints = useMemo(
@@ -72,18 +70,15 @@ function Scene({ mobile }: { mobile: boolean }) {
 
   return (
     <>
-      {/* Main path tube */}
       <mesh geometry={tubeGeo}>
         <meshBasicMaterial color={ACCENT} />
       </mesh>
 
-      {/* Path glow */}
       <mesh geometry={glowGeo}>
         <meshBasicMaterial color={ACCENT} transparent opacity={0.07} side={THREE.BackSide} />
       </mesh>
 
-      {/* Waypoint nodes */}
-      {waypoints.slice(0, -1).map((wp, i) => (
+      {waypoints.map((wp, i) => (
         <group key={i} position={wp}>
           <mesh>
             <sphereGeometry args={[0.055, 8, 8]} />
@@ -96,13 +91,11 @@ function Scene({ mobile }: { mobile: boolean }) {
         </group>
       ))}
 
-      {/* Lookahead ring (Pure Pursuit visual reference) */}
       <mesh ref={ringRef} rotation={[-Math.PI / 2, 0, 0]}>
         <torusGeometry args={[0.85, 0.007, 6, 48]} />
         <meshBasicMaterial color={ACCENT} transparent opacity={0.35} />
       </mesh>
 
-      {/* Moving marker: robot / lookahead point */}
       <group ref={groupRef}>
         <mesh>
           <sphereGeometry args={[0.095, 14, 14]} />
@@ -123,19 +116,22 @@ function Scene({ mobile }: { mobile: boolean }) {
 
 export default function TrajectoryScene() {
   const [mobile, setMobile] = useState(false);
-  const [supported, setSupported] = useState(true);
+  const [supported, setSupported] = useState<boolean | null>(null);
 
   useEffect(() => {
-    setMobile(window.innerWidth < 768 || navigator.hardwareConcurrency <= 2);
+    const isMobile = window.innerWidth < 768 || (navigator.hardwareConcurrency ?? 4) <= 2;
+    setMobile(isMobile);
     setSupported(checkWebGL());
   }, []);
 
+  // Not yet checked — render nothing until client decides
+  if (supported === null) {
+    return <div style={{ width: "100%", height: "100%" }} />;
+  }
+
   if (!supported) {
     return (
-      <div style={{
-        width: "100%", height: "100%",
-        display: "flex", alignItems: "center", justifyContent: "center",
-      }}>
+      <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <div style={{ width: 180, height: 2, background: ACCENT, opacity: 0.35, borderRadius: 2 }} />
       </div>
     );
@@ -150,7 +146,7 @@ export default function TrajectoryScene() {
         powerPreference: mobile ? "low-power" : "high-performance",
       }}
       style={{ background: "transparent", pointerEvents: "none" }}
-      dpr={mobile ? 1 : Math.min(window.devicePixelRatio, 2)}
+      dpr={mobile ? [1, 1] : [1, 2]}
     >
       <Scene mobile={mobile} />
       <OrbitControls

@@ -2,6 +2,7 @@
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { Github, Linkedin, Mail, ArrowRight } from "lucide-react";
+import React from "react";
 
 const TrajectoryScene = dynamic(
   () => import("@/components/effects/TrajectoryScene"),
@@ -14,6 +15,25 @@ const TrajectoryScene = dynamic(
     ),
   }
 );
+
+class SceneBoundary extends React.Component<
+  { children: React.ReactNode },
+  { hasError: boolean }
+> {
+  constructor(props: { children: React.ReactNode }) {
+    super(props);
+    this.state = { hasError: false };
+  }
+  static getDerivedStateFromError() { return { hasError: true }; }
+  render() {
+    if (this.state.hasError) {
+      return <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ width: 180, height: 1, background: "rgba(0,212,170,0.2)", borderRadius: 2 }} />
+      </div>;
+    }
+    return this.props.children;
+  }
+}
 
 const socials = [
   { icon: Github, href: "https://github.com/ShraavaniTople", label: "GitHub" },
@@ -168,7 +188,9 @@ export default function Hero() {
         style={{ height: "100vh", position: "relative" }}
         className="hero-canvas"
       >
-        <TrajectoryScene />
+        <SceneBoundary>
+          <TrajectoryScene />
+        </SceneBoundary>
         {/* Fade left edge into bg */}
         <div style={{
           position: "absolute", top: 0, left: 0, bottom: 0, width: "30%",
