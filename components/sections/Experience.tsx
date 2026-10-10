@@ -158,7 +158,9 @@ export default function Experience() {
                 style={{
                   padding: "22px 20px",
                   borderTop: "2px solid rgba(0,180,216,0.25)",
-                  background: "#0A0A0A",
+                  background: "rgba(10,10,12,0.75)",
+                  backdropFilter: "blur(8px)",
+                  WebkitBackdropFilter: "blur(8px)",
                   borderRadius: "0 0 8px 8px",
                   position: "relative", overflow: "hidden",
                 }}

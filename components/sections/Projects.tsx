@@ -112,8 +112,10 @@ function ProjCard({ p, index }: { p: typeof mainProjects[0]; index: number }) {
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         whileHover={{ y: -4, transition: { duration: 0.2 } }}
         style={{
-          background: "#0C0C0C",
-          border: "1px solid rgba(255,255,255,0.07)",
+          background: "rgba(10,10,12,0.85)",
+          backdropFilter: "blur(12px)",
+          WebkitBackdropFilter: "blur(12px)",
+          border: "1px solid rgba(255,255,255,0.08)",
           borderRadius: 16,
           overflow: "hidden",
           position: "relative",
@@ -230,7 +232,7 @@ function ProjCard({ p, index }: { p: typeof mainProjects[0]; index: number }) {
             overflow: "hidden",
             minHeight: 320,
             display: "flex", alignItems: "center", justifyContent: "center",
-            background: "#080808",
+            background: "rgba(4,4,6,0.6)",
           }}>
             {/* Big watermark number */}
             <span style={{
@@ -292,7 +294,9 @@ function SmallCard({ p, i, inView }: { p: typeof smallProjects[0]; i: number; in
       transition={{ duration: 0.5, delay: 0.08 + i * 0.07, ease: [0.16, 1, 0.3, 1] }}
       style={{
         padding: "24px 22px",
-        background: "#0A0A0A",
+        background: "rgba(10,10,12,0.7)",
+        backdropFilter: "blur(8px)",
+        WebkitBackdropFilter: "blur(8px)",
         border: "1px solid rgba(255,255,255,0.06)",
         borderRadius: 10,
         transition: "border-color 0.2s",

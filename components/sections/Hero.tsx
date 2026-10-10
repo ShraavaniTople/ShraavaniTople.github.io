@@ -26,7 +26,7 @@ export default function Hero() {
   return (
     <section
       style={{
-        background: "#080808",
+        background: "transparent",
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
@@ -38,8 +38,8 @@ export default function Hero() {
       <div style={{
         position: "absolute", inset: 0, pointerEvents: "none",
         backgroundImage: `
-          linear-gradient(rgba(0,180,216,0.025) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(0,180,216,0.025) 1px, transparent 1px)
+          linear-gradient(rgba(0,180,216,0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0,180,216,0.03) 1px, transparent 1px)
         `,
         backgroundSize: "60px 60px",
       }} />
