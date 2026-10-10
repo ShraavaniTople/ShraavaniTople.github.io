@@ -24,282 +24,211 @@ const MARQUEE = [
 
 export default function Hero() {
   return (
-    <section
-      style={{
-        background: "transparent",
-        minHeight: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        position: "relative",
-        overflow: "hidden",
-      }}
-    >
-      {/* Subtle grid background */}
+    <section style={{
+      minHeight: "100vh",
+      position: "relative",
+      overflow: "hidden",
+      display: "flex",
+      flexDirection: "column",
+    }}>
+      {/* Full-bleed oscilloscope background */}
+      <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
+        <OscilloscopeDisplay />
+      </div>
+
+      {/* Gradient overlay — darkens edges so text pops */}
       <div style={{
-        position: "absolute", inset: 0, pointerEvents: "none",
-        backgroundImage: `
-          linear-gradient(rgba(0,180,216,0.03) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(0,180,216,0.03) 1px, transparent 1px)
+        position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none",
+        background: `
+          linear-gradient(to bottom,
+            rgba(6,6,8,0.78) 0%,
+            rgba(6,6,8,0.40) 42%,
+            rgba(6,6,8,0.55) 68%,
+            rgba(6,6,8,0.92) 100%)
         `,
-        backgroundSize: "60px 60px",
       }} />
 
-      {/* Main content */}
+      {/* Left vignette */}
       <div style={{
+        position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none",
+        background: "linear-gradient(to right, rgba(6,6,8,0.7) 0%, transparent 45%)",
+      }} />
+
+      {/* Content — bottom anchored */}
+      <div style={{
+        position: "relative", zIndex: 2,
         flex: 1,
         display: "flex",
-        alignItems: "center",
-        padding: "0 0 0 0",
+        flexDirection: "column",
+        justifyContent: "flex-end",
+        padding: "0 clamp(24px, 5vw, 72px) 56px",
       }}>
-        <div style={{
-          width: "100%",
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: 0,
-          minHeight: "70vh",
-        }}
-          className="hero-grid"
-        >
-          {/* LEFT: Text column */}
-          <div style={{
+
+        {/* Name block */}
+        <div style={{ marginBottom: 36 }}>
+          <div style={{ overflow: "hidden", lineHeight: 1 }}>
+            <motion.h1
+              initial={{ y: "102%" }}
+              animate={{ y: 0 }}
+              transition={{ duration: 1.0, ease }}
+              style={{
+                fontFamily: "var(--font-display, sans-serif)",
+                fontSize: "clamp(72px, 13vw, 192px)",
+                fontWeight: 700,
+                lineHeight: 0.88,
+                letterSpacing: "-0.04em",
+                color: "#F0EEFF",
+                margin: 0,
+              }}
+            >
+              Shraavani
+            </motion.h1>
+          </div>
+          <div style={{ overflow: "hidden", lineHeight: 1 }}>
+            <motion.h1
+              initial={{ y: "102%" }}
+              animate={{ y: 0 }}
+              transition={{ duration: 1.0, delay: 0.07, ease }}
+              style={{
+                fontFamily: "var(--font-display, sans-serif)",
+                fontSize: "clamp(72px, 13vw, 192px)",
+                fontWeight: 700,
+                lineHeight: 0.88,
+                letterSpacing: "-0.04em",
+                color: "#F0EEFF",
+                margin: 0,
+              }}
+            >
+              Tople<span style={{ color: "#00B4D8" }}>.</span>
+            </motion.h1>
+          </div>
+        </div>
+
+        {/* Bottom row */}
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.45, ease }}
+          style={{
             display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            padding: "120px 56px 80px 56px",
-            position: "relative",
-            zIndex: 1,
-          }}>
-            {/* Name */}
-            <div style={{ overflow: "hidden", marginBottom: 6 }}>
-              <motion.h1
-                initial={{ y: "100%" }}
-                animate={{ y: 0 }}
-                transition={{ duration: 0.9, ease }}
-                style={{
-                  fontFamily: "var(--font-display, sans-serif)",
-                  fontSize: "clamp(52px, 7.5vw, 108px)",
-                  fontWeight: 700,
-                  lineHeight: 0.9,
-                  letterSpacing: "-0.04em",
-                  color: "#F0EEFF",
-                  margin: 0,
-                }}
-              >
-                Shraavani
-              </motion.h1>
-            </div>
-            <div style={{ overflow: "hidden", marginBottom: 36 }}>
-              <motion.h1
-                initial={{ y: "100%" }}
-                animate={{ y: 0 }}
-                transition={{ duration: 0.9, delay: 0.08, ease }}
-                style={{
-                  fontFamily: "var(--font-display, sans-serif)",
-                  fontSize: "clamp(52px, 7.5vw, 108px)",
-                  fontWeight: 700,
-                  lineHeight: 0.9,
-                  letterSpacing: "-0.04em",
-                  color: "#F0EEFF",
-                  margin: 0,
-                }}
-              >
-                Tople
-                <span style={{ color: "#00B4D8" }}>.</span>
-              </motion.h1>
-            </div>
-
-            {/* Role */}
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.38, ease }}
-              style={{ marginBottom: 28 }}
-            >
-              <div style={{
-                height: 1,
-                background: "linear-gradient(90deg, rgba(0,180,216,0.35) 0%, rgba(0,180,216,0.06) 60%, transparent 100%)",
-                marginBottom: 20,
-              }} />
-              <p style={{
-                fontFamily: "var(--font-body, sans-serif)",
-                fontSize: 14, color: "#6B7A8D",
-                lineHeight: 1.75, margin: 0,
-                maxWidth: 380,
-              }}>
-                Robotics engineer, researcher, community builder.
-                I build autonomous systems and care a lot about how they actually work in the real world.
-              </p>
-            </motion.div>
-
-            {/* CTAs */}
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.52, ease }}
-              style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 44 }}
-            >
+            alignItems: "flex-end",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
+            gap: 28,
+          }}
+        >
+          {/* Left: tagline + CTAs */}
+          <div>
+            <p style={{
+              fontFamily: "var(--font-body, sans-serif)",
+              fontSize: 15, color: "rgba(240,238,255,0.55)",
+              lineHeight: 1.6, marginBottom: 22, maxWidth: 380,
+            }}>
+              Robotics engineer. I build autonomous systems and care about how they work in the real world.
+            </p>
+            <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
               <button
                 onClick={() =>
                   document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" })
                 }
                 style={{
                   display: "inline-flex", alignItems: "center", gap: 8,
-                  background: "#00B4D8", color: "#080808",
+                  background: "#00B4D8", color: "#060608",
                   border: "none", borderRadius: 4,
-                  padding: "12px 24px", fontSize: 12, fontWeight: 700,
+                  padding: "12px 22px", fontSize: 12, fontWeight: 700,
                   cursor: "pointer", transition: "opacity 0.15s",
                   fontFamily: "var(--font-mono, monospace)",
-                  letterSpacing: "0.06em", textTransform: "uppercase",
+                  letterSpacing: "0.07em", textTransform: "uppercase",
                 }}
                 onMouseEnter={e => (e.currentTarget.style.opacity = "0.82")}
                 onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
               >
-                View Projects <ArrowRight size={12} />
+                View work <ArrowRight size={12} />
               </button>
               <a
                 href="mailto:shraavanitople@gmail.com"
                 style={{
-                  display: "inline-flex", alignItems: "center", gap: 8,
-                  background: "transparent", color: "rgba(0,180,216,0.7)",
-                  border: "1px solid rgba(0,180,216,0.22)", borderRadius: 4,
-                  padding: "12px 24px", fontSize: 12, fontWeight: 600,
+                  display: "inline-flex", alignItems: "center",
+                  background: "rgba(255,255,255,0.05)",
+                  backdropFilter: "blur(8px)",
+                  color: "rgba(240,238,255,0.7)",
+                  border: "1px solid rgba(255,255,255,0.12)", borderRadius: 4,
+                  padding: "12px 22px", fontSize: 12, fontWeight: 600,
                   textDecoration: "none", transition: "border-color 0.15s, color 0.15s",
                   fontFamily: "var(--font-mono, monospace)",
-                  letterSpacing: "0.06em", textTransform: "uppercase",
+                  letterSpacing: "0.07em", textTransform: "uppercase",
                 }}
                 onMouseEnter={e => {
-                  e.currentTarget.style.borderColor = "rgba(0,180,216,0.55)";
+                  e.currentTarget.style.borderColor = "rgba(0,180,216,0.45)";
                   e.currentTarget.style.color = "#00B4D8";
                 }}
                 onMouseLeave={e => {
-                  e.currentTarget.style.borderColor = "rgba(0,180,216,0.22)";
-                  e.currentTarget.style.color = "rgba(0,180,216,0.7)";
+                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)";
+                  e.currentTarget.style.color = "rgba(240,238,255,0.7)";
                 }}
               >
                 Get in touch
               </a>
-            </motion.div>
-
-            {/* Socials */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.72, ease }}
-              style={{ display: "flex", gap: 24, alignItems: "center" }}
-            >
-              {socials.map(({ icon: Icon, href, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target={href.startsWith("mailto") ? undefined : "_blank"}
-                  rel="noopener noreferrer"
-                  style={{
-                    display: "flex", alignItems: "center", gap: 6,
-                    fontSize: 11, fontWeight: 500, color: "#2A3240",
-                    textDecoration: "none", transition: "color 0.15s",
-                    fontFamily: "var(--font-body, sans-serif)",
-                  }}
-                  onMouseEnter={e => (e.currentTarget.style.color = "#00B4D8")}
-                  onMouseLeave={e => (e.currentTarget.style.color = "#2A3240")}
-                >
-                  <Icon size={13} />
-                  {label}
-                </a>
-              ))}
-            </motion.div>
+            </div>
           </div>
 
-          {/* RIGHT: Oscilloscope column */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1.1, delay: 0.22, ease }}
-            style={{
-              position: "relative",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              padding: "100px 56px 80px 24px",
-            }}
-          >
-            {/* Fade gradient on left edge */}
-            <div style={{
-              position: "absolute", left: 0, top: 0, bottom: 0,
-              width: 80, pointerEvents: "none", zIndex: 1,
-              background: "linear-gradient(90deg, #080808 0%, transparent 100%)",
-            }} />
-
-            {/* Scope container */}
-            <div style={{
-              position: "relative",
-              width: "100%",
-              paddingBottom: "60%",
-            }}>
-              <div style={{ position: "absolute", inset: 0 }}>
-                <OscilloscopeDisplay />
-              </div>
-            </div>
-
-            {/* Label below scope */}
-            <div style={{
-              marginTop: 16,
-              display: "flex", alignItems: "center", gap: 8,
-            }}>
-              <span style={{
-                fontFamily: "var(--font-mono, monospace)",
-                fontSize: 9, color: "rgba(0,180,216,0.35)",
-                letterSpacing: "0.1em", textTransform: "uppercase",
-              }}>
-                LIVE SIGNAL — Pure Pursuit trajectory tracking · CH1 analog out
-              </span>
-            </div>
-          </motion.div>
-        </div>
+          {/* Right: socials */}
+          <div style={{ display: "flex", gap: 24, alignItems: "center", paddingBottom: 2 }}>
+            {socials.map(({ icon: Icon, href, label }) => (
+              <a
+                key={label}
+                href={href}
+                target={href.startsWith("mailto") ? undefined : "_blank"}
+                rel="noopener noreferrer"
+                style={{
+                  display: "flex", alignItems: "center", gap: 6,
+                  fontSize: 11, fontWeight: 500,
+                  color: "rgba(255,255,255,0.22)",
+                  textDecoration: "none", transition: "color 0.15s",
+                  fontFamily: "var(--font-body, sans-serif)",
+                }}
+                onMouseEnter={e => (e.currentTarget.style.color = "#00B4D8")}
+                onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.22)")}
+              >
+                <Icon size={14} />
+                {label}
+              </a>
+            ))}
+          </div>
+        </motion.div>
       </div>
 
-      {/* Scrolling keyword strip */}
+      {/* Keyword strip */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 1 }}
+        transition={{ duration: 0.8, delay: 0.9 }}
         style={{
-          borderTop: "1px solid rgba(255,255,255,0.04)",
-          padding: "13px 0",
+          position: "relative", zIndex: 2,
+          borderTop: "1px solid rgba(255,255,255,0.05)",
+          padding: "12px 0",
           overflow: "hidden",
+          background: "rgba(6,6,8,0.6)",
+          backdropFilter: "blur(8px)",
         }}
       >
         <motion.div
           animate={{ x: ["0%", "-50%"] }}
-          transition={{ duration: 32, repeat: Infinity, ease: "linear" }}
+          transition={{ duration: 36, repeat: Infinity, ease: "linear" }}
           style={{ display: "flex", width: "max-content" }}
         >
           {[...MARQUEE, ...MARQUEE].map((k, i) => (
-            <span
-              key={i}
-              style={{
-                fontFamily: "var(--font-mono, monospace)",
-                fontSize: 9,
-                color: "#1A2230",
-                letterSpacing: "0.14em",
-                textTransform: "uppercase",
-                padding: "0 28px",
-                whiteSpace: "nowrap",
-              }}
-            >
+            <span key={i} style={{
+              fontFamily: "var(--font-mono, monospace)",
+              fontSize: 9, color: "rgba(0,180,216,0.28)",
+              letterSpacing: "0.16em", textTransform: "uppercase",
+              padding: "0 32px", whiteSpace: "nowrap",
+            }}>
               {k}
             </span>
           ))}
         </motion.div>
       </motion.div>
-
-      {/* Responsive styles */}
-      <style>{`
-        @media (max-width: 768px) {
-          .hero-grid {
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
     </section>
   );
 }

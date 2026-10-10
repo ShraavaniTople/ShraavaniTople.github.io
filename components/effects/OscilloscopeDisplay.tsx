@@ -22,8 +22,9 @@ function buildWaveform(W: number, H: number, t: number): [number, number][] {
 }
 
 function drawFrame(ctx: CanvasRenderingContext2D, W: number, H: number, t: number) {
-  // Background
-  ctx.fillStyle = "#030C10";
+  // Background — semi-transparent so mesh gradient bleeds through
+  ctx.clearRect(0, 0, W, H);
+  ctx.fillStyle = "rgba(3,12,16,0.0)";
   ctx.fillRect(0, 0, W, H);
 
   const COLS = 10, ROWS = 8;
@@ -74,22 +75,28 @@ function drawFrame(ctx: CanvasRenderingContext2D, W: number, H: number, t: numbe
     pts.forEach(([x, y], i) => (i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y)));
   };
 
+  // Outer glow
+  drawPath();
+  ctx.strokeStyle = "rgba(0,180,216,0.08)";
+  ctx.lineWidth = 18;
+  ctx.stroke();
+
   // Wide glow
   drawPath();
-  ctx.strokeStyle = "rgba(0,180,216,0.10)";
-  ctx.lineWidth = 10;
+  ctx.strokeStyle = "rgba(0,180,216,0.18)";
+  ctx.lineWidth = 8;
   ctx.stroke();
 
   // Medium glow
   drawPath();
-  ctx.strokeStyle = "rgba(0,180,216,0.28)";
-  ctx.lineWidth = 3.5;
+  ctx.strokeStyle = "rgba(0,180,216,0.50)";
+  ctx.lineWidth = 3;
   ctx.stroke();
 
   // Crisp line
   drawPath();
   ctx.strokeStyle = CYN;
-  ctx.lineWidth = 1.6;
+  ctx.lineWidth = 1.8;
   ctx.stroke();
 
   // Trigger arrow (left edge)
@@ -164,45 +171,13 @@ export default function OscilloscopeDisplay() {
   }, []);
 
   return (
-    <div style={{ width: "100%", height: "100%", position: "relative" }}>
-      {/* Screen */}
-      <div
-        ref={wrapRef}
-        style={{
-          position: "absolute",
-          inset: "0 0 26px 0",
-          background: "#030C10",
-          border: "1px solid rgba(0,180,216,0.20)",
-          borderRadius: 2,
-          overflow: "hidden",
-        }}
-      >
-        <canvas ref={canvasRef} style={{ display: "block", width: "100%", height: "100%" }} />
-        {/* Scan-line overlay */}
-        <div style={{
-          position: "absolute", inset: 0, pointerEvents: "none",
-          background: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.045) 2px, rgba(0,0,0,0.045) 3px)",
-        }} />
-        {/* Vignette */}
-        <div style={{
-          position: "absolute", inset: 0, pointerEvents: "none",
-          background: "radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.55) 100%)",
-        }} />
-      </div>
-
-      {/* Technical readouts */}
+    <div ref={wrapRef} style={{ width: "100%", height: "100%", position: "relative" }}>
+      <canvas ref={canvasRef} style={{ display: "block", width: "100%", height: "100%" }} />
+      {/* Vignette */}
       <div style={{
-        position: "absolute", bottom: 0, left: 0, right: 0, height: 22,
-        display: "flex", justifyContent: "space-between", alignItems: "center",
-      }}>
-        {["CH1 · 2.0V/div", "500μs/div · TRIG: CH1", "AUTO"].map((label) => (
-          <span key={label} style={{
-            fontFamily: "var(--font-mono, monospace)",
-            fontSize: 9, color: "rgba(0,180,216,0.45)",
-            letterSpacing: "0.07em",
-          }}>{label}</span>
-        ))}
-      </div>
+        position: "absolute", inset: 0, pointerEvents: "none",
+        background: "radial-gradient(ellipse at center, transparent 40%, rgba(6,6,8,0.6) 100%)",
+      }} />
     </div>
   );
 }
