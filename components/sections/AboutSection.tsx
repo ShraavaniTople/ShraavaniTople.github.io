@@ -3,7 +3,7 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
 const certs = [
-  { color: "#00D4AA", name: "Google Project Management Professional Certificate", issuer: "Google" },
+  { color: "#818CF8", name: "Google Project Management Professional Certificate", issuer: "Google" },
   { color: "#22C55E", name: "Advanced Data Analytics Certificate", issuer: "Google" },
   { color: "#a3e635", name: "Advanced CNNs, Transfer Learning & Recurrent Networks", issuer: "Deep Learning Specialization" },
 ];

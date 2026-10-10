@@ -46,7 +46,7 @@ export default function Navbar() {
               background: "none", border: "none", cursor: "pointer",
             }}
           >
-            Shraavani<span style={{ color: "#00D4AA" }}>.</span>
+            Shraavani<span style={{ color: "#818CF8" }}>.</span>
           </button>
 
           <nav style={{ display: "flex", alignItems: "center", gap: 32 }} className="nav-d">

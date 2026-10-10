@@ -119,7 +119,7 @@ function ProjCard({ p, index }: { p: typeof mainProjects[0]; index: number }) {
             <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 18 }}>
               <span style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 10, color: "#444455", letterSpacing: "0.12em" }}>{p.cat}</span>
               <span style={{ width: 3, height: 3, borderRadius: "50%", background: "#333" }} />
-              <span style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 10, color: "#00D4AA" }}>{p.num}</span>
+              <span style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 10, color: "#818CF8" }}>{p.num}</span>
             </div>
 
             <h3 style={{
@@ -131,7 +131,7 @@ function ProjCard({ p, index }: { p: typeof mainProjects[0]; index: number }) {
               {p.name}
             </h3>
 
-            <p style={{ fontSize: 14, color: "#00D4AA", fontWeight: 500, marginBottom: 16, lineHeight: 1.5, fontFamily: "var(--font-body, sans-serif)" }}>
+            <p style={{ fontSize: 14, color: "#818CF8", fontWeight: 500, marginBottom: 16, lineHeight: 1.5, fontFamily: "var(--font-body, sans-serif)" }}>
               {p.hook}
             </p>
 
@@ -159,7 +159,7 @@ function ProjCard({ p, index }: { p: typeof mainProjects[0]; index: number }) {
               {p.github && (
                 <a href={p.github} target="_blank" rel="noopener noreferrer"
                   style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 12, fontWeight: 600, color: "#555566", textDecoration: "none", transition: "color 0.15s", fontFamily: "var(--font-body, sans-serif)" }}
-                  onMouseEnter={e => (e.currentTarget.style.color = "#00D4AA")}
+                  onMouseEnter={e => (e.currentTarget.style.color = "#818CF8")}
                   onMouseLeave={e => (e.currentTarget.style.color = "#555566")}
                 >
                   <Github size={13} /> GitHub <ArrowUpRight size={11} />
@@ -169,7 +169,7 @@ function ProjCard({ p, index }: { p: typeof mainProjects[0]; index: number }) {
                 <button
                   onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
                   style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 12, fontWeight: 600, color: "#555566", background: "none", border: "none", cursor: "pointer", transition: "color 0.15s", fontFamily: "var(--font-body, sans-serif)" }}
-                  onMouseEnter={e => (e.currentTarget.style.color = "#00D4AA")}
+                  onMouseEnter={e => (e.currentTarget.style.color = "#818CF8")}
                   onMouseLeave={e => (e.currentTarget.style.color = "#555566")}
                 >
                   See hero viz
@@ -181,7 +181,7 @@ function ProjCard({ p, index }: { p: typeof mainProjects[0]; index: number }) {
           {/* Right — visual panel */}
           <div style={{
             borderRadius: 10, overflow: "hidden", height: 240,
-            background: "rgba(0,212,170,0.03)",
+            background: "rgba(129,140,248,0.03)",
             border: "1px solid rgba(255,255,255,0.05)",
             position: "relative", display: "flex", alignItems: "center", justifyContent: "center",
           }}>
@@ -198,7 +198,7 @@ function ProjCard({ p, index }: { p: typeof mainProjects[0]; index: number }) {
               <span style={{
                 fontFamily: "var(--font-display, sans-serif)",
                 fontSize: 88, fontWeight: 700, fontStyle: "italic",
-                color: "rgba(0,212,170,0.06)", letterSpacing: "-0.05em", userSelect: "none",
+                color: "rgba(129,140,248,0.06)", letterSpacing: "-0.05em", userSelect: "none",
               }}>
                 {p.name.slice(0, 2)}
               </span>
@@ -236,7 +236,7 @@ function SmallCard({ p, i, inView }: { p: typeof smallProjects[0]; i: number; in
         {p.github && (
           <a href={p.github} target="_blank" rel="noopener noreferrer"
             style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 11, fontWeight: 600, color: "#444455", textDecoration: "none", transition: "color 0.15s" }}
-            onMouseEnter={e => (e.currentTarget.style.color = "#00D4AA")}
+            onMouseEnter={e => (e.currentTarget.style.color = "#818CF8")}
             onMouseLeave={e => (e.currentTarget.style.color = "#444455")}
           >
             <Github size={12} /> GitHub
@@ -245,7 +245,7 @@ function SmallCard({ p, i, inView }: { p: typeof smallProjects[0]; i: number; in
         {p.live && (
           <a href={p.live} target="_blank" rel="noopener noreferrer"
             style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 11, fontWeight: 600, color: "#444455", textDecoration: "none", transition: "color 0.15s" }}
-            onMouseEnter={e => (e.currentTarget.style.color = "#00D4AA")}
+            onMouseEnter={e => (e.currentTarget.style.color = "#818CF8")}
             onMouseLeave={e => (e.currentTarget.style.color = "#444455")}
           >
             <ExternalLink size={12} /> Live
