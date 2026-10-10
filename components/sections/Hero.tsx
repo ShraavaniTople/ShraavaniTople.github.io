@@ -69,31 +69,6 @@ export default function Hero() {
             position: "relative",
             zIndex: 1,
           }}>
-            {/* Status indicator */}
-            <motion.div
-              initial={{ opacity: 0, x: -16 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, ease }}
-              style={{
-                display: "inline-flex", alignItems: "center", gap: 8,
-                marginBottom: 40,
-              }}
-            >
-              <span style={{
-                width: 6, height: 6, borderRadius: "50%",
-                background: "#00B4D8",
-                boxShadow: "0 0 8px #00B4D8, 0 0 16px rgba(0,180,216,0.4)",
-                display: "inline-block",
-              }} />
-              <span style={{
-                fontFamily: "var(--font-mono, monospace)",
-                fontSize: 10, color: "rgba(0,180,216,0.6)",
-                letterSpacing: "0.12em", textTransform: "uppercase",
-              }}>
-                VJTI Mumbai · M.Tech in progress
-              </span>
-            </motion.div>
-
             {/* Name */}
             <div style={{ overflow: "hidden", marginBottom: 6 }}>
               <motion.h1
