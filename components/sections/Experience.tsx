@@ -78,14 +78,14 @@ export default function Experience() {
             <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr", gap: 40, alignItems: "start" }} className="work-inner">
               <div>
                 <p style={{ fontFamily: "var(--font-display, sans-serif)", fontSize: 18, fontWeight: 700, color: "#F0EEFF", marginBottom: 6 }}>{job.co}</p>
-                <p style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 11, color: "#818CF8", fontWeight: 700, marginBottom: 4, letterSpacing: "0.04em" }}>{job.role}</p>
+                <p style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 11, color: "#00B4D8", fontWeight: 700, marginBottom: 4, letterSpacing: "0.04em" }}>{job.role}</p>
                 <p style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 11, color: "#444455" }}>{job.period}</p>
               </div>
               <div>
                 <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 10, marginBottom: 20 }}>
                   {job.bullets.map((b, j) => (
                     <li key={j} style={{ fontSize: 14, color: "#888899", paddingLeft: 16, position: "relative", lineHeight: 1.7, fontFamily: "var(--font-body, sans-serif)" }}>
-                      <span style={{ position: "absolute", left: 0, color: "#818CF8" }}>—</span>{b}
+                      <span style={{ position: "absolute", left: 0, color: "#00B4D8" }}>—</span>{b}
                     </li>
                   ))}
                 </ul>
@@ -120,7 +120,7 @@ export default function Experience() {
                 }}
               >
                 <p style={{ fontFamily: "var(--font-display, sans-serif)", fontSize: 15, fontWeight: 700, color: "#F0EEFF", marginBottom: 6, lineHeight: 1.3 }}>{e.degree}</p>
-                <p style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 11, color: "#818CF8", marginBottom: 4 }}>{e.school}</p>
+                <p style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 11, color: "#00B4D8", marginBottom: 4 }}>{e.school}</p>
                 <p style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 11, color: "#444455", marginBottom: 12 }}>{e.period}</p>
                 <p style={{ fontSize: 12, color: "#555566", lineHeight: 1.6, fontFamily: "var(--font-body, sans-serif)" }}>{e.note}</p>
               </motion.div>

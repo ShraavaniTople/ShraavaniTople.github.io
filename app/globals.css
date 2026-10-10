@@ -10,7 +10,7 @@
   --text-1: #F0EEFF;
   --text-2: #888899;
   --text-3: #444455;
-  --accent: #818CF8;
+  --accent: #00B4D8;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -29,7 +29,7 @@ body {
   line-height: 1.6;
 }
 
-::selection { background: rgba(129,140,248,0.18); color: #F0EEFF; }
+::selection { background: rgba(0,180,216,0.18); color: #F0EEFF; }
 
 ::-webkit-scrollbar { width: 2px; }
 ::-webkit-scrollbar-track { background: transparent; }

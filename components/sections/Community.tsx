@@ -69,7 +69,7 @@ export default function Community() {
                 padding: "20px 16px",
                 background: "linear-gradient(to top,rgba(8,8,8,0.92),transparent)",
               }}>
-                <p style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 9, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#818CF8", marginBottom: 4 }}>
+                <p style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 9, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#00B4D8", marginBottom: 4 }}>
                   {item.role}
                 </p>
                 <p style={{ fontFamily: "var(--font-body, sans-serif)", fontSize: 13, fontWeight: 700, color: "#F0EEFF", lineHeight: 1.3 }}>
@@ -99,7 +99,7 @@ export default function Community() {
               }}
             >
               <p style={{ fontFamily: "var(--font-body, sans-serif)", fontSize: 13, fontWeight: 700, color: "#F0EEFF", lineHeight: 1.3, marginBottom: 4 }}>{r.role}</p>
-              <p style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 10, color: "#818CF8", fontWeight: 700, marginBottom: 8, letterSpacing: "0.04em" }}>{r.org}</p>
+              <p style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 10, color: "#00B4D8", fontWeight: 700, marginBottom: 8, letterSpacing: "0.04em" }}>{r.org}</p>
               <p style={{ fontFamily: "var(--font-body, sans-serif)", fontSize: 11, color: "#444455", lineHeight: 1.55 }}>{r.desc}</p>
             </motion.div>
           ))}

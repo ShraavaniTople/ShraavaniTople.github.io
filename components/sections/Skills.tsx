@@ -34,7 +34,7 @@ export default function Skills() {
           transition={{ duration: 0.55 }}
           style={{ display: "flex", alignItems: "baseline", gap: 16, marginBottom: 8 }}
         >
-          <span style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 11, color: "#818CF8", letterSpacing: "0.1em" }}>03</span>
+          <span style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 11, color: "#00B4D8", letterSpacing: "0.1em" }}>03</span>
           <h2 style={{ fontSize: "clamp(32px,5vw,64px)", fontWeight: 700, letterSpacing: "-0.03em", color: "#F0EEFF", fontFamily: "var(--font-display, sans-serif)" }}>
             Skills
           </h2>
@@ -60,7 +60,7 @@ export default function Skills() {
                 fontFamily: "var(--font-mono, monospace)",
                 fontSize: 10, fontWeight: 700,
                 letterSpacing: "0.14em", textTransform: "uppercase",
-                color: "#818CF8", marginBottom: 18,
+                color: "#00B4D8", marginBottom: 18,
               }}>
                 {g.label}
               </p>

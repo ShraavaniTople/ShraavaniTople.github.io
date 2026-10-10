@@ -30,7 +30,7 @@ export default function Connect() {
             lineHeight: 0.95,
           }}>
             Let&apos;s build<br />
-            <em style={{ fontStyle: "italic", color: "#818CF8" }}>something.</em>
+            <em style={{ fontStyle: "italic", color: "#00B4D8" }}>something.</em>
           </h2>
         </motion.div>
 
@@ -52,7 +52,7 @@ export default function Connect() {
           <a href="mailto:shraavanitople@gmail.com"
             style={{
               display: "inline-flex", alignItems: "center", gap: 10,
-              background: "#818CF8", color: "#080808",
+              background: "#00B4D8", color: "#080808",
               borderRadius: 6, padding: "14px 26px",
               fontSize: 14, fontWeight: 700,
               textDecoration: "none", transition: "opacity 0.15s",
@@ -77,7 +77,7 @@ export default function Connect() {
               rel="noopener noreferrer"
               aria-label={label}
               style={{ color: "#444455", transition: "color 0.15s" }}
-              onMouseEnter={e => (e.currentTarget.style.color = "#818CF8")}
+              onMouseEnter={e => (e.currentTarget.style.color = "#00B4D8")}
               onMouseLeave={e => (e.currentTarget.style.color = "#444455")}
             >
               <Icon size={20} />

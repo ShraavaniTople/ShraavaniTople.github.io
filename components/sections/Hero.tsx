@@ -1,6 +1,12 @@
 "use client";
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { Github, Linkedin, Mail, ArrowRight } from "lucide-react";
+
+const OscilloscopeDisplay = dynamic(
+  () => import("@/components/effects/OscilloscopeDisplay"),
+  { ssr: false }
+);
 
 const socials = [
   { icon: Github, href: "https://github.com/ShraavaniTople", label: "GitHub" },
@@ -13,7 +19,7 @@ const ease = [0.16, 1, 0.3, 1] as const;
 const MARQUEE = [
   "ROS2", "Pure Pursuit", "Trajectory Planning", "OpenCV",
   "Embedded Systems", "MATLAB", "PyTorch", "TurtleBot3",
-  "Gazebo", "C++", "Raspberry Pi", "Inverse Kinematics", "FPGA", "Gazebo",
+  "Gazebo", "C++", "Raspberry Pi", "Inverse Kinematics", "FPGA",
 ];
 
 export default function Hero() {
@@ -28,118 +34,184 @@ export default function Hero() {
         overflow: "hidden",
       }}
     >
+      {/* Subtle grid background */}
+      <div style={{
+        position: "absolute", inset: 0, pointerEvents: "none",
+        backgroundImage: `
+          linear-gradient(rgba(0,180,216,0.025) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0,180,216,0.025) 1px, transparent 1px)
+        `,
+        backgroundSize: "60px 60px",
+      }} />
+
       {/* Main content */}
-      <div
-        style={{
-          flex: 1,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
+      <div style={{
+        flex: 1,
+        display: "flex",
+        alignItems: "center",
+        padding: "0 0 0 0",
+      }}>
+        <div style={{
+          width: "100%",
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap: 0,
+          minHeight: "70vh",
         }}
-      >
-        <div className="container" style={{ paddingTop: 120, paddingBottom: 52 }}>
-
-          {/* Name */}
-          <motion.h1
-            initial={{ opacity: 0, y: 52 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.88, ease }}
-            style={{
-              fontFamily: "var(--font-display, sans-serif)",
-              fontSize: "clamp(68px, 11.5vw, 160px)",
-              fontWeight: 700,
-              lineHeight: 0.88,
-              letterSpacing: "-0.04em",
-              color: "#F0EEFF",
-              marginBottom: 40,
-            }}
-          >
-            Shraavani<br />
-            <em style={{ fontStyle: "italic", color: "#818CF8" }}>Tople.</em>
-          </motion.h1>
-
-          {/* Rule */}
-          <motion.div
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 1.0, delay: 0.18, ease }}
-            style={{
-              height: 1,
-              background: "rgba(255,255,255,0.08)",
-              transformOrigin: "left",
-              marginBottom: 36,
-            }}
-          />
-
-          {/* Info row */}
-          <motion.div
-            initial={{ opacity: 0, y: 22 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.42, ease }}
-            style={{
-              display: "flex",
-              alignItems: "flex-end",
-              justifyContent: "space-between",
-              flexWrap: "wrap",
-              gap: 36,
-            }}
-          >
-            {/* Left: description + CTAs */}
-            <div>
-              <p style={{
-                fontFamily: "var(--font-body, sans-serif)",
-                fontSize: 15, color: "#888899",
-                lineHeight: 1.7, marginBottom: 6,
-                maxWidth: 440,
-              }}>
-                Robotics Engineer · Researcher · Community Builder
-              </p>
-              <p style={{
+          className="hero-grid"
+        >
+          {/* LEFT: Text column */}
+          <div style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            padding: "120px 56px 80px 56px",
+            position: "relative",
+            zIndex: 1,
+          }}>
+            {/* Status indicator */}
+            <motion.div
+              initial={{ opacity: 0, x: -16 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, ease }}
+              style={{
+                display: "inline-flex", alignItems: "center", gap: 8,
+                marginBottom: 40,
+              }}
+            >
+              <span style={{
+                width: 6, height: 6, borderRadius: "50%",
+                background: "#00B4D8",
+                boxShadow: "0 0 8px #00B4D8, 0 0 16px rgba(0,180,216,0.4)",
+                display: "inline-block",
+              }} />
+              <span style={{
                 fontFamily: "var(--font-mono, monospace)",
-                fontSize: 11, color: "#3a3a4e",
-                letterSpacing: "0.06em", marginBottom: 36,
+                fontSize: 10, color: "rgba(0,180,216,0.6)",
+                letterSpacing: "0.12em", textTransform: "uppercase",
               }}>
-                M.Tech · VJTI Mumbai
-              </p>
+                sys:online · VJTI Mumbai · M.Tech
+              </span>
+            </motion.div>
 
-              <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-                <button
-                  onClick={() =>
-                    document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" })
-                  }
-                  style={{
-                    display: "inline-flex", alignItems: "center", gap: 8,
-                    background: "#F0EEFF", color: "#080808",
-                    border: "none", borderRadius: 6,
-                    padding: "13px 26px", fontSize: 13, fontWeight: 700,
-                    cursor: "pointer", transition: "opacity 0.15s",
-                    fontFamily: "var(--font-body, sans-serif)",
-                  }}
-                  onMouseEnter={e => (e.currentTarget.style.opacity = "0.82")}
-                  onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
-                >
-                  See my work <ArrowRight size={13} />
-                </button>
-                <a
-                  href="mailto:shraavanitople@gmail.com"
-                  style={{
-                    display: "inline-flex", alignItems: "center", gap: 8,
-                    background: "transparent", color: "#F0EEFF",
-                    border: "1px solid rgba(255,255,255,0.12)", borderRadius: 6,
-                    padding: "13px 26px", fontSize: 13, fontWeight: 600,
-                    textDecoration: "none", transition: "border-color 0.15s",
-                    fontFamily: "var(--font-body, sans-serif)",
-                  }}
-                  onMouseEnter={e => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.35)")}
-                  onMouseLeave={e => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)")}
-                >
-                  Get in touch
-                </a>
-              </div>
+            {/* Name */}
+            <div style={{ overflow: "hidden", marginBottom: 6 }}>
+              <motion.h1
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                transition={{ duration: 0.9, ease }}
+                style={{
+                  fontFamily: "var(--font-display, sans-serif)",
+                  fontSize: "clamp(52px, 7.5vw, 108px)",
+                  fontWeight: 700,
+                  lineHeight: 0.9,
+                  letterSpacing: "-0.04em",
+                  color: "#F0EEFF",
+                  margin: 0,
+                }}
+              >
+                Shraavani
+              </motion.h1>
+            </div>
+            <div style={{ overflow: "hidden", marginBottom: 36 }}>
+              <motion.h1
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                transition={{ duration: 0.9, delay: 0.08, ease }}
+                style={{
+                  fontFamily: "var(--font-display, sans-serif)",
+                  fontSize: "clamp(52px, 7.5vw, 108px)",
+                  fontWeight: 700,
+                  lineHeight: 0.9,
+                  letterSpacing: "-0.04em",
+                  color: "#F0EEFF",
+                  margin: 0,
+                }}
+              >
+                Tople
+                <span style={{ color: "#00B4D8" }}>.</span>
+              </motion.h1>
             </div>
 
-            {/* Right: socials */}
-            <div style={{ display: "flex", gap: 20, alignItems: "center", paddingBottom: 4 }}>
+            {/* Role */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.38, ease }}
+              style={{ marginBottom: 28 }}
+            >
+              <div style={{
+                height: 1,
+                background: "linear-gradient(90deg, rgba(0,180,216,0.35) 0%, rgba(0,180,216,0.06) 60%, transparent 100%)",
+                marginBottom: 20,
+              }} />
+              <p style={{
+                fontFamily: "var(--font-body, sans-serif)",
+                fontSize: 14, color: "#6B7A8D",
+                lineHeight: 1.75, margin: 0,
+                maxWidth: 380,
+              }}>
+                Robotics Engineer · Researcher · Community Builder.<br />
+                Building autonomous systems that navigate the real world.
+              </p>
+            </motion.div>
+
+            {/* CTAs */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.52, ease }}
+              style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 44 }}
+            >
+              <button
+                onClick={() =>
+                  document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" })
+                }
+                style={{
+                  display: "inline-flex", alignItems: "center", gap: 8,
+                  background: "#00B4D8", color: "#080808",
+                  border: "none", borderRadius: 4,
+                  padding: "12px 24px", fontSize: 12, fontWeight: 700,
+                  cursor: "pointer", transition: "opacity 0.15s",
+                  fontFamily: "var(--font-mono, monospace)",
+                  letterSpacing: "0.06em", textTransform: "uppercase",
+                }}
+                onMouseEnter={e => (e.currentTarget.style.opacity = "0.82")}
+                onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
+              >
+                View Projects <ArrowRight size={12} />
+              </button>
+              <a
+                href="mailto:shraavanitople@gmail.com"
+                style={{
+                  display: "inline-flex", alignItems: "center", gap: 8,
+                  background: "transparent", color: "rgba(0,180,216,0.7)",
+                  border: "1px solid rgba(0,180,216,0.22)", borderRadius: 4,
+                  padding: "12px 24px", fontSize: 12, fontWeight: 600,
+                  textDecoration: "none", transition: "border-color 0.15s, color 0.15s",
+                  fontFamily: "var(--font-mono, monospace)",
+                  letterSpacing: "0.06em", textTransform: "uppercase",
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.borderColor = "rgba(0,180,216,0.55)";
+                  e.currentTarget.style.color = "#00B4D8";
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.borderColor = "rgba(0,180,216,0.22)";
+                  e.currentTarget.style.color = "rgba(0,180,216,0.7)";
+                }}
+              >
+                Get in touch
+              </a>
+            </motion.div>
+
+            {/* Socials */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.72, ease }}
+              style={{ display: "flex", gap: 24, alignItems: "center" }}
+            >
               {socials.map(({ icon: Icon, href, label }) => (
                 <a
                   key={label}
@@ -148,17 +220,63 @@ export default function Hero() {
                   rel="noopener noreferrer"
                   style={{
                     display: "flex", alignItems: "center", gap: 6,
-                    fontSize: 12, fontWeight: 500, color: "#333344",
+                    fontSize: 11, fontWeight: 500, color: "#2A3240",
                     textDecoration: "none", transition: "color 0.15s",
                     fontFamily: "var(--font-body, sans-serif)",
                   }}
-                  onMouseEnter={e => (e.currentTarget.style.color = "#F0EEFF")}
-                  onMouseLeave={e => (e.currentTarget.style.color = "#333344")}
+                  onMouseEnter={e => (e.currentTarget.style.color = "#00B4D8")}
+                  onMouseLeave={e => (e.currentTarget.style.color = "#2A3240")}
                 >
-                  <Icon size={14} />
+                  <Icon size={13} />
                   {label}
                 </a>
               ))}
+            </motion.div>
+          </div>
+
+          {/* RIGHT: Oscilloscope column */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.1, delay: 0.22, ease }}
+            style={{
+              position: "relative",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              padding: "100px 56px 80px 24px",
+            }}
+          >
+            {/* Fade gradient on left edge */}
+            <div style={{
+              position: "absolute", left: 0, top: 0, bottom: 0,
+              width: 80, pointerEvents: "none", zIndex: 1,
+              background: "linear-gradient(90deg, #080808 0%, transparent 100%)",
+            }} />
+
+            {/* Scope container */}
+            <div style={{
+              position: "relative",
+              width: "100%",
+              paddingBottom: "60%",
+            }}>
+              <div style={{ position: "absolute", inset: 0 }}>
+                <OscilloscopeDisplay />
+              </div>
+            </div>
+
+            {/* Label below scope */}
+            <div style={{
+              marginTop: 16,
+              display: "flex", alignItems: "center", gap: 8,
+            }}>
+              <span style={{
+                fontFamily: "var(--font-mono, monospace)",
+                fontSize: 9, color: "rgba(0,180,216,0.35)",
+                letterSpacing: "0.1em", textTransform: "uppercase",
+              }}>
+                LIVE SIGNAL — Pure Pursuit trajectory tracking · CH1 analog out
+              </span>
             </div>
           </motion.div>
         </div>
@@ -186,7 +304,7 @@ export default function Hero() {
               style={{
                 fontFamily: "var(--font-mono, monospace)",
                 fontSize: 9,
-                color: "#222233",
+                color: "#1A2230",
                 letterSpacing: "0.14em",
                 textTransform: "uppercase",
                 padding: "0 28px",
@@ -198,6 +316,15 @@ export default function Hero() {
           ))}
         </motion.div>
       </motion.div>
+
+      {/* Responsive styles */}
+      <style>{`
+        @media (max-width: 768px) {
+          .hero-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

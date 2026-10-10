@@ -34,7 +34,7 @@ export default function Preloader() {
               fontSize: 10,
               letterSpacing: "0.22em",
               textTransform: "uppercase",
-              color: "#818CF8",
+              color: "#00B4D8",
               fontFamily: "var(--font-mono, monospace)",
             }}
           >
@@ -44,7 +44,7 @@ export default function Preloader() {
           <div style={{ position: "relative", width: 140, height: 1 }}>
             <div style={{
               position: "absolute", inset: 0,
-              background: "rgba(129,140,248,0.12)",
+              background: "rgba(0,180,216,0.12)",
             }} />
             <motion.div
               initial={{ scaleX: 0 }}
@@ -52,7 +52,7 @@ export default function Preloader() {
               transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
               style={{
                 position: "absolute", inset: 0,
-                background: "#818CF8",
+                background: "#00B4D8",
                 transformOrigin: "left",
               }}
             />
