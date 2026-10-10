@@ -1,162 +1,171 @@
 "use client";
-import { useRef, useMemo, useEffect, useState } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
-import * as THREE from "three";
+import { useEffect, useRef } from "react";
 
 const ACCENT = "#00D4AA";
+const NUM_WP = 12;
 
-// Pure Pursuit path waypoints — no duplicate closing point (closed:true handles that)
-const RAW: [number, number, number][] = [
-  [-3.2,  0.10,  0.5],
-  [-2.9,  0.30,  1.9],
-  [-1.9,  0.45,  2.7],
-  [-0.4,  0.25,  3.0],
-  [ 1.1,  0.50,  2.5],
-  [ 2.3,  0.30,  1.5],
-  [ 3.0,  0.00,  0.0],
-  [ 2.6, -0.30, -1.5],
-  [ 1.5, -0.45, -2.6],
-  [ 0.0, -0.25, -3.0],
-  [-1.6, -0.35, -2.7],
-  [-2.8, -0.10, -1.6],
-];
-
-function checkWebGL(): boolean {
-  try {
-    const c = document.createElement("canvas");
-    return !!(window.WebGLRenderingContext && (c.getContext("webgl") || c.getContext("experimental-webgl")));
-  } catch {
-    return false;
-  }
+// Project a unit circle point through a slow camera orbit angle onto 2D
+function project(
+  angle: number,
+  cosC: number,
+  sinC: number,
+  cx: number,
+  cy: number,
+  RX: number,
+  RY: number
+): [number, number] {
+  const x3d = Math.cos(angle);
+  const z3d = Math.sin(angle);
+  const x2d = x3d * cosC - z3d * sinC;
+  const z2d = x3d * sinC + z3d * cosC;
+  return [cx + x2d * RX, cy + z2d * RY];
 }
 
-function Scene({ mobile }: { mobile: boolean }) {
-  const groupRef = useRef<THREE.Group>(null);
-  const ringRef = useRef<THREE.Mesh>(null);
-  const tRef = useRef(0);
-  const speed = mobile ? 0.045 : 0.065;
-  const tubeSeg = mobile ? 80 : 180;
-  const radSeg = mobile ? 5 : 7;
+function drawFrame(
+  ctx: CanvasRenderingContext2D,
+  W: number,
+  H: number,
+  robotT: number,
+  cameraT: number
+) {
+  const cx = W / 2;
+  const cy = H / 2 + H * 0.02;
+  const size = Math.min(W, H);
+  const RX = size * 0.37;
+  const RY = size * 0.22;
+  const s = size / 600; // scale factor
 
-  const waypoints = useMemo(
-    () => RAW.map(([x, y, z]) => new THREE.Vector3(x, y, z)),
-    []
-  );
+  const cosC = Math.cos(cameraT);
+  const sinC = Math.sin(cameraT);
 
-  const curve = useMemo(
-    () => new THREE.CatmullRomCurve3(waypoints, true, "catmullrom", 0.5),
-    [waypoints]
-  );
+  ctx.clearRect(0, 0, W, H);
 
-  const tubeGeo = useMemo(
-    () => new THREE.TubeGeometry(curve, tubeSeg, 0.017, radSeg, true),
-    [curve, tubeSeg, radSeg]
-  );
+  // Path — glow pass
+  ctx.beginPath();
+  for (let i = 0; i <= 120; i++) {
+    const a = (i / 120) * Math.PI * 2;
+    const [px, py] = project(a, cosC, sinC, cx, cy, RX, RY);
+    i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+  }
+  ctx.closePath();
+  ctx.strokeStyle = "rgba(0,212,170,0.07)";
+  ctx.lineWidth = 10 * s;
+  ctx.stroke();
 
-  const glowGeo = useMemo(
-    () => new THREE.TubeGeometry(curve, tubeSeg, 0.052, radSeg, true),
-    [curve, tubeSeg, radSeg]
-  );
+  // Path — main line
+  ctx.beginPath();
+  for (let i = 0; i <= 120; i++) {
+    const a = (i / 120) * Math.PI * 2;
+    const [px, py] = project(a, cosC, sinC, cx, cy, RX, RY);
+    i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+  }
+  ctx.closePath();
+  ctx.strokeStyle = ACCENT;
+  ctx.lineWidth = 1.4 * s;
+  ctx.stroke();
 
-  useEffect(() => () => { tubeGeo.dispose(); glowGeo.dispose(); }, [tubeGeo, glowGeo]);
+  // Waypoint nodes
+  for (let i = 0; i < NUM_WP; i++) {
+    const a = (i / NUM_WP) * Math.PI * 2;
+    const [wx, wy] = project(a, cosC, sinC, cx, cy, RX, RY);
 
-  useFrame((_, delta) => {
-    tRef.current = (tRef.current + delta * speed) % 1;
-    const pos = curve.getPoint(tRef.current);
-    if (groupRef.current) groupRef.current.position.copy(pos);
-    if (ringRef.current) ringRef.current.position.copy(pos);
-  });
+    ctx.beginPath();
+    ctx.arc(wx, wy, 8 * s, 0, Math.PI * 2);
+    ctx.fillStyle = "rgba(0,212,170,0.10)";
+    ctx.fill();
 
-  return (
-    <>
-      <mesh geometry={tubeGeo}>
-        <meshBasicMaterial color={ACCENT} />
-      </mesh>
+    ctx.beginPath();
+    ctx.arc(wx, wy, 3.2 * s, 0, Math.PI * 2);
+    ctx.fillStyle = ACCENT;
+    ctx.fill();
+  }
 
-      <mesh geometry={glowGeo}>
-        <meshBasicMaterial color={ACCENT} transparent opacity={0.07} side={THREE.BackSide} />
-      </mesh>
+  // Robot marker
+  const rAngle = robotT * Math.PI * 2;
+  const [rx, ry] = project(rAngle, cosC, sinC, cx, cy, RX, RY);
 
-      {waypoints.map((wp, i) => (
-        <group key={i} position={wp}>
-          <mesh>
-            <sphereGeometry args={[0.055, 8, 8]} />
-            <meshBasicMaterial color={ACCENT} />
-          </mesh>
-          <mesh>
-            <sphereGeometry args={[0.13, 8, 8]} />
-            <meshBasicMaterial color={ACCENT} transparent opacity={0.12} />
-          </mesh>
-        </group>
-      ))}
+  // Lookahead ring
+  ctx.beginPath();
+  ctx.arc(rx, ry, 50 * s, 0, Math.PI * 2);
+  ctx.strokeStyle = "rgba(0,212,170,0.30)";
+  ctx.lineWidth = 0.7 * s;
+  ctx.stroke();
 
-      <mesh ref={ringRef} rotation={[-Math.PI / 2, 0, 0]}>
-        <torusGeometry args={[0.85, 0.007, 6, 48]} />
-        <meshBasicMaterial color={ACCENT} transparent opacity={0.35} />
-      </mesh>
+  // Outer halo
+  ctx.beginPath();
+  ctx.arc(rx, ry, 22 * s, 0, Math.PI * 2);
+  ctx.fillStyle = "rgba(0,212,170,0.07)";
+  ctx.fill();
 
-      <group ref={groupRef}>
-        <mesh>
-          <sphereGeometry args={[0.095, 14, 14]} />
-          <meshBasicMaterial color="#ffffff" />
-        </mesh>
-        <mesh>
-          <sphereGeometry args={[0.22, 12, 12]} />
-          <meshBasicMaterial color={ACCENT} transparent opacity={0.28} />
-        </mesh>
-        <mesh>
-          <sphereGeometry args={[0.38, 10, 10]} />
-          <meshBasicMaterial color={ACCENT} transparent opacity={0.08} />
-        </mesh>
-      </group>
-    </>
-  );
+  // Inner halo
+  ctx.beginPath();
+  ctx.arc(rx, ry, 12 * s, 0, Math.PI * 2);
+  ctx.fillStyle = "rgba(0,212,170,0.20)";
+  ctx.fill();
+
+  // Robot dot
+  ctx.beginPath();
+  ctx.arc(rx, ry, 5.5 * s, 0, Math.PI * 2);
+  ctx.fillStyle = "#ffffff";
+  ctx.fill();
 }
 
 export default function TrajectoryScene() {
-  const [mobile, setMobile] = useState(false);
-  const [supported, setSupported] = useState<boolean | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const isMobile = window.innerWidth < 768 || (navigator.hardwareConcurrency ?? 4) <= 2;
-    setMobile(isMobile);
-    setSupported(checkWebGL());
+    const canvas = canvasRef.current;
+    const wrap = wrapRef.current;
+    if (!canvas || !wrap) return;
+
+    let robotT = 0;
+    let cameraT = 0;
+    let raf: number;
+    let W = 0;
+    let H = 0;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    const resize = () => {
+      const rect = wrap.getBoundingClientRect();
+      W = rect.width;
+      H = rect.height;
+      canvas.width = W * dpr;
+      canvas.height = H * dpr;
+    };
+
+    resize();
+
+    const ro = new ResizeObserver(resize);
+    ro.observe(wrap);
+
+    const tick = () => {
+      if (W > 0 && H > 0) {
+        const ctx = canvas.getContext("2d");
+        if (ctx) {
+          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+          drawFrame(ctx, W, H, robotT, cameraT);
+        }
+      }
+      robotT = (robotT + 0.0011) % 1;
+      cameraT += 0.0001;
+      raf = requestAnimationFrame(tick);
+    };
+
+    tick();
+
+    return () => {
+      cancelAnimationFrame(raf);
+      ro.disconnect();
+    };
   }, []);
 
-  // Not yet checked — render nothing until client decides
-  if (supported === null) {
-    return <div style={{ width: "100%", height: "100%" }} />;
-  }
-
-  if (!supported) {
-    return (
-      <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <div style={{ width: 180, height: 2, background: ACCENT, opacity: 0.35, borderRadius: 2 }} />
-      </div>
-    );
-  }
-
   return (
-    <Canvas
-      camera={{ position: [0, 4.5, 9], fov: 44 }}
-      gl={{
-        antialias: !mobile,
-        alpha: true,
-        powerPreference: mobile ? "low-power" : "high-performance",
-      }}
-      style={{ background: "transparent", pointerEvents: "none" }}
-      dpr={mobile ? [1, 1] : [1, 2]}
-    >
-      <Scene mobile={mobile} />
-      <OrbitControls
-        autoRotate
-        autoRotateSpeed={mobile ? 0 : 0.35}
-        enableRotate={false}
-        enableZoom={false}
-        enablePan={false}
-        enableDamping={false}
+    <div ref={wrapRef} style={{ width: "100%", height: "100%", position: "relative" }}>
+      <canvas
+        ref={canvasRef}
+        style={{ position: "absolute", inset: 0, display: "block", width: "100%", height: "100%" }}
       />
-    </Canvas>
+    </div>
   );
 }
