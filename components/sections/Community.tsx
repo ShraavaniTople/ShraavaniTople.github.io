@@ -44,7 +44,7 @@ export default function Community() {
           transition={{ duration: 0.55, delay: 0.1 }}
           style={{ fontSize: 16, color: "#888899", marginBottom: 56, maxWidth: 500, lineHeight: 1.7 }}
         >
-          Hackathons organized, communities built, developers mentored.
+          Things I have done outside the lab.
         </motion.p>
 
         {/* Photo grid — replace placeholder paths with real photos */}

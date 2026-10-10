@@ -6,21 +6,21 @@ const jobs = [
   {
     role: "Software Engineer",
     co: "Agora AI",
-    period: "Jul 2025 — Mar 2026",
+    period: "Jul 2025 – Mar 2026",
     bullets: [
-      "Built and iterated React and TypeScript interfaces for AI dashboards, focusing on data-dense views for model output monitoring.",
-      "Developed backend data pipelines connecting AI model outputs to client applications — REST and streaming endpoints in Node.js.",
-      "Contributed to architectural decisions on how AI inference results are surfaced, cached, and audited across the platform.",
+      "Built React and TypeScript dashboards for monitoring AI model outputs, focused on making dense data actually readable.",
+      "Wrote backend pipelines in Node.js to connect model inference to client apps via REST and streaming endpoints.",
+      "Contributed to decisions on how inference results get cached, surfaced, and audited across the platform.",
     ],
     tags: ["React", "TypeScript", "Node.js", "AI Dashboards", "Data Pipelines"],
   },
   {
     role: "Data & Content Intern",
     co: "Colgate Palmolive",
-    period: "Apr 2024 — Jun 2024",
+    period: "Apr 2024 – Jun 2024",
     bullets: [
-      "Built analytics dashboards used by the digital team to track content performance across markets.",
-      "Designed data-driven content strategies that improved engagement metrics for regional campaigns.",
+      "Built analytics dashboards the digital team used to track content performance across regional markets.",
+      "Helped shape content strategies backed by data, which improved engagement on regional campaigns.",
     ],
     tags: ["Data Analytics", "Dashboards", "Content Strategy"],
   },
@@ -36,7 +36,7 @@ const education = [
   {
     degree: "B.E., Electronics & Telecommunication Engineering",
     school: "University of Mumbai",
-    period: "2021 — 2025",
+    period: "2021 – 2025",
     note: "Graduated with honors. Coursework in embedded systems, digital design, and signal processing.",
   },
 ];
@@ -65,7 +65,7 @@ export default function Experience() {
           transition={{ duration: 0.55, delay: 0.1 }}
           style={{ fontSize: 16, color: "#888899", marginBottom: 56, maxWidth: 500, lineHeight: 1.7 }}
         >
-          Where I have worked and what I shipped.
+          Where I have worked and what I built.
         </motion.p>
 
         {jobs.map((job, i) => (
@@ -84,8 +84,9 @@ export default function Experience() {
               <div>
                 <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 10, marginBottom: 20 }}>
                   {job.bullets.map((b, j) => (
-                    <li key={j} style={{ fontSize: 14, color: "#888899", paddingLeft: 16, position: "relative", lineHeight: 1.7, fontFamily: "var(--font-body, sans-serif)" }}>
-                      <span style={{ position: "absolute", left: 0, color: "#00B4D8" }}>—</span>{b}
+                    <li key={j} style={{ fontSize: 14, color: "#888899", paddingLeft: 14, position: "relative", lineHeight: 1.7, fontFamily: "var(--font-body, sans-serif)" }}>
+                      <span style={{ position: "absolute", left: 0, top: 8, width: 4, height: 4, borderRadius: "50%", background: "rgba(0,180,216,0.5)", display: "inline-block" }} />
+                      {b}
                     </li>
                   ))}
                 </ul>

@@ -45,7 +45,7 @@ export default function Skills() {
           transition={{ duration: 0.55, delay: 0.08 }}
           style={{ fontSize: 16, color: "#888899", marginBottom: 56, maxWidth: 500, lineHeight: 1.7 }}
         >
-          Technical stack across robotics, ML, embedded systems, and software.
+          Tools I actually use.
         </motion.p>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 40 }} className="skills-grid">

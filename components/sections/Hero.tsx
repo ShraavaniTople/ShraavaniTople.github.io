@@ -90,7 +90,7 @@ export default function Hero() {
                 fontSize: 10, color: "rgba(0,180,216,0.6)",
                 letterSpacing: "0.12em", textTransform: "uppercase",
               }}>
-                sys:online · VJTI Mumbai · M.Tech
+                VJTI Mumbai · M.Tech in progress
               </span>
             </motion.div>
 
@@ -151,8 +151,8 @@ export default function Hero() {
                 lineHeight: 1.75, margin: 0,
                 maxWidth: 380,
               }}>
-                Robotics Engineer · Researcher · Community Builder.<br />
-                Building autonomous systems that navigate the real world.
+                Robotics engineer, researcher, community builder.
+                I build autonomous systems and care a lot about how they actually work in the real world.
               </p>
             </motion.div>
 
